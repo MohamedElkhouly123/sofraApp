@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+<!--    <ImageView-->
+<!--        android:layout_width="@dimen/_320sdp"-->
+<!--        android:layout_height="@dimen/_320sdp"-->
+<!--        android:layout_gravity="center|start"-->
+<!--        android:layout_marginStart="-120dp"-->
+<!--        android:layout_marginTop="@dimen/_35sdp"-->
+<!--        android:background="@drawable/splash_top" />-->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center|start"
+        android:background="@drawable/background2" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/backg"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:elevation="@dimen/_10sdp"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:fontFamily="@font/janna"
+                android:text="@string/login"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_17ssp"
+                android:textStyle="bold" />
+        </androidx.appcompat.widget.Toolbar>
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true"
+            >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="?attr/actionBarSize"
+            >
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/client_and_restaurant_login_fragment_til_email"
+            style="@style/text_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:errorTextAppearance="@style/error_appearance"
+            android:layout_marginTop="@dimen/_20sdp">
+
+            <EditText
+                android:id="@+id/register_email_etxt"
+                style="@style/EditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:drawableStart="@drawable/ic_email_black_24dp"
+                android:hint="@string/enter_email"
+                android:ems="10"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/client_and_restaurant_login_fragment_til_password"
+            style="@style/text_input"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:errorTextAppearance="@style/error_appearance"
+            >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/register_password_etxt"
+            style="@style/EditText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:drawableStart="@drawable/ic_https_white_24dp"
+            android:hint="@string/enter_password"
+            android:inputType="textPassword"  />
+        </com.google.android.material.textfield.TextInputLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_25sdp">
+
+
+            <TextView
+                android:id="@+id/client_and_restaurant_login_forget_id"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="@dimen/_30sdp"
+                android:layout_marginStart="@dimen/_30sdp"
+                android:fontFamily="@font/janna"
+                android:text="@string/forget_password"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12ssp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/client_and_restaurant_login_buer_next_btn"
+                style="@style/Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/login_enter"
+                android:layout_marginBottom="@dimen/_25sdp"
+                android:layout_marginTop="@dimen/_35sdp"
+                />
+        </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/client_and_restaurant_login_creat_new_account_txt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/txtstyle"
+        android:fontFamily="@font/janna"
+        android:textAlignment="center"
+        android:text="@string/create_new_acount"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:textSize="@dimen/_11ssp"
+        />
+</androidx.constraintlayout.widget.ConstraintLayout>

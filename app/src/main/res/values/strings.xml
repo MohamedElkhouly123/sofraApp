@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Sofra</string>
+    <string name="invalid_email">Email must be like this \"example@example.com\"</string>
+    <string name="invalid_phone1">Phone number must be \ </string>
+    <string name="invalid_phone2"> number</string>
+    <string name="invalid_confirm_password">Confirm password not match</string>
+    <string name="invalid_user_name">Username mast be more than 3 cher</string>
+    <string name="invalid_delevery_price">Please select your delevery price</string>
+    <string name="invalid_order_time">Please select your order time</string>
+    <string name="invalid_least_range_of_order">Please select your least range of order price</string>
+    <string name="invalid_password">Password mast be more than 6 of cher and number</string>
+    <string name="enter_email">البريد الالكترونى</string>
+    <string name="create_new_acount">ليس لديك حساب ؟ اضغط هنا</string>
+    <string name="enter_password">كلمة المرور</string>
+    <string name="conect_data">بيانات التواصل</string>
+    <string name="login">تسجيل الدخول</string>
+    <string name="order_time">مده التوصيل</string>
+    <string name="least_range_of_order">الحد الادنى للطلب</string>
+    <string name="delevery_price">رسوم التوصيل</string>
+    <string name="food_order">طلب طعام</string>
+    <string name="food_buyer">بيع طعام</string>
+    <string name="register_buer_next">متابعه</string>
+    <string name="restraunt_image">صوره المتجر</string>
+    <string name="contact_data_register">تسجيل</string>
+    <string name="phone">الجوال</string>
+    <string name="whats_app">الوتس اب</string>
+    <string name="reset_password">من فضلك ادخل بريدك الالكترونى</string>
+    <string name="sending">ارسال</string>
+    <string name="bin_code">الكود</string>
+    <string name="set_new_password_title">من فضلم ادخل الكود الذى تم ارساله</string>
+    <string name="set_new_password_title2">من فضلم اكتب كلمه المرور الجديده</string>
+    <string name="enter_confirm_password">تاكيد كلمه المرور</string>
+    <string name="login_enter">دخول</string>
+    <string name="empty">من فضلك ادخل البيانات يوجد حقل فارغ</string>
+    <string name="wait">Please wait....</string>
+    <string name="error">Something went wrong</string>
+    <string name="error_inter_net">No internet connection, Please check your internet connection try again later</string>
+    <string name="forget_password">هل نسيت كلمة السر ؟</string>
+    <string name="name">الاسم</string>
+    <string name="restaurant_name">اسم المطعم</string>
+    <string name="select_region">select region</string>
+    <string name="select_city">select city</string>
+    <string name="select_image">Please Select Image First</string>
+
+</resources>
