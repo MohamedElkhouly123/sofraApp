@@ -41,5 +41,8 @@
     <string name="select_region">select region</string>
     <string name="select_city">select city</string>
     <string name="select_image">Please Select Image First</string>
+    <string name="enter_pin_code">enter pin code</string>
+    <string name="weak_password">weak password must more than 5 chars</string>
+    <string name="enter_password_confirm">enter password confirm</string>
 
 </resources>

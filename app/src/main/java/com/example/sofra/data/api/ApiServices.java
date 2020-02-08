@@ -16,11 +16,15 @@ import com.example.sofra.data.model.restaurantGetAllCommisions.RestaurantGetAllC
 
 import java.util.List;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface ApiServices {
@@ -33,16 +37,16 @@ public interface ApiServices {
     Call<ClientGeneralResponse> clientLogin(@Field("email") String email,
                                             @Field("password") String password);
 
-    @FormUrlEncoded
+    @Multipart
     @POST("client/sign-up")
     Call<ClientGeneralResponse> clientRegistration(
-            @Field("name") String name,
-            @Field("email") String email,
-            @Field("password") String password,
-            @Field("password_confirmation") String passwordConfirmation,
-            @Field("phone") String phone,
-            @Field("region_id") int region_id,
-            @Field("profile_image") String profileImage
+            @Part("name") RequestBody name,
+            @Part("email") RequestBody email,
+            @Part("password") RequestBody password,
+            @Part("password_confirmation") RequestBody passwordConfirmation,
+            @Part("phone") RequestBody phone,
+            @Part("region_id") RequestBody region_id,
+            @Part("profile_image") MultipartBody.Part profileImage
     );
     @POST("client/reset-password")
     @FormUrlEncoded
@@ -166,20 +170,22 @@ public interface ApiServices {
     Call<ClientGeneralResponse> restaurantLogin(@Field("email") String email,
                                                 @Field("password") String password);
 
-    @FormUrlEncoded
+    @Multipart
     @POST("restaurant/sign-up")
+
     Call<ClientGeneralResponse> restaurantRegistration(
-            @Field("name") String name,
-            @Field("email") String email,
-            @Field("password") String password,
-            @Field("password_confirmation") String passwordConfirmation,
-            @Field("phone") String phone,
-            @Field("whatsapp") String whatsapp,
-            @Field("region_id") int regionId,
-            @Field("delivery_cost") String deliveryCost,
-            @Field("minimum_charger") String minimumCharger,
-            @Field("photo") String photo,
-            @Field("delivery_time") String deliveryTime
+
+            @Part("name") RequestBody name,
+            @Part("email") RequestBody email,
+            @Part("password") RequestBody password,
+            @Part("password_confirmation") RequestBody passwordConfirmation,
+            @Part("phone") RequestBody phone,
+            @Part("whatsapp") RequestBody whatsapp,
+            @Part("region_id") RequestBody regionId,
+            @Part("delivery_cost") RequestBody deliveryCost,
+            @Part("minimum_charger") RequestBody minimumCharger,
+            @Part("photo") MultipartBody.Part photo,
+            @Part("delivery_time") RequestBody deliveryTime
 
             );
     @POST("restaurant/reset-password")
@@ -313,4 +319,5 @@ public interface ApiServices {
 
 
     );
+
 }

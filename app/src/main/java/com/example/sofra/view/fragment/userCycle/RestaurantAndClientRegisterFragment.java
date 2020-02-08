@@ -36,6 +36,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 
 import static android.app.Activity.RESULT_OK;
@@ -43,6 +45,9 @@ import static com.example.sofra.data.api.ApiClient.getApiClient;
 import static com.example.sofra.data.local.SharedPreferencesManger.CLIENT;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadData;
 import static com.example.sofra.utils.GeneralRequest.getSpinnerData;
+import static com.example.sofra.utils.HelperMethod.convertFileToMultipart;
+import static com.example.sofra.utils.HelperMethod.convertToRequestBody;
+import static com.example.sofra.utils.HelperMethod.disappearKeypad;
 import static com.example.sofra.utils.HelperMethod.openGallery;
 import static com.example.sofra.utils.HelperMethod.replaceFragment;
 import static com.example.sofra.utils.HelperMethod.showToast;
@@ -96,6 +101,7 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
     private ContactDataFragment contactData= new ContactDataFragment();
     private ViewModelClient viewModel;
     private String mPath;
+    private static final String CLIENTPROFILEIMAGE ="CLIENTPROFILEIMAGE" ;
 
     public RestaurantAndClientRegisterFragment() {
         // Required empty public constructor
@@ -211,6 +217,7 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
 
     @OnClick({R.id.client_conect_data_img_restraunt_image_botton, R.id.restaurant_register_buer_next_btn})
     public void onViewClicked(View view) {
+        disappearKeypad(getActivity(), getView());
         switch (view.getId()) {
             case R.id.client_conect_data_img_restraunt_image_botton:
                 openGallery(getActivity());
@@ -317,33 +324,35 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
     }
 
     private void onCall() {
-
-        String name = clientRegistersBuyerFragmentTilRestrantName.getEditText().getText().toString();
-        String email = clientRegistersBuyerFragmentTilEmail.getEditText().getText().toString();
-        String phone = clientRegistersBuyerFragmentTilOrderPhone.getEditText().getText().toString();
-        String orderTime = clientRegistersBuyerFragmentTilOrderTime.getEditText().getText().toString();
-        String password = clientRegistersBuyerFragmentTilPassword.getEditText().getText().toString();
-        String passwordConfirmation = clientRigisterFragmentTilConfirmPassword.getEditText().getText().toString();
-        String leastRangeOfOrder = registersBuyerFragmentTilLeastRangeOfOrder.getEditText().getText().toString();
-        String deleveryPrice = registersBuyerFragmentTilDeleveryPrice.getEditText().getText().toString();
-        String clientProfilePhoto= mPath;
-        int regionId = neighborhoodsAdapter.selectedId;
+        RequestBody name = convertToRequestBody(clientRegistersBuyerFragmentTilRestrantName.getEditText().getText().toString());
+        RequestBody email = convertToRequestBody(clientRegistersBuyerFragmentTilEmail.getEditText().getText().toString());
+        RequestBody phone =convertToRequestBody(clientRegistersBuyerFragmentTilOrderTime.getEditText().getText().toString());
+        RequestBody orderTime = convertToRequestBody(clientRegistersBuyerFragmentTilOrderTime.getEditText().getText().toString());
+        RequestBody password = convertToRequestBody(clientRegistersBuyerFragmentTilPassword.getEditText().getText().toString());
+        RequestBody passwordConfirmation = convertToRequestBody(clientRigisterFragmentTilConfirmPassword.getEditText().getText().toString());
+        RequestBody leastRangeOfOrder =convertToRequestBody(registersBuyerFragmentTilLeastRangeOfOrder.getEditText().getText().toString());
+        RequestBody deleveryPrice = convertToRequestBody(registersBuyerFragmentTilDeleveryPrice.getEditText().getText().toString());
+        MultipartBody.Part clientProfilePhoto= convertFileToMultipart(mPath,CLIENTPROFILEIMAGE);
+        RequestBody regionId = convertToRequestBody(String.valueOf(neighborhoodsAdapter.selectedId));
+        String passwordSave = clientRegistersBuyerFragmentTilPassword.getEditText().getText().toString();
 
         Call<ClientGeneralResponse> clientCall;
 
         if (ISCLIENT=="true") {
 
             clientCall = getApiClient().clientRegistration(name, email,  password, passwordConfirmation,phone, regionId, clientProfilePhoto);
-            viewModel.makeGeneralRegisterationAndEditToServer(getActivity(),clientCall, password, true, true);
+            viewModel.makeGeneralRegisterationAndEditToServer(getActivity(),clientCall, passwordSave, true, true);
 
         } else {
             contactData.name=name;
-            contactData.email=name;
+            contactData.email=email;
             contactData.orderTime=orderTime;
             contactData.password=password;
+            contactData.passwordSave=passwordSave;
             contactData.passwordConfirmation=passwordConfirmation;
             contactData.leastRangeOfOrder=leastRangeOfOrder;
             contactData.deleveryPrice=deleveryPrice;
+
             replaceFragment(getActivity().getSupportFragmentManager(), R.id.user_activity_fram, contactData);
 
         }

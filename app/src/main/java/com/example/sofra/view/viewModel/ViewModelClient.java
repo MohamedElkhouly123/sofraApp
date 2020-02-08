@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.sofra.R;
 import com.example.sofra.adapter.SpinnerAdapter;
 import com.example.sofra.data.model.clientLogin.ClientGeneralResponse;
+import com.example.sofra.data.model.clientResetPassword.ClientResetPasswordResponse;
 import com.example.sofra.data.model.generalRespose.GeneralRespose;
 import com.example.sofra.utils.HelperMethod;
 import com.example.sofra.utils.ToastCreator;
@@ -21,11 +22,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.app.PendingIntent.getActivity;
 import static com.example.sofra.data.local.SharedPreferencesManger.REMEMBER_ME;
 import static com.example.sofra.data.local.SharedPreferencesManger.SaveData;
 import static com.example.sofra.data.local.SharedPreferencesManger.USER_DATA;
 import static com.example.sofra.data.local.SharedPreferencesManger.USER_PASSWORD;
+import static com.example.sofra.utils.HelperMethod.dismissProgressDialog;
 import static com.example.sofra.utils.HelperMethod.progressDialog;
+import static com.example.sofra.utils.ToastCreator.onCreateErrorToast;
 import static com.example.sofra.utils.network.InternetState.isConnected;
 
 
@@ -34,14 +38,14 @@ public class ViewModelClient extends ViewModel {
 //    private UserRepository userRepository;
     private MutableLiveData<ClientGeneralResponse> generalRegisterationAndEditResponse = new MutableLiveData<>();
     private MutableLiveData<GeneralRespose> getSpinnerDataResponce = new MutableLiveData<>();
-    private MutableLiveData<ClientGeneralResponse> newPasswordResponse = new MutableLiveData<>();
+    private MutableLiveData<ClientResetPasswordResponse> newResetAndPasswordResponse = new MutableLiveData<>();
     private MutableLiveData<ClientGeneralResponse> restaurantContactDataResponse = new MutableLiveData<>();
 
     public MutableLiveData<ClientGeneralResponse> makeGeneralRegisterationAndEdit() {
         return generalRegisterationAndEditResponse;
     }
 
-    public void makeGeneralRegisterationAndEditToServer(final Activity activity, Call<ClientGeneralResponse> method, final String password, final boolean remember, final boolean auth) {
+    public void makeGeneralRegisterationAndEditToServer(final Activity activity,final Call<ClientGeneralResponse> method, final String password, final boolean remember, final boolean auth) {
         if (isConnected(activity)) {
 
             if (progressDialog == null) {
@@ -61,7 +65,7 @@ public class ViewModelClient extends ViewModel {
 
                     if (response.body() != null) {
                         try {
-                            HelperMethod.dismissProgressDialog();
+                            dismissProgressDialog();
 
                             if (response.body().getStatus() == 1) {
 
@@ -76,10 +80,10 @@ public class ViewModelClient extends ViewModel {
                                 }
                                 generalRegisterationAndEditResponse.postValue(response.body());
 
+                                ToastCreator.onCreateSuccessToast(activity, response.body().getMsg());
+                            } else {
+                                onCreateErrorToast(activity, response.body().getMsg());
                             }
-
-                            ToastCreator.onCreateErrorToast(activity, response.body().getMsg());
-
                         } catch (Exception e) {
 
                         }
@@ -88,14 +92,68 @@ public class ViewModelClient extends ViewModel {
 
                 @Override
                 public void onFailure(Call<ClientGeneralResponse> call, Throwable t) {
-                    HelperMethod.dismissProgressDialog();
-                    ToastCreator.onCreateErrorToast(activity, activity.getString(R.string.error));
+                    dismissProgressDialog();
+                    onCreateErrorToast(activity, activity.getString(R.string.error));
                     generalRegisterationAndEditResponse.postValue(null);
                 }
             });
         } else {
             try {
-                ToastCreator.onCreateErrorToast(activity, activity.getString(R.string.error_inter_net));
+                onCreateErrorToast(activity, activity.getString(R.string.error_inter_net));
+            } catch (Exception e) {
+
+            }
+
+        }
+
+    }
+
+    public MutableLiveData<ClientResetPasswordResponse> makeResetAndNewPasswordResponse() {
+        return newResetAndPasswordResponse;
+    }
+
+    public void makeResetAndNewPassword(final Activity activity,final Call<ClientResetPasswordResponse> method) {
+        if (isConnected(activity)) {
+
+            if (progressDialog == null) {
+                HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
+            } else {
+                if (!progressDialog.isShowing()) {
+                    HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
+                }
+            }
+
+            method.enqueue(new Callback<ClientResetPasswordResponse>() {
+                @Override
+                public void onResponse(Call<ClientResetPasswordResponse> call, Response<ClientResetPasswordResponse> response) {
+
+                    if (response.body() != null) {
+                        try {
+                            dismissProgressDialog();
+
+                            if (response.body().getStatus() == 1) {
+
+                                newResetAndPasswordResponse.postValue(response.body());
+                                ToastCreator.onCreateSuccessToast(activity, response.body().getMsg());
+                        } else {
+                            onCreateErrorToast(activity, response.body().getMsg());
+                        }
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ClientResetPasswordResponse> call, Throwable t) {
+                    dismissProgressDialog();
+                    onCreateErrorToast(activity, activity.getString(R.string.error));
+                    newResetAndPasswordResponse.postValue(null);
+                }
+            });
+        } else {
+            try {
+                onCreateErrorToast(activity, activity.getString(R.string.error_inter_net));
             } catch (Exception e) {
 
             }
@@ -122,41 +180,45 @@ public class ViewModelClient extends ViewModel {
         method.enqueue(new Callback<GeneralRespose>() {
             @Override
             public void onResponse(Call<GeneralRespose> call, Response<GeneralRespose> response) {
-                try {
 
-                    HelperMethod.dismissProgressDialog();
-                    if (response.body().getStatus() == 1) {
+                if (response.body() != null) {
+                    try {
 
-                        adapter.setData(response.body().getData().getData(), hint);
+                        dismissProgressDialog();
+                        if (response.body().getStatus() == 1) {
 
-                        spinner.setAdapter(adapter);
+                            adapter.setData(response.body().getData().getData(), hint);
 
-                        spinner.setSelection(selectedId1);
+                            spinner.setAdapter(adapter);
 
-                        if (listener!=null) {
-                            spinner.setOnItemSelectedListener(listener);
+                            spinner.setSelection(selectedId1);
+
+                            if (listener != null) {
+                                spinner.setOnItemSelectedListener(listener);
+                            }
+                            getSpinnerDataResponce.postValue(response.body());
+
+                            ToastCreator.onCreateSuccessToast(activity, response.body().getMsg());
+                        } else {
+                            onCreateErrorToast(activity, response.body().getMsg());
                         }
-                        getSpinnerDataResponce.postValue(response.body());
+
+                    } catch(Exception e){
 
                     }
-                    ToastCreator.onCreateErrorToast(activity, response.body().getMsg());
-
-
-                } catch (Exception e) {
-
                 }
             }
 
             @Override
             public void onFailure(Call<GeneralRespose> call, Throwable t) {
-                HelperMethod.dismissProgressDialog();
+                dismissProgressDialog();
                 generalRegisterationAndEditResponse.postValue(null);
 
             }
         });
         } else {
             try {
-                ToastCreator.onCreateErrorToast(activity, activity.getString(R.string.error_inter_net));
+                onCreateErrorToast(activity, activity.getString(R.string.error_inter_net));
             } catch (Exception e) {
 
             }

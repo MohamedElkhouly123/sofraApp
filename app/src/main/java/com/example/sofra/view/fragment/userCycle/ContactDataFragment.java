@@ -28,10 +28,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 
 import static android.app.Activity.RESULT_OK;
 import static com.example.sofra.data.api.ApiClient.getApiClient;
+import static com.example.sofra.utils.HelperMethod.convertFileToMultipart;
+import static com.example.sofra.utils.HelperMethod.convertToRequestBody;
 import static com.example.sofra.utils.HelperMethod.openGallery;
 import static com.example.sofra.utils.HelperMethod.replaceFragment;
 import static com.example.sofra.utils.HelperMethod.showToast;
@@ -43,16 +47,18 @@ import static com.example.sofra.utils.validation.Validation.validationTextInputL
 public class ContactDataFragment extends BaSeFragment {
 
 
-    public String name;
-    public String email;
-    public String password;
-    public String passwordConfirmation;
-    public String phone;
-    public String whatsApp;
-    public int regionId;
-    public String deleveryPrice;
-    public String leastRangeOfOrder;
-    public String orderTime;
+    private static final String RESTAURANTPROFILEIMAGE ="RESTAURANTPROFILEIMAGE" ;
+    public RequestBody name;
+    public RequestBody email;
+    public RequestBody password;
+    public String passwordSave;
+    public RequestBody passwordConfirmation;
+    public RequestBody phone;
+    public RequestBody whatsApp;
+    public RequestBody regionId;
+    public RequestBody deleveryPrice;
+    public RequestBody leastRangeOfOrder;
+    public RequestBody orderTime;
     @BindView(R.id.conect_data_fragment_til_phone)
     TextInputLayout conectDataFragmentTilPhone;
     @BindView(R.id.client_conect_data_img_restraunt_image_botton)
@@ -157,16 +163,15 @@ public class ContactDataFragment extends BaSeFragment {
     private void onCall() {
 
 
-        String phone = conectDataFragmentTilPhone.getEditText().getText().toString();
-        String orderTime = conectDataFragmentTilWhatsApp.getEditText().getText().toString();
-
-        String restaurantProfilePhoto = mPath;
+         phone =convertToRequestBody(conectDataFragmentTilPhone.getEditText().getText().toString());
+         orderTime = convertToRequestBody(conectDataFragmentTilWhatsApp.getEditText().getText().toString());
+        MultipartBody.Part restaurantProfilePhoto = convertFileToMultipart(mPath,RESTAURANTPROFILEIMAGE);
 
         Call<ClientGeneralResponse> clientCall;
 
 
-            clientCall = getApiClient().restaurantRegistration(name, email, password, passwordConfirmation, phone,whatsApp, regionId, deleveryPrice,leastRangeOfOrder,restaurantProfilePhoto,orderTime);
-            viewModel.makeGeneralRegisterationAndEditToServer(getActivity(), clientCall, password, true, true);
+        clientCall = getApiClient().restaurantRegistration(name, email, password, passwordConfirmation, phone,whatsApp, regionId, deleveryPrice,leastRangeOfOrder,restaurantProfilePhoto,orderTime);
+        viewModel.makeGeneralRegisterationAndEditToServer(getActivity(), clientCall, passwordSave, true, true);
 
 
 
