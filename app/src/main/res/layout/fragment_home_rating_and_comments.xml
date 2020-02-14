@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/_15sdp"
+        android:text="يسعدنا مشاركتك بتعليق او تقييم"
+        android:fontFamily="@font/janna"
+        android:textStyle="bold"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_12ssp" />
+
+    <Button
+        android:id="@+id/restaurant_review_btn_add_review"
+        android:layout_width="@dimen/_123sdp"
+        android:layout_height="@dimen/_28sdp"
+        android:layout_gravity="center_horizontal"
+        android:textSize="@dimen/_10ssp"
+        android:textAlignment="center"
+        android:background="@drawable/gradient_btn_shape"
+        android:textStyle="bold"
+        android:fontFamily="@font/janna"
+        android:text="اضف تعليق او تقييم"
+        android:textColor="@color/white" />
+
+    <ImageView
+        style="@style/view_style"
+        android:layout_margin="@dimen/_15sdp"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        >
+
+        <com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/notifications_fragment_s_fl_shimmer_donations"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:shimmer_duration="1000"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <include layout="@layout/cardview_item_client_comment_and_rating_list" />
+                <include layout="@layout/cardview_item_client_comment_and_rating_list" />
+                <include layout="@layout/cardview_item_client_comment_and_rating_list" />
+                <include layout="@layout/cardview_item_client_comment_and_rating_list" />
+                <include layout="@layout/cardview_item_client_comment_and_rating_list" />
+
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/donations_list_Fragment_sr_refresh_donations"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/home_articles_recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_above="@+id/load_more"
+                        android:paddingTop="@dimen/_15sdp"
+                        android:scrollbars="vertical" />
+
+                    <include
+                        layout="@layout/cardview_item_load_more"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true" />
+
+                    <include layout="@layout/error" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    >
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="الحاله : "
+                style="@style/text_restaurant_informations"
+                />
+
+            <TextView
+                android:id="@+id/restaurant_information_fragment_tv_case"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_restaurant_informations"
+
+                />
+        </LinearLayout>
+
+        <ImageView
+
+            style="@style/view_style"
+
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="المدينه : "
+                style="@style/text_restaurant_informations"
+                />
+
+            <TextView
+                android:id="@+id/restaurant_information_fragment_tv_city"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_restaurant_informations"
+                />
+        </LinearLayout>
+
+    <ImageView
+
+        style="@style/view_style"
+
+        />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="الحى : "
+                style="@style/text_restaurant_informations"
+                />
+
+            <TextView
+                android:id="@+id/restaurant_information_fragment_tv_town"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_restaurant_informations"
+                />
+        </LinearLayout>
+
+    <ImageView
+
+        style="@style/view_style"
+
+        />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="الحد الادنى : "
+                style="@style/text_restaurant_informations"
+                />
+
+            <TextView
+                android:id="@+id/restaurant_information_fragment_tv_minimum_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_restaurant_informations"
+                />
+        </LinearLayout>
+
+
+    <ImageView
+
+        style="@style/view_style"
+
+        />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="رسوم التوصيل : "
+                style="@style/text_restaurant_informations"
+                />
+
+            <TextView
+                android:id="@+id/restaurant_information_fragment_tv_delivery_cost"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/text_restaurant_informations"
+                />
+        </LinearLayout>
+
+</LinearLayout>
+
+</ScrollView>

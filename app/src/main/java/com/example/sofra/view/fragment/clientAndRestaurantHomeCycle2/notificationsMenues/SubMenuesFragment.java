@@ -1,4 +1,4 @@
-package com.example.sofra.view.fragment.userCycle;
+package com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.notificationsMenues;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,28 +12,20 @@ import com.example.sofra.view.fragment.BaSeFragment;
 
 import butterknife.ButterKnife;
 
-import static com.example.sofra.utils.HelperMethod.replaceFragment;
+public class SubMenuesFragment extends BaSeFragment {
 
 
-public class RestaurantAndClientEditProfileFragment extends BaSeFragment {
-
+    public static int SUBMENUE ;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_restaurant_and_client_edit_profile, container, false);
+        View root = inflater.inflate(R.layout.fragment_submenues, container, false);
         ButterKnife.bind(this, root);
-
+//
 
         return root;
-    }
-
-
-    @Override
-    public void onBack() {
-        replaceFragment(getActivity().getSupportFragmentManager(), R.id.user_activity_fram, new RestaurantAndClientLoginFragment());
-
     }
 
 

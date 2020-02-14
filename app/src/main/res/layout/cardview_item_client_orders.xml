@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/tools"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?selectableItemBackground"
+    >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_155sdp"
+      >
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="30dp"
+        card_view:cardUseCompatPadding="true"
+        android:foreground="?selectableItemBackground"
+
+        >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_135sdp"
+            android:background="@drawable/shadow_gray_shape"
+            >
+
+            <LinearLayout
+                android:id="@+id/lin_client_img"
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_60sdp"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:background="@drawable/white_shape"
+                android:layout_marginTop="@dimen/_10sdp">
+
+                <ImageView
+                    android:id="@+id/item_restaurant_orders_img_client"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/ic_blue_person" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_toEndOf="@id/lin_client_img"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/lin_restaurant_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="العميل :"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_12ssp"
+                        android:fontFamily="@font/janna"
+                        android:textColor="@color/blue" />
+
+                    <TextView
+                        android:id="@+id/item_restaurant_orders_tv_restaurant_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/pink" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="رقم الطلب : "
+                        android:textColor="@color/pink" />
+
+                    <TextView
+                        android:id="@+id/item_restaurant_orders_tv_order_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/pink" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="الكميه الكليه : "
+                        android:textColor="@color/pink" />
+
+                    <TextView
+                        android:id="@+id/item_restaurant_orders_tv_total_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/pink" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="العنوان : "
+                        android:textColor="@color/pink" />
+
+                    <TextView
+                        android:id="@+id/item_restaurant_orders_tv_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/pink" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/item_user_new_order_btn_cancel_order"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_27sdp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/_17sdp"
+                android:layout_margin="@dimen/_13sdp"
+                android:visibility="gone"
+                android:background="@drawable/blue_shape"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/item_user_new_order_iv_cancel_order"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="@dimen/_6sdp"
+                    android:src="@drawable/ic_white_close" />
+
+                <TextView
+                    android:id="@+id/item_user_new_order_tv_cancel_order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="الغاء الطلب"
+                    android:layout_marginEnd="@dimen/_2sdp"
+                    android:layout_marginStart="@dimen/_2sdp"
+                    android:fontFamily="@font/janna"
+                    android:textColor="#fff"
+                    android:textStyle="bold"
+                    android:textSize="@dimen/_13ssp" />
+            </LinearLayout>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_27sdp"
+                android:layout_alignParentBottom="true"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_marginEnd="@dimen/_95sdp"
+                android:layout_marginStart="@dimen/_95sdp"
+                android:layout_marginBottom="@dimen/_15sdp"
+                android:visibility="gone"
+                android:fontFamily="@font/janna"
+                android:textStyle="bold"
+                android:textSize="@dimen/_12ssp"
+                android:text="الطلب مكتمل"
+                android:textColor="@color/white"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/green_button"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/_17sdp"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/item_restaurant_orders_btn_cancel_order"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/blue_shape"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:padding="8dp"
+                        android:paddingBottom="@dimen/_4sdp"
+                        android:src="@drawable/ic_white_close" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="الغاء"
+                        android:fontFamily="@font/janna"
+                        android:textStyle="bold"
+                        android:textColor="#fff" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/item_restaurant_orders_btn_confirm"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/green_shape"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/item_restaurant_orders_img_confirm"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@drawable/ic_white_like" />
+
+                    <TextView
+                        android:id="@+id/item_restaurant_orders_tv_confirm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="تأكيد"
+                        android:fontFamily="@font/janna"
+                        android:textStyle="bold"
+                        android:textColor="#fff" />
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:id="@+id/item_restaurant_orders_btn_call"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:background="@drawable/pink_shape"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="@dimen/_4sdp"
+                        android:src="@drawable/ic_phone_white_24dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="اتصال"
+                        android:fontFamily="@font/janna"
+                        android:textStyle="bold"
+                        android:textColor="#fff" />
+                </LinearLayout>
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="@dimen/_17sdp"
+
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/item_restaurant_orders_btn_cancel2_order"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/blue_shape"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:padding="8dp"
+                        android:paddingBottom="@dimen/_4sdp"
+                        android:src="@drawable/ic_white_close" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="الغاء"
+                        android:fontFamily="@font/janna"
+                        android:textStyle="bold"
+                        android:textColor="#fff" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/item_restaurant_orders_btn_confirm2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/green_shape"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/item_restaurant_orders_img_confirm2"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@drawable/ic_white_like" />
+
+                    <TextView
+                        android:id="@+id/item_restaurant_orders_tv_confirm2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="تأكيد"
+                        android:fontFamily="@font/janna"
+                        android:textStyle="bold"
+                        android:textColor="#fff" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>
+</RelativeLayout>

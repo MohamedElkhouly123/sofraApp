@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">Sofra</string>
+    <string name="title_home">الرئيسيه</string>
+    <string name="title_update_my_info">تعديل البيانات</string>
+    <string name="title_menues">القوائم</string>
+    <string name="more_setting">المزيد</string>
     <string name="invalid_email">Email must be like this \"example@example.com\"</string>
     <string name="invalid_phone1">Phone number must be \ </string>
     <string name="invalid_phone2"> number</string>
@@ -44,5 +48,7 @@
     <string name="enter_pin_code">enter pin code</string>
     <string name="weak_password">weak password must more than 5 chars</string>
     <string name="enter_password_confirm">enter password confirm</string>
+    <string name="load_more">load more</string>
+    <string name="contact_data_edit">تعديل</string>
 
 </resources>

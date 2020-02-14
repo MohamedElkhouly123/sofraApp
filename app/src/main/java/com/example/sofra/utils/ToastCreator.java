@@ -45,6 +45,7 @@ public class ToastCreator {
      * @param toastTitle :toast text
      * @param toastIcon  :toast icon
      */
+
     public static void onCreateSuccessToast(Activity activity, String toastTitle, int toastIcon) {
         LayoutInflater inflater = activity.getLayoutInflater();
 
@@ -118,4 +119,28 @@ public class ToastCreator {
         toast.show();
     }
 
+
+    public static void customToast(Activity activity, String ToastTitle, boolean failed) {
+
+        LayoutInflater inflater = activity.getLayoutInflater();
+
+        int layout_id;
+
+        if (failed) {
+            layout_id = R.layout.toast;
+        } else {
+            layout_id = R.layout.success_toast;
+        }
+
+        View layout = inflater.inflate(layout_id, activity.findViewById(R.id.toast_layout_root));
+
+        TextView text = layout.findViewById(R.id.text);
+        text.setText(ToastTitle);
+
+        Toast toast = new Toast(activity);
+        toast.setGravity(Gravity.CENTER_VERTICAL | Gravity.BOTTOM, 0, 100);
+        toast.setDuration(Toast.LENGTH_LONG);
+        toast.setView(layout);
+        toast.show();
+    }
 }

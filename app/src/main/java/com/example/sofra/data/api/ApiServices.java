@@ -13,6 +13,7 @@ import com.example.sofra.data.model.getSetting.GetSettingData;
 import com.example.sofra.data.model.paymentMethods.PaymentMethodsResponce;
 import com.example.sofra.data.model.restaurantChangeState.RestaurantChangeStateResponse;
 import com.example.sofra.data.model.restaurantGetAllCommisions.RestaurantGetAllCommisionsResponse;
+import com.example.sofra.data.model.restaurantOffer.RestaurantOfferResponce;
 
 import java.util.List;
 
@@ -226,6 +227,35 @@ public interface ApiServices {
             @Field("api_token") String api_token
     );
 
+    @Multipart
+    @POST("restaurant/new-offer")
+    Call<RestaurantOfferResponce> restaurantNewOffers(
+
+            @Part("description") RequestBody description,
+            @Part("price") RequestBody price,
+            @Part("starting_at") RequestBody starting_at,
+            @Part("name") RequestBody name,
+            @Part("photo") MultipartBody.Part photo,
+            @Part("ending_at") RequestBody ending_at,
+            @Part("api_token") RequestBody api_token,
+            @Part("offer_price") RequestBody offer_price
+
+    );
+
+    @Multipart
+    @POST("restaurant/update-offer")
+    Call<RestaurantOfferResponce> editRestaurantOffers(
+
+            @Part("description") RequestBody description,
+            @Part("price") RequestBody price,
+            @Part("starting_at") RequestBody starting_at,
+            @Part("name") RequestBody name,
+            @Part("photo") MultipartBody.Part photo,
+            @Part("ending_at") RequestBody ending_at,
+            @Part("offer_price") RequestBody offer_price,
+            @Part("api_token") RequestBody api_token
+
+    );
 
     @POST("client/profile")
     @FormUrlEncoded
@@ -241,6 +271,14 @@ public interface ApiServices {
             @Field("api_token") String apiToken,
             @Field("delivery_time") String deliveryTime
     );
+
+    @POST("restaurant/delete-offer")
+    @FormUrlEncoded
+    Call<RestaurantOfferResponce> deleteOffer(
+            @Field("offer_id") String offer_id,
+            @Field("api_token") String api_token
+    );
+
 
     @POST("restaurant/change-state")
     @FormUrlEncoded
@@ -284,14 +322,35 @@ public interface ApiServices {
 
     );
 
+    @GET("restaurant/my-offers")
+    Call<RestaurantOfferResponce> getMyOrders(
+            @Query("api_token") String apiToken,
+            @Query("page") String page
+
+    );
+
     @GET("cities")
     Call<GeneralRespose> getAllCities(
 
     );
 
+
+    @GET("offers")
+    Call<RestaurantOfferResponce> getListOfOffers(
+            @Query("restaurant_id") int restaurant_id
+
+    );
+
+    @GET("offer")
+    Call<RestaurantOfferResponce> getOfferDetails(
+            @Query("offer_id") String offer_id
+
+    );
+
+
     @GET("regions")
     Call<GeneralRespose> getRegion(
-            @Query("city_id") int cityId
+            @Query("city_id") String cityId
 
     );
 
@@ -319,5 +378,6 @@ public interface ApiServices {
 
 
     );
+
 
 }

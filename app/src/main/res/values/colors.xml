@@ -21,10 +21,10 @@
     <color name="twitter">#1da1f2</color>
     <color name="youtube">#e60d0d</color>
     <color name="btn_red">#c10000</color>
-
-
-
+    <color name="blue">#0A1B7A</color>
+    <color name="pink">#D81357</color>
     <color name="success">#32BEA6</color>
     <color name="error">#E04F5F</color>
     <color name="white">#fff</color>
+    <color name="txt_color_black">#000</color>
 </resources>
