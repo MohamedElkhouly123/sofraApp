@@ -19,6 +19,7 @@
                 android:orientation="horizontal"
                 android:padding="@dimen/_4sdp"
                 android:layout_marginTop="@dimen/_15sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
                 >
 
                 <ImageView
@@ -49,8 +50,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="@dimen/_4sdp"
-                android:layout_marginTop="@dimen/_15sdp"
-                >
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"               >
 
                 <ImageView
                     android:layout_width="@dimen/_27sdp"
@@ -77,8 +78,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="@dimen/_4sdp"
-                android:layout_marginTop="@dimen/_15sdp"
-                >
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"                >
 
                 <ImageView
                     android:layout_width="@dimen/_27sdp"
@@ -104,9 +105,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:visibility="gone"
                 android:padding="@dimen/_4sdp"
-                android:layout_marginTop="@dimen/_15sdp"
-                >
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"               >
 
                 <ImageView
                     android:layout_width="@dimen/_27sdp"
@@ -118,7 +120,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="تقييم التطبيق على المتجر"
+                    android:text="التعليقات والتقييم"
                     style="@style/MoreText"/>
             </LinearLayout>
             <ImageView
@@ -126,6 +128,7 @@
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginStart="@dimen/_20sdp"
                 android:layout_marginEnd="@dimen/_20sdp"
+                android:visibility="gone"
                 />
             <LinearLayout
                 android:id="@+id/more_nottiffy_setting_lay"
@@ -133,8 +136,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="@dimen/_4sdp"
-                android:layout_marginTop="@dimen/_15sdp"
-                >
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"                 >
 
                 <ImageView
                     android:layout_width="@dimen/_27sdp"
@@ -161,8 +164,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="@dimen/_4sdp"
-                android:layout_marginTop="@dimen/_15sdp"
-                >
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_8sdp"                 >
 
                 <ImageView
                     android:layout_width="@dimen/_27sdp"

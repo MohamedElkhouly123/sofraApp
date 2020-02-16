@@ -14,7 +14,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.sofra.R;
+import com.example.sofra.data.model.clientGetAllNotofications.ClientFireBaseToken;
+import com.example.sofra.data.model.clientLogin.ClientData;
 import com.example.sofra.data.model.clientLogin.ClientGeneralResponse;
+import com.example.sofra.data.model.clientResetPassword.ClientResetPasswordResponse;
 import com.example.sofra.utils.HelperMethod;
 import com.example.sofra.utils.KeyboardUtils;
 import com.example.sofra.view.fragment.BaSeFragment;
@@ -32,6 +35,7 @@ import retrofit2.Call;
 import static com.example.sofra.data.api.ApiClient.getApiClient;
 import static com.example.sofra.data.local.SharedPreferencesManger.CLIENT;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadData;
+import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.sofra.utils.HelperMethod.replaceFragment;
 import static com.example.sofra.utils.HelperMethod.showToast;
 import static com.example.sofra.utils.validation.Validation.cleanError;
@@ -52,6 +56,10 @@ public class RestaurantAndClientLoginFragment extends BaSeFragment {
     List<TextInputLayout> textInputLayoutList = new ArrayList<>();
     private String email;
     private String password;
+    private String apiToken;
+    private String token;
+    private ClientData clientData;
+
     private ViewModelClient viewModel;
     public String ISCLIENT = LoadData(getActivity(), CLIENT);
 
@@ -63,7 +71,7 @@ public class RestaurantAndClientLoginFragment extends BaSeFragment {
         addKeyboardToggleListener();
         textInputLayoutList.add(loginFragmentTilEmail);
         textInputLayoutList.add(loginFragmentTilPassword);
-
+        clientData = LoadUserData(getActivity());
         loginFragmentTilPassword.getEditText().setTypeface(Typeface.DEFAULT);
         loginFragmentTilPassword.getEditText().setTransformationMethod(new PasswordTransformationMethod());
 
@@ -144,21 +152,27 @@ public class RestaurantAndClientLoginFragment extends BaSeFragment {
     private void onCall() {
          email = loginFragmentTilEmail.getEditText().getText().toString();
          password = loginFragmentTilPassword.getEditText().getText().toString();
-
+         apiToken=clientData.getApiToken();
+         token=new ClientFireBaseToken().getToken();
         boolean remember = true;
 
 //        Call<ClientGeneralResponse> clientCall = getApiClient().clientLogin(email, password);
 
 
         Call<ClientGeneralResponse> loginCall;
+        Call<ClientResetPasswordResponse> tokenCall;
+
 
         if (ISCLIENT=="true") {
             loginCall = getApiClient().clientLogin(email, password);
+            tokenCall = getApiClient().clientSignUpToken(token, "android",apiToken);
+
         } else {
 
             loginCall = getApiClient().restaurantLogin(email, password);
+            tokenCall = getApiClient().restaurantSignUpToken(token, "android",apiToken);
         }
-        viewModel.makeGeneralRegisterationAndEditToServer(getActivity(),loginCall, password, remember, true);
+        viewModel.makeGeneralRegisterationAndEditToServer(getActivity(),loginCall,tokenCall, password, remember, true);
 
 
     }

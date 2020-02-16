@@ -20,7 +20,10 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.sofra.R;
 import com.example.sofra.adapter.SpinnerAdapter;
+import com.example.sofra.data.model.clientGetAllNotofications.ClientFireBaseToken;
+import com.example.sofra.data.model.clientLogin.ClientData;
 import com.example.sofra.data.model.clientLogin.ClientGeneralResponse;
+import com.example.sofra.data.model.clientResetPassword.ClientResetPasswordResponse;
 import com.example.sofra.data.model.generalRespose.GeneralRespose;
 import com.example.sofra.utils.ToastCreator;
 import com.example.sofra.view.fragment.BaSeFragment;
@@ -44,6 +47,7 @@ import static android.app.Activity.RESULT_OK;
 import static com.example.sofra.data.api.ApiClient.getApiClient;
 import static com.example.sofra.data.local.SharedPreferencesManger.CLIENT;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadData;
+import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.sofra.utils.GeneralRequest.getSpinnerData;
 import static com.example.sofra.utils.HelperMethod.convertFileToMultipart;
 import static com.example.sofra.utils.HelperMethod.convertToRequestBody;
@@ -102,6 +106,10 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
     private ViewModelClient viewModel;
     private String mPath;
     private static final String CLIENTPROFILEIMAGE ="CLIENTPROFILEIMAGE" ;
+    private String apiToken;
+    private String token;
+    private ClientData clientData;
+
 
     public RestaurantAndClientRegisterFragment() {
         // Required empty public constructor
@@ -115,7 +123,7 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
         isClient();
         initListener();
         setSpinner();
-
+        clientData = LoadUserData(getActivity());
         clientRegistersBuyerFragmentTilPassword.getEditText().setTypeface(Typeface.DEFAULT);
         clientRegistersBuyerFragmentTilPassword.getEditText().setTransformationMethod(new PasswordTransformationMethod());
         clientRigisterFragmentTilConfirmPassword.getEditText().setTypeface(Typeface.DEFAULT);
@@ -335,13 +343,16 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
         MultipartBody.Part clientProfilePhoto= convertFileToMultipart(mPath,CLIENTPROFILEIMAGE);
         RequestBody regionId = convertToRequestBody(String.valueOf(neighborhoodsAdapter.selectedId));
         String passwordSave = clientRegistersBuyerFragmentTilPassword.getEditText().getText().toString();
-
+        apiToken=clientData.getApiToken();
+        token=new ClientFireBaseToken().getToken();
         Call<ClientGeneralResponse> clientCall;
+        Call<ClientResetPasswordResponse> tokenCall;
 
         if (ISCLIENT=="true") {
 
             clientCall = getApiClient().clientRegistration(name, email,  password, passwordConfirmation,phone, regionId, clientProfilePhoto);
-            viewModel.makeGeneralRegisterationAndEditToServer(getActivity(),clientCall, passwordSave, true, true);
+            tokenCall = getApiClient().clientSignUpToken(token, "android",apiToken);
+            viewModel.makeGeneralRegisterationAndEditToServer(getActivity(),clientCall,tokenCall, passwordSave, true, true);
 
         } else {
             contactData.name=name;

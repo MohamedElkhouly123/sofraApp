@@ -50,5 +50,6 @@
     <string name="enter_password_confirm">enter password confirm</string>
     <string name="load_more">load more</string>
     <string name="contact_data_edit">تعديل</string>
+    <string name="default_notification_channel_id">18</string>
 
 </resources>

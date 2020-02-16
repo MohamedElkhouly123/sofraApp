@@ -14,13 +14,9 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.sofra.R;
 import com.example.sofra.data.model.clientLogin.ClientGeneralResponse;
 import com.example.sofra.data.model.clientResetPassword.ClientResetPasswordResponse;
-import com.example.sofra.utils.ToastCreator;
 import com.example.sofra.view.fragment.BaSeFragment;
 import com.example.sofra.view.viewModel.ViewModelClient;
 import com.google.android.material.textfield.TextInputLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -140,7 +136,7 @@ public class RestaurantAndClientSetNewPasswordFragment extends BaSeFragment {
 
             resetPasswordCall = getApiClient().restaurantNewPassword(pinCode,password,passwordConfirm);
         }
-        viewModel.makeResetAndNewPassword(getActivity(),resetPasswordCall);
+        viewModel.makeResetAndNewPasswordAndToken(getActivity(),resetPasswordCall);
 
     }
 

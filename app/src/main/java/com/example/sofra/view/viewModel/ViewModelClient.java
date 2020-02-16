@@ -38,14 +38,14 @@ public class ViewModelClient extends ViewModel {
 //    private UserRepository userRepository;
     private MutableLiveData<ClientGeneralResponse> generalRegisterationAndEditResponse = new MutableLiveData<>();
     private MutableLiveData<GeneralRespose> getSpinnerDataResponce = new MutableLiveData<>();
-    private MutableLiveData<ClientResetPasswordResponse> newResetAndPasswordResponse = new MutableLiveData<>();
+    private MutableLiveData<ClientResetPasswordResponse> newResetAndPasswordAndTokenResponse = new MutableLiveData<>();
     private MutableLiveData<ClientGeneralResponse> restaurantContactDataResponse = new MutableLiveData<>();
 
     public MutableLiveData<ClientGeneralResponse> makeGeneralRegisterationAndEdit() {
         return generalRegisterationAndEditResponse;
     }
 
-    public void makeGeneralRegisterationAndEditToServer(final Activity activity,final Call<ClientGeneralResponse> method, final String password, final boolean remember, final boolean auth) {
+    public void makeGeneralRegisterationAndEditToServer(final Activity activity,final Call<ClientGeneralResponse> method,final Call<ClientResetPasswordResponse> tokenMethod, final String password, final boolean remember, final boolean auth) {
         if (isConnected(activity)) {
 
             if (progressDialog == null) {
@@ -74,6 +74,7 @@ public class ViewModelClient extends ViewModel {
 
                                 if (auth) {
                                     SaveData(activity, REMEMBER_ME, remember);
+                                    makeResetAndNewPasswordAndToken(activity,tokenMethod);
                                     Intent intent = new Intent(activity, HomeCycleActivity.class);
                                     activity.startActivity(intent);
                                     activity.finish();
@@ -108,11 +109,11 @@ public class ViewModelClient extends ViewModel {
 
     }
 
-    public MutableLiveData<ClientResetPasswordResponse> makeResetAndNewPasswordResponse() {
-        return newResetAndPasswordResponse;
+    public MutableLiveData<ClientResetPasswordResponse> makeResetAndNewPasswordAndTokenResponse() {
+        return newResetAndPasswordAndTokenResponse;
     }
 
-    public void makeResetAndNewPassword(final Activity activity,final Call<ClientResetPasswordResponse> method) {
+    public void makeResetAndNewPasswordAndToken(final Activity activity, final Call<ClientResetPasswordResponse> method) {
         if (isConnected(activity)) {
 
             if (progressDialog == null) {
@@ -133,7 +134,7 @@ public class ViewModelClient extends ViewModel {
 
                             if (response.body().getStatus() == 1) {
 
-                                newResetAndPasswordResponse.postValue(response.body());
+                                newResetAndPasswordAndTokenResponse.postValue(response.body());
                                 ToastCreator.onCreateSuccessToast(activity, response.body().getMsg());
                         } else {
                             onCreateErrorToast(activity, response.body().getMsg());
@@ -148,7 +149,7 @@ public class ViewModelClient extends ViewModel {
                 public void onFailure(Call<ClientResetPasswordResponse> call, Throwable t) {
                     dismissProgressDialog();
                     onCreateErrorToast(activity, activity.getString(R.string.error));
-                    newResetAndPasswordResponse.postValue(null);
+                    newResetAndPasswordAndTokenResponse.postValue(null);
                 }
             });
         } else {

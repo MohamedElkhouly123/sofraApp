@@ -58,7 +58,7 @@ public class RestaurantAndClientForgetPasswordFragment extends BaSeFragment {
     }
     private void initListener() {
         viewModel = ViewModelProviders.of(this).get(ViewModelClient.class);
-        viewModel.makeResetAndNewPasswordResponse().observe(this, new Observer<ClientResetPasswordResponse>() {
+        viewModel.makeResetAndNewPasswordAndTokenResponse().observe(this, new Observer<ClientResetPasswordResponse>() {
             @Override
             public void onChanged(@Nullable ClientResetPasswordResponse response) {
                 if (response.getStatus() == 1) {
@@ -114,7 +114,7 @@ public class RestaurantAndClientForgetPasswordFragment extends BaSeFragment {
 
             resetPasswordCall = getApiClient().restaurantResetPassword(email);
         }
-        viewModel.makeResetAndNewPassword(getActivity(),resetPasswordCall);
+        viewModel.makeResetAndNewPasswordAndToken(getActivity(),resetPasswordCall);
 
 
     }

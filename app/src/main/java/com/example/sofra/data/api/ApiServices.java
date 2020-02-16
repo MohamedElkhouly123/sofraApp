@@ -350,7 +350,7 @@ public interface ApiServices {
 
     @GET("regions")
     Call<GeneralRespose> getRegion(
-            @Query("city_id") String cityId
+            @Query("city_id") int cityId
 
     );
 

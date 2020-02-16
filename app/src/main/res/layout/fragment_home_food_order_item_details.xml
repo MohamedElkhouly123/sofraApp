@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-8dp"
+        >
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_163sdp"
+            android:layout_margin="@dimen/_15sdp"
+            app:cardCornerRadius="@dimen/_24sdp">
+
+            <ImageView
+                android:id="@+id/item_menu_img"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_114sdp"
+                android:src="@drawable/logo" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/_100sdp"
+                android:background="@drawable/white_shape"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/item_menu_tv_meal_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:text="meal name"
+                    android:textColor="@color/colorPrimary" />
+
+                <TextView
+                    android:id="@+id/item_menu_tv_meal_details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_1sdp"
+                    android:text="meal details"
+                    android:textColor="#9A5A5959" />
+
+                <TextView
+                    android:id="@+id/item_menu_tv_meal_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:layout_marginTop="@dimen/_1sdp"
+                    android:drawableStart="@drawable/ic_blue_coins_money"
+                    android:text=" meal price"
+                    android:textColor="@color/blue" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </RelativeLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:background="@drawable/shadow_gray_shape" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_15sdp"
+            android:text="طلب خاص"
+            android:fontFamily="@font/janna"
+            android:textStyle="bold"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_16ssp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_120sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:background="@drawable/shadow_white_shape"
+            android:gravity="start"
+            android:fontFamily="@font/janna"
+            android:hint="ادخل طلبك هنا"
+            android:padding="@dimen/_12sdp" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="@dimen/_15sdp"
+            android:background="@drawable/shadow_gray_shape" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_18sdp"
+                android:layout_marginTop="@dimen/_30sdp"
+                android:text="الكميه"
+
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_20ssp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/_30sdp"
+
+                >
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                >
+
+            <TextView
+                android:id="@+id/item_details_fragment_btn_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shadow_white_circle"
+                android:drawableStart="@drawable/ic_blue_plus"
+
+                />
+
+
+
+                <TextView
+                    android:layout_gravity="center"
+                    android:id="@+id/item_details_fragment_tv_quantity"
+                    android:layout_width="@dimen/_70sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_15sdp"
+                    android:text="1"
+                    android:textAlignment="center"
+                    android:background="@drawable/button_order_owner"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_15ssp"
+                    android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/item_details_fragment_btn_minus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shadow_white_circle"
+                android:drawableStart="@drawable/ic_minus"
+                />
+            </LinearLayout>
+            <TextView
+                android:id="@+id/item_details_fragment_btn_shopping_cart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_25ssp"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/shape_shopping_cart_icon" />
+            </LinearLayout>
+        </LinearLayout>
+
+
+    </LinearLayout>
+</ScrollView>

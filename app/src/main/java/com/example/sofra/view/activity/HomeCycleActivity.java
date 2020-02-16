@@ -11,6 +11,7 @@ import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.HomeFr
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.more.MoreFragment;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.notificationsMenues.MenuesFragment;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.update_my_info.ProfileFragment;
+import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.update_my_info.RestaurantAndClientEditProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import butterknife.BindView;
@@ -77,7 +78,7 @@ public class HomeCycleActivity extends BaseActivity implements BottomNavigationV
         if (id == R.id.navigation_home) {
             replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new HomeFragment());
         } else if (id == R.id.navigation_update_my_info) {
-            replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new ProfileFragment());
+            replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new RestaurantAndClientEditProfileFragment());
         } else if (id == R.id.navigation_menues) {
             replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new MenuesFragment());
 
