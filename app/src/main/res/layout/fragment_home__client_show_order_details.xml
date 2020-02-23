@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_10sdp"
+        android:gravity="center_horizontal"
+        android:text="تفاصيل الطلب"
+        android:fontFamily="@font/janna"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_17ssp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/shadow_gray_shape"
+        android:padding="@dimen/_4sdp"
+        android:layout_margin="@dimen/_15sdp"
+        >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView"
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:src="@drawable/freis"
+            android:layout_gravity="center"
+          />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginStart="@dimen/_20sdp"
+    >
+            <TextView
+                android:id="@+id/title36"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/MoreText"
+                android:textSize="@dimen/_12ssp"
+                android:text="الدفع"
+
+                />
+            <TextView
+                android:id="@+id/title3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/MoreText"
+                android:textSize="@dimen/_12ssp"
+                android:layout_marginTop="@dimen/_3sdp"
+                android:text="الدفع"
+
+                />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/shadow_gray_shape"
+        android:padding="@dimen/_8sdp"
+        android:layout_margin="@dimen/_15sdp"
+        >
+    <TextView
+        android:id="@+id/title8l"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/MoreText"
+        android:textSize="@dimen/_12ssp"
+        android:text="العنوان : "
+
+        />
+        <TextView
+            android:id="@+id/address"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/MoreText"
+            android:textSize="@dimen/_12ssp"
+            android:text="العنوان : "
+
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/shadow_gray_shape"
+        android:padding="@dimen/_8sdp"
+        android:layout_margin="@dimen/_15sdp"
+        >
+        <TextView
+            android:id="@+id/titlejkgk8l"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/MoreText"
+            android:textSize="@dimen/_12ssp"
+            android:text="تفاصيل الطلب : "
+
+            />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/_15sdp"
+            android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/titlejkgk8khll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/MoreText"
+                android:textSize="@dimen/_12ssp"
+                android:text="تفاصيل الطلب : "
+
+                />
+            <TextView
+                android:id="@+id/titlejkgkkj8khll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/MoreText"
+                android:textSize="@dimen/_12ssp"
+                android:text="تفاصيل الطلب : "
+
+                />
+            <TextView
+                android:id="@+id/titlejkgmckk8khll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/MoreText"
+                android:textSize="@dimen/_12ssp"
+                android:text="تفاصيل الطلب : "
+
+                />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_45sdp"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/vkuu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/MoreText"
+                android:textSize="@dimen/_12ssp"
+                android:text="تفاصيل الطلب : "
+
+                />
+            <TextView
+                android:id="@+id/titlejklgkkj8khll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/MoreText"
+                android:textSize="@dimen/_12ssp"
+                android:text="تفاصيل الطلب : "
+
+                />
+            <TextView
+                android:id="@+id/titlejkgljmckk8khll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/MoreText"
+                android:textSize="@dimen/_12ssp"
+                android:text="تفاصيل الطلب : "
+
+                />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/shadow_gray_shape"
+            android:padding="@dimen/_8sdp"
+            android:layout_margin="@dimen/_15sdp"
+            >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                >
+
+                <TextView
+                    android:id="@+id/title58"
+                    style="@style/MoreText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="سعر الطلب : "
+                    android:textSize="@dimen/_12ssp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/title54"
+                    style="@style/MoreText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="الدفع اونلاين"
+                    android:textSize="@dimen/_12ssp"
+
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                >
+
+                <TextView
+                    android:id="@+id/titlejkj58"
+                    style="@style/MoreText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="سعر التوصيل : "
+                    android:textSize="@dimen/_12ssp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/titlekj54"
+                    style="@style/MoreText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="الدفع اونلاين"
+                    android:textSize="@dimen/_12ssp"
+
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                >
+
+                <TextView
+                    android:id="@+id/titlev58"
+                    style="@style/MoreText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="الاجمالى : "
+                    android:textSize="@dimen/_12ssp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/titlejk54"
+                    style="@style/MoreText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="المبلغ الاجمالى"
+                    android:textSize="@dimen/_12ssp"
+
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                >
+
+                <TextView
+                    android:id="@+id/titlevhg58"
+                    style="@style/MoreText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="الدفع : "
+                    android:textSize="@dimen/_12ssp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/titlejkfk54"
+                    style="@style/MoreText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="كاش"
+                    android:textSize="@dimen/_12ssp"
+
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="@dimen/_15sdp"
+            android:paddingBottom="@dimen/_10sdp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+
+                android:id="@+id/item_restaurant_orders_btn_call"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:background="@drawable/pink_shape"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:src="@drawable/ic_phone_white_24dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="اتصال"
+                    android:fontFamily="@font/janna"
+                    android:textStyle="bold"
+                    android:textColor="#fff" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/item_restaurant_orders_btn_confirm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_weight="1"
+                android:background="@drawable/green_shape"
+                android:gravity="center">
+
+                <ImageView
+                    android:id="@+id/item_restaurant_orders_img_confirm"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="@dimen/_4sdp"
+                    android:src="@drawable/ic_white_like" />
+
+                <TextView
+                    android:id="@+id/item_restaurant_orders_tv_confirm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="قبول"
+                    android:fontFamily="@font/janna"
+                    android:textStyle="bold"
+                    android:textColor="#fff" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/item_restaurant_orders_btn_cancel_order"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/_4sdp"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:layout_weight="1"
+                android:background="@drawable/blue_shape"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:padding="8dp"
+                    android:paddingBottom="@dimen/_4sdp"
+                    android:src="@drawable/ic_white_close" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="رفض"
+                    android:fontFamily="@font/janna"
+                    android:textStyle="bold"
+                    android:textColor="#fff" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

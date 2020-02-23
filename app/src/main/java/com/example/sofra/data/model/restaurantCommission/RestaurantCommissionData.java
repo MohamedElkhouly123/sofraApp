@@ -1,10 +1,10 @@
 
-package com.example.sofra.data.model.restaurantGetAllCommisions;
+package com.example.sofra.data.model.restaurantCommission;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RestaurantGetAllCommisionsData {
+public class RestaurantCommissionData {
 
     @SerializedName("count")
     @Expose
@@ -17,7 +17,7 @@ public class RestaurantGetAllCommisionsData {
     private String commissions;
     @SerializedName("payments")
     @Expose
-    private String payments;
+    private Integer payments;
     @SerializedName("net_commissions")
     @Expose
     private Double netCommissions;
@@ -49,11 +49,11 @@ public class RestaurantGetAllCommisionsData {
         this.commissions = commissions;
     }
 
-    public String getPayments() {
+    public Integer getPayments() {
         return payments;
     }
 
-    public void setPayments(String payments) {
+    public void setPayments(Integer payments) {
         this.payments = payments;
     }
 

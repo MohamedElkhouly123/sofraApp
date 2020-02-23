@@ -1,10 +1,10 @@
 
-package com.example.sofra.data.model.restaurantGetAllCommisions;
+package com.example.sofra.data.model.restaurantsListAndDetailsResponce;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RestaurantGetAllCommisionsResponse {
+public class RestaurantsListResponce {
 
     @SerializedName("status")
     @Expose
@@ -14,7 +14,7 @@ public class RestaurantGetAllCommisionsResponse {
     private String msg;
     @SerializedName("data")
     @Expose
-    private RestaurantGetAllCommisionsData data;
+    private RestaurantsListPagination data;
 
     public Integer getStatus() {
         return status;
@@ -32,11 +32,11 @@ public class RestaurantGetAllCommisionsResponse {
         this.msg = msg;
     }
 
-    public RestaurantGetAllCommisionsData getData() {
+    public RestaurantsListPagination getData() {
         return data;
     }
 
-    public void setData(RestaurantGetAllCommisionsData data) {
+    public void setData(RestaurantsListPagination data) {
         this.data = data;
     }
 

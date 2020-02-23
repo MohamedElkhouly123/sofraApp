@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -32,6 +33,10 @@ import com.bumptech.glide.Glide;
 
 import com.example.sofra.R;
 import com.example.sofra.data.model.DateTxt;
+import com.yanzhenjie.album.Action;
+import com.yanzhenjie.album.Album;
+import com.yanzhenjie.album.AlbumConfig;
+import com.yanzhenjie.album.AlbumFile;
 
 import net.alhazmy13.mediapicker.Image.ImagePicker;
 
@@ -40,6 +45,7 @@ import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -49,7 +55,7 @@ import okhttp3.RequestBody;
 
 public class HelperMethod {
     public static ProgressDialog progressDialog;
-    public static AlertDialog alertDialog;
+    public static androidx.appcompat.app.AlertDialog alertDialog;
 
     public static void replaceFragment(FragmentManager getChildFragmentManager, int id, Fragment fragment) {
         FragmentTransaction transaction = getChildFragmentManager.beginTransaction();
@@ -173,6 +179,24 @@ public class HelperMethod {
                 .allowMultipleImages(false)
                 .enableDebuggingMode(true)
                 .build();
+    }
+
+    public static void openGalleryِAlpom(Context context, ArrayList<AlbumFile> mAlbumFiles,
+                                   Action<ArrayList<AlbumFile>> action, int count) {
+        Album.initialize(AlbumConfig.newBuilder(context)
+                .setAlbumLoader(new MediaLoader()).build());
+        Album.image(context) // Image selection.
+                .multipleChoice()
+                .camera(true)
+                .columnCount(3)
+                .selectCount(count)
+                .checkedList(mAlbumFiles)
+                .onResult(action)
+                .onCancel(new Action<String>() {
+                    @Override
+                    public void onAction(@NonNull String result) {
+                    }
+                }).start();
     }
 
     public static void disappearKeypad(Activity activity, View v) {

@@ -51,5 +51,7 @@
     <string name="load_more">load more</string>
     <string name="contact_data_edit">تعديل</string>
     <string name="default_notification_channel_id">18</string>
+    <string name="enter_password_old">كلمة المرور القديمة</string>
+    <string name="change_password">تغيير</string>
 
 </resources>

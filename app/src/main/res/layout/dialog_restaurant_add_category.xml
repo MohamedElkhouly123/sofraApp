@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@color/gray"
+        android:layout_marginEnd="@dimen/_35sdp"
+        android:layout_marginStart="@dimen/_35sdp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:elevation="2dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:gravity="center_horizontal"
+            android:text="صورة التصنيف"
+            android:textStyle="bold"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/janna"
+            android:textSize="@dimen/_16ssp" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/restaurant_add_category_dialog_img_add_photo"
+            android:layout_width="@dimen/_78sdp"
+            android:layout_height="@dimen/_78sdp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/_15sdp"
+            android:background="@drawable/shape_pink_plus_add_photo" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/restaurant_add_category_dialog_til_category_name"
+            style="@style/text_input"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            app:errorTextAppearance="@style/error_appearance"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/button_order_owner"
+            android:textColorHint="@color/gray2"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/set_new_password_bin_code_etxt"
+                style="@style/EditText2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="اسم التصنيف"
+
+                android:layout_marginBottom="@dimen/_7sdp"
+                android:textColor="@color/gray2"
+                android:ems="10"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <Button
+            android:id="@+id/restaurant_add_category_dialog_add_and_update_btn"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_29sdp"
+            android:text="أضافة"
+            android:background="@drawable/pink_shape"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            />
+
+    </LinearLayout>
+</LinearLayout>

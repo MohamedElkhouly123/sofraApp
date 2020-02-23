@@ -26,7 +26,10 @@
                 android:id="@+id/item_menu_img"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_114sdp"
-                android:src="@drawable/logo" />
+                android:scaleType="fitXY"
+                android:src="@drawable/freis"
+                android:background="@drawable/round_image"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -93,9 +96,10 @@
             android:layout_marginEnd="@dimen/_15sdp"
             android:background="@drawable/shadow_white_shape"
             android:gravity="start"
+            android:maxLines="7"
             android:fontFamily="@font/janna"
             android:hint="ادخل طلبك هنا"
-            android:padding="@dimen/_12sdp" />
+            android:padding="@dimen/_10sdp" />
 
         <ImageView
             android:layout_width="match_parent"
@@ -116,15 +120,16 @@
                 android:layout_marginEnd="@dimen/_18sdp"
                 android:layout_marginTop="@dimen/_30sdp"
                 android:text="الكميه"
-
+                android:fontFamily="@font/janna"
                 android:textColor="@color/blue"
-                android:textSize="@dimen/_20ssp" />
+                android:textStyle="bold"
+                android:textSize="@dimen/_15ssp" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:gravity="center"
-                android:layout_marginTop="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_35sdp"
 
                 >
             <LinearLayout
@@ -170,7 +175,7 @@
                 android:id="@+id/item_details_fragment_btn_shopping_cart"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_25ssp"
+                android:layout_marginTop="@dimen/_27ssp"
                 android:layout_gravity="center_horizontal"
                 android:background="@drawable/shape_shopping_cart_icon" />
             </LinearLayout>

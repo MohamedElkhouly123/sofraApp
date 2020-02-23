@@ -102,6 +102,13 @@
         <item name="android:background">@android:color/transparent</item>
     </style>
 
+    <!--dialog theme-->
+    <style name="customDialogTheme" parent="android:Theme.Dialog">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
     <style name="Switch">
         <item name="android:colorControlActivated" tools:targetApi="lollipop">
             @android:color/holo_red_light

@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
 
+    >
             <LinearLayout
-                android:id="@+id/linear"
+                android:id="@+id/client_home_fillter_lyout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_15sdp"
+                android:paddingTop="@dimen/_15sdp"
                 android:orientation="horizontal"
                 android:weightSum="2"
+                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -37,7 +42,7 @@
                         app:layout_constraintTop_toTopOf="parent"  />
 
                     <Spinner
-                        android:id="@+id/home_donation_requests_blood_type_id_spinner"
+                        android:id="@+id/client_home_fillter_spin_id"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_20sdp"
                         android:layout_gravity="center"
@@ -61,7 +66,7 @@
                     >
 
                     <ImageView
-                        android:id="@+id/home_articles_search_btn"
+                        android:id="@+id/client_home_fillter_search_img_btn"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -73,7 +78,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
-                        android:id="@+id/home_articles_categories_etxt"
+                        android:id="@+id/client_home_fillter_search_etxt"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -82,7 +87,7 @@
                         android:layout_marginEnd="@dimen/_6sdp"
                         android:hint="البحث هنا"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/home_articles_search_btn"
+                        app:layout_constraintStart_toEndOf="@+id/client_home_fillter_search_img_btn"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -94,14 +99,16 @@
         android:layout_marginTop="@dimen/_8sdp"
      >
 
-        <com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/notifications_fragment_s_fl_shimmer_donations"
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/client_and_restaurant_home_fragment_s_fl_shimmer_donations"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/client_home_shimmer_appear_lyout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <include layout="@layout/cardview_item_client_home_restaurant_list" />
@@ -113,10 +120,25 @@
                 <include layout="@layout/cardview_item_client_home_restaurant_list" />
 
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/restaurant_home_shimmer_appear_lyout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <include layout="@layout/cardview_item_restaurant_category" />
+                <include layout="@layout/cardview_item_restaurant_category" />
+                <include layout="@layout/cardview_item_restaurant_category" />
+                <include layout="@layout/cardview_item_restaurant_category" />
+                <include layout="@layout/cardview_item_restaurant_category" />
+
+
+            </LinearLayout>
         </com.facebook.shimmer.ShimmerFrameLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/donations_list_Fragment_sr_refresh_donations"
+            android:id="@+id/client_and_restaurant_home_Fragment_sr_refresh_donations"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -130,7 +152,7 @@
                     android:layout_height="match_parent">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/home_articles_recycler_view"
+                        android:id="@+id/client_and_restaurant_home_recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_above="@+id/load_more"
@@ -150,6 +172,32 @@
             </LinearLayout>
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/restaurant_home_add_category_floating_action_btn"
+            style="@style/Widget.Design.FloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:visibility="gone"
+            android:layout_marginStart="@dimen/_13sdp"
+            android:layout_marginTop="@dimen/_13sdp"
+            android:layout_marginEnd="@dimen/_13sdp"
+            android:layout_marginBottom="@dimen/_13sdp"
+            android:backgroundTint="@color/white"
+            app:srcCompat="@drawable/ic_add_red_24dp"
+            tools:ignore="VectorDrawableCompat" />
+<!--        android:src="@drawable/ic_pink_plus"-->
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

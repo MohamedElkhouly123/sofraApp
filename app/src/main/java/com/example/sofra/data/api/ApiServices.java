@@ -10,10 +10,16 @@ import com.example.sofra.data.model.clientRestaurantReview.ClientRestaurantRevie
 import com.example.sofra.data.model.contactUs.ContactUsResponce;
 import com.example.sofra.data.model.generalRespose.GeneralRespose;
 import com.example.sofra.data.model.getSetting.GetSettingData;
+import com.example.sofra.data.model.listRestaurantItem.FoodItemsResponse;
+import com.example.sofra.data.model.orderResponse.OrderResponse;
 import com.example.sofra.data.model.paymentMethods.PaymentMethodsResponce;
+import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoriesListResponse;
+import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryResponse;
 import com.example.sofra.data.model.restaurantChangeState.RestaurantChangeStateResponse;
-import com.example.sofra.data.model.restaurantGetAllCommisions.RestaurantGetAllCommisionsResponse;
+import com.example.sofra.data.model.restaurantCommission.RestaurantCommissionResponse;
 import com.example.sofra.data.model.restaurantOffer.RestaurantOfferResponce;
+import com.example.sofra.data.model.restaurantSubCategoriesItemsListResponce.RestaurantSubCategoriesItemsListResponce;
+import com.example.sofra.data.model.restaurantsListAndDetailsResponce.RestaurantsListResponce;
 
 import java.util.List;
 
@@ -79,14 +85,14 @@ public interface ApiServices {
     );
 
     @POST("client/profile")
-    @FormUrlEncoded
+    @Multipart
     Call<ClientGeneralResponse> editClientProfile(
-            @Field("api_token") String apiToken,
-            @Field("name") String name,
-            @Field("email") String email,
-            @Field("phone") String phone,
-            @Field("region_id") String region_id,
-            @Field("profile_image") String profileImage
+            @Part("api_token") RequestBody apiToken,
+            @Part("name") RequestBody name,
+            @Part("email") RequestBody email,
+            @Part("phone") RequestBody phone,
+            @Part("region_id") RequestBody region_id,
+            @Part("profile_image") MultipartBody.Part profileImage
             );
 
     @POST("client/signup-token")
@@ -105,6 +111,8 @@ public interface ApiServices {
             @Field("api_token") String api_token
     );
 
+//    Notice here>>>>>>>>>>>>>>>>>>>
+
     @POST("client/new-order")
     @FormUrlEncoded
     Call<ClientMakeNewOrderResponse> clientNewOrder(
@@ -115,10 +123,13 @@ public interface ApiServices {
             @Field("phone") String phone,
             @Field("name") String name,
             @Field("api_token") String apiToken,
-            @Field("profile_image") String profileImage,
+//            @Part("profile_image") MultipartBody.Part profileImage,
             @Field("items[]") List<Integer> items,
             @Field("quantities[]") List<Integer> quantities,
             @Field("notes[]") List<Integer> notes
+
+//             List<RequestBody> notes
+
 
 
     );
@@ -168,8 +179,10 @@ public interface ApiServices {
 
     @POST("restaurant/login")
     @FormUrlEncoded
-    Call<ClientGeneralResponse> restaurantLogin(@Field("email") String email,
-                                                @Field("password") String password);
+    Call<ClientGeneralResponse> restaurantLogin(
+
+            @Field("email") String email,
+            @Field("password") String password);
 
     @Multipart
     @POST("restaurant/sign-up")
@@ -258,18 +271,18 @@ public interface ApiServices {
     );
 
     @POST("client/profile")
-    @FormUrlEncoded
+    @Multipart
     Call<ClientGeneralResponse> editRestaurantProfile(
-            @Field("email") String email,
-            @Field("name") String name,
-            @Field("phone") String phone,
-            @Field("region_id") String region_id,
-            @Field("delivery_cost") String deliveryCost,
-            @Field("minimum_charger") String minimumCharger,
-            @Field("availability") String availability,
-            @Field("photo") String photo,
-            @Field("api_token") String apiToken,
-            @Field("delivery_time") String deliveryTime
+            @Part("email") RequestBody email,
+            @Part("name") RequestBody name,
+            @Part("phone") RequestBody phone,
+            @Part("region_id") RequestBody region_id,
+            @Part("delivery_cost") RequestBody deliveryCost,
+            @Part("minimum_charger") RequestBody minimumCharger,
+            @Part("availability") RequestBody availability,
+            @Part("photo") MultipartBody.Part photo,
+            @Part("api_token") RequestBody apiToken,
+            @Part("delivery_time") RequestBody deliveryTime
     );
 
     @POST("restaurant/delete-offer")
@@ -317,7 +330,7 @@ public interface ApiServices {
     );
 
     @GET("restaurant/commissions")
-    Call<RestaurantGetAllCommisionsResponse> restaurantGetCommisions(
+    Call<RestaurantCommissionResponse> restaurantGetCommisions(
             @Query("api_token") String apiToken
 
     );
@@ -379,5 +392,155 @@ public interface ApiServices {
 
     );
 
+//  restaurant  food items
 
+    @POST("restaurant/new-item")
+    @Multipart
+    Call<FoodItemsResponse> makeNewFoodItem(
+            @Part("description") RequestBody description,
+            @Part("price") RequestBody price,
+            @Part("preparing_time") RequestBody preparingTime,
+            @Part("name") RequestBody name,
+            @Part("photo") MultipartBody.Part photo,
+            @Part("api_token") RequestBody apiToken,
+            @Part("offer_price") RequestBody offerPrice,
+            @Part("category_id") RequestBody categoryId
+              );
+
+    @POST("restaurant/update-item")
+    @Multipart
+    Call<FoodItemsResponse> updateFoodItem(
+            @Part("description") RequestBody description,
+            @Part("price") RequestBody price,
+            @Part("preparing_time") RequestBody preparingTime,
+            @Part("name") RequestBody name,
+            @Part("photo") MultipartBody.Part photo,
+            @Part("item_id") RequestBody itemId,
+            @Part("api_token") RequestBody apiToken,
+            @Part("offer_price") RequestBody offerPrice
+    );
+
+    @POST("restaurant/delete-item")
+    @FormUrlEncoded
+    Call<FoodItemsResponse> deleteFoodItem(
+            @Field("item_id") String item_id,
+            @Field("api_token") String api_token
+    );
+    @GET("restaurant/my-items")
+    Call<OrderResponse> getMyFooditems(
+            @Query("api_token") String apiToken,
+            @Query("category_id") String categoryId
+
+
+    );
+
+//    Order Apis
+
+
+    @GET("restaurant/my-orders")
+    Call<OrderResponse> getMyFoodOrders(
+            @Query("api_token") String apiToken,
+            @Query("state") String state,
+            @Query("page") String page
+
+
+    );
+
+
+    @GET("restaurant/show-order")
+    Call<OrderResponse> showMyFoodOrder(
+            @Query("api_token") String apiToken,
+            @Query("order_id") String orderId
+
+
+    );
+    @POST("restaurant/accept-order")
+    @FormUrlEncoded
+    Call<OrderResponse> acceptOrder(
+            @Field("api_token") String apiToken,
+            @Field("order_id") String orderId
+    );
+
+    @POST("restaurant/reject-order")
+    @FormUrlEncoded
+    Call<OrderResponse> rejectOrder(
+            @Field("api_token") String apiToken,
+            @Field("order_id") String orderId,
+            @Field("refuse_reason") String refuseReason
+    );
+
+    @POST("restaurant/confirm-order")
+    @FormUrlEncoded
+    Call<OrderResponse> confirmOrder(
+            @Field("order_id") String orderId,
+            @Field("api_token") String apiToken
+    );
+
+    @GET("restaurant/commissions")
+    Call<RestaurantCommissionResponse> commisionsOrder(
+            @Query("api_token") String apiToken
+    );
+
+//    Category Apis
+
+    @POST("restaurant/new-category")
+    @Multipart
+    Call<RestaurantCategoryResponse> restaurantNewCategory(
+            @Part("name") RequestBody name,
+            @Part("photo") MultipartBody.Part photo,
+            @Part("api_token") RequestBody apiToken
+    );
+
+    @GET("restaurant/my-categories")
+    Call<RestaurantCategoryResponse> getRestaurantCategories(
+            @Query("api_token") String apiToken
+    );
+
+    @POST("restaurant/update-category")
+    @Multipart
+    Call<RestaurantCategoryResponse> restaurantUpdateCategory(
+            @Part("name") RequestBody name,
+            @Part("photo") MultipartBody.Part photo,
+            @Part("api_token") RequestBody apiToken,
+            @Part("category_id") RequestBody categoryId
+
+    );
+
+    @POST("restaurant/delete-category")
+    @FormUrlEncoded
+    Call<RestaurantCategoryResponse> restaurantDeleteCategory(
+            @Field("api_token") String apiToken,
+            @Field("category_id") Integer categoryId
+
+    );
+
+//    Genrals
+
+    @GET("restaurants")
+    Call<RestaurantsListResponce> getRestaurantsWithoutFiltter(
+            @Query("page") int page
+    );
+
+    @GET("restaurants")
+    Call<RestaurantsListResponce> getRestaurantsWithFiltter(
+            @Query("keyword") String keyword,
+            @Query("region_id") String regionId
+            );
+
+    @GET("restaurant")
+    Call<RestaurantsListResponce> getRestaurantDetails(
+            @Query("restaurant_id") String restaurantId
+    );
+
+    @GET("items")
+    Call<RestaurantSubCategoriesItemsListResponce> getRestaurantSubCategoriesItemsList(
+            @Query("restaurant_id") String restaurantId,
+            @Query("category_id") String categoryId
+    );
+
+    @GET("categories")
+    Call<RestaurantCategoriesListResponse> getRestaurantCategoriesList(
+            @Query("restaurant_id") String restaurantId,
+            @Query("category_id") String categoryId
+    );
 }

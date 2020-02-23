@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:gravity="center_horizontal"
+            android:text="تواصل معنا"
+            android:fontFamily="@font/janna"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_17ssp"
+            android:textStyle="bold" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/restaurant_registers_buyer_fragment_til_restrant_name"
+            style="@style/text_input2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:errorTextAppearance="@style/error_appearance"
+            android:layout_marginTop="@dimen/_20sdp"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/restaurant_registers_buyer_restrant_name_etxt"
+                style="@style/EditText2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="الاسم كاملا"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/restaurant_registers_buyer_fragment_til_restrant_email"
+            style="@style/text_input2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:errorTextAppearance="@style/error_appearance"
+            android:layout_marginTop="@dimen/_20sdp"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/restaurant_registers_buyer_restrant_email_etxt"
+                style="@style/EditText2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="البريد الالكترونى"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/restaurant_registers_buyer_fragment_til_restrant_phone"
+            style="@style/text_input2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:errorTextAppearance="@style/error_appearance"
+            android:layout_marginTop="@dimen/_20sdp"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/restaurant_registers_buyer_restrant_phone_etxt"
+                style="@style/EditText2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="الجوال"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/restaurant_registers_buyer_fragment_til_restrant_descrption"
+            style="@style/text_input2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_110sdp"
+            app:errorTextAppearance="@style/error_appearance"
+            android:layout_marginTop="@dimen/_20sdp"
+            >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/restaurant_registers_buyer_restrant_descrption_etxt"
+                style="@style/EditText2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_6sdp"
+                android:maxLines="6"
+                android:hint="اكتب رسالتك"
+                android:inputType="text" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <RadioGroup
+            android:id="@+id/user_contact_us_radio_group"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/user_contact_us_rb_complaint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:button="@drawable/shape_check_box"
+                android:text="شكوى "
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_14sdp" />
+
+            <RadioButton
+                android:id="@+id/user_contact_us_rb_suggestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:button="@drawable/shape_check_box"
+                android:text="اقتراح "
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_14sdp" />
+
+            <RadioButton
+                android:id="@+id/user_contact_us_rb_enquiry"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:button="@drawable/shape_check_box"
+                android:text="استعلام "
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_14sdp" />
+        </RadioGroup>
+
+
+        <Button
+            android:id="@+id/client_register_buer_next_btn"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="أرسال"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginTop="@dimen/_35sdp"
+            />
+    </LinearLayout>
+</ScrollView>

@@ -5,16 +5,18 @@
     android:layout_height="match_parent"
     android:gravity="center"
     android:visibility="gone"
+    android:paddingBottom="@dimen/_40sdp"
     android:orientation="vertical"
     >
 
-    <ImageView
+    <pl.droidsonroids.gif.GifImageView
         android:id="@+id/error_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo"
+        android:src="@drawable/monkey"
         android:layout_gravity="center_horizontal"
         />
+
 
     <TextView
         android:id="@+id/error_title"

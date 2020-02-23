@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@color/gray"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:layout_marginStart="@dimen/_20sdp"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:elevation="2dp"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_15sdp"
+            android:gravity="center_horizontal"
+            android:text="سبب الالغاء"
+            android:textStyle="bold"
+            android:textColor="@color/blue"
+            android:fontFamily="@font/janna"
+            android:textSize="@dimen/_16ssp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/item_restaurant_cancel_reason_dialog_et_cancel_reason"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_marginStart="@dimen/_15sdp"
+            android:layout_marginEnd="@dimen/_15sdp"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:background="@drawable/white_shape"
+            android:gravity="center">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/shadow_white_shape"
+                android:gravity="start"
+                android:maxLines="7"
+                android:fontFamily="@font/janna"
+                android:hint="ادخل طلبك هنا"
+                android:padding="@dimen/_10sdp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+<!--        <com.github.siyamed.shapeimageview.mask.PorterShapeImageView-->
+<!--            android:layout_width="@dimen/_100sdp"-->
+<!--            android:layout_height="@dimen/_100sdp"-->
+<!--            app:siShape="@drawable/shape_rounded_rectangle"-->
+<!--            android:src="@drawable/freis"-->
+<!--            app:siSquare="true"/>-->
+
+        <Button
+            android:id="@+id/client_and_restaurant_login_buer_next_btn"
+            style="@style/Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="الغاء"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_30sdp"
+            />
+
+    </LinearLayout>
+</LinearLayout>

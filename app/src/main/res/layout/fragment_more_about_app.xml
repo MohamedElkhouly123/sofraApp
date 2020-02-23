@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/_10sdp"
+        android:background="@drawable/about_us"
+        >
+    <TextView
+        android:id="@+id/user_about_app_tv_about_app"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_190sdp"
+        android:layout_margin="@dimen/_15sdp"
+        android:background="@drawable/shadow_white_shape"
+        android:gravity="center"
+        android:padding="@dimen/_15sdp"
+        android:text="تطبيق سوفره حلو جدا تطبيق سوفره حلو جدا"
+        android:textColor="@color/blue"
+        android:textSize="@dimen/_15ssp"
+        android:fontFamily="@font/janna"
+        android:textStyle="bold" />
+
+</LinearLayout>
+</LinearLayout>

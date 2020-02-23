@@ -186,58 +186,7 @@
                 android:visibility="gone"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:id="@+id/item_restaurant_orders_btn_cancel_order"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_4sdp"
-                    android:layout_marginStart="@dimen/_4sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/blue_shape"
-                    android:gravity="center">
 
-                    <ImageView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:padding="8dp"
-                        android:paddingBottom="@dimen/_4sdp"
-                        android:src="@drawable/ic_white_close" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="الغاء"
-                        android:fontFamily="@font/janna"
-                        android:textStyle="bold"
-                        android:textColor="#fff" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/item_restaurant_orders_btn_confirm"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="@dimen/_4sdp"
-                    android:layout_marginStart="@dimen/_4sdp"
-                    android:layout_weight="1"
-                    android:background="@drawable/green_shape"
-                    android:gravity="center">
-
-                    <ImageView
-                        android:id="@+id/item_restaurant_orders_img_confirm"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:padding="@dimen/_4sdp"
-                        android:src="@drawable/ic_white_like" />
-
-                    <TextView
-                        android:id="@+id/item_restaurant_orders_tv_confirm"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="تأكيد"
-                        android:fontFamily="@font/janna"
-                        android:textStyle="bold"
-                        android:textColor="#fff" />
-                </LinearLayout>
 
                 <LinearLayout
 
@@ -265,6 +214,58 @@
                         android:textStyle="bold"
                         android:textColor="#fff" />
                 </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/item_restaurant_orders_btn_confirm"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/green_shape"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:id="@+id/item_restaurant_orders_img_confirm"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:padding="@dimen/_4sdp"
+                        android:src="@drawable/ic_white_like" />
+
+                    <TextView
+                        android:id="@+id/item_restaurant_orders_tv_confirm"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="تأكيد"
+                        android:fontFamily="@font/janna"
+                        android:textStyle="bold"
+                        android:textColor="#fff" />
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/item_restaurant_orders_btn_cancel_order"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/_4sdp"
+                    android:layout_marginStart="@dimen/_4sdp"
+                    android:layout_weight="1"
+                    android:background="@drawable/blue_shape"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:padding="8dp"
+                        android:paddingBottom="@dimen/_4sdp"
+                        android:src="@drawable/ic_white_close" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="الغاء"
+                        android:fontFamily="@font/janna"
+                        android:textStyle="bold"
+                        android:textColor="#fff" />
+                </LinearLayout>
+
 
             </LinearLayout>
             <LinearLayout

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:aandroid="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_15sdp"
+                android:gravity="center_horizontal"
+                android:text="العمولة"
+                android:fontFamily="@font/janna"
+                android:textColor="@color/blue"
+                android:textSize="@dimen/_17ssp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/commission_details"
+                android:layout_width="match_parent"
+                android:layout_marginEnd="@dimen/_15sdp"
+                android:layout_marginStart="@dimen/_15sdp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="يرجى تحويل 10% من الربح المباع فى مده اقصاها شهر علما بان جميع الطلبات ستكون مسجله "
+                android:textColor="@color/pink"
+                android:fontFamily="@font/janna"
+                android:textSize="@dimen/_14ssp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/commission_details"
+                android:layout_marginTop="@dimen/_15sdp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_15sdp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Restaurant Sales : "
+                        android:textColor="@color/blue"
+                        android:fontFamily="@font/janna"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        android:id="@+id/commission_fragment_restaurant_sales"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/blue"
+                        android:fontFamily="@font/janna"
+                        android:textSize="@dimen/_13sdp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_15sdp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="App Commission : "
+                        android:textColor="@color/blue"
+                        android:fontFamily="@font/janna"
+                        android:textSize="@dimen/_13sdp"/>
+
+                    <TextView
+                        android:id="@+id/commission_fragment_app_commission"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/blue"
+                        aandroid:fontFamily="@font/janna"
+                        android:textSize="@dimen/_13sdp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_15sdp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Paid : "
+                        android:textColor="@color/blue"
+                        android:fontFamily="@font/janna"
+                        android:textSize="@dimen/_13sdp" />
+
+                    <TextView
+                        android:id="@+id/commission_fragment_paid"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/blue"
+                        android:fontFamily="@font/janna"
+                        android:textSize="@dimen/_13sdp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_15sdp"
+                    android:layout_marginEnd="@dimen/_15sdp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Remaining Amount : "
+                        android:textColor="@color/blue"
+                        android:fontFamily="@font/janna"
+                        android:textSize="@dimen/_13sdp"/>
+
+                    <TextView
+                        android:id="@+id/commission_fragment_remaining_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:textColor="@color/blue"
+                        android:fontFamily="@font/janna"
+                        android:textSize="@dimen/_13sdp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/_30sdp"
+                android:layout_marginTop="@dimen/_20ssp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="الراجحى : 651350130135"
+                    android:textColor="@color/pink"
+                    android:fontFamily="@font/janna"
+                    android:textSize="@dimen/_13sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="الأهلى : 168416151684"
+                    android:textColor="@color/pink"
+                    android:fontFamily="@font/janna"
+                    android:textSize="@dimen/_13sdp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="باسم سفرة"
+                    android:textColor="@color/pink"
+                    android:fontFamily="@font/janna"
+                    android:textSize="@dimen/_13sdp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/img_person"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_190sdp"
+                android:src="@drawable/commission_person" />
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

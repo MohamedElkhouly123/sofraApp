@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        >
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/home_articles_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/load_more"
+        android:paddingTop="@dimen/_15sdp"
+        android:scrollbars="vertical" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_15sdp"
+            android:fontFamily="@font/janna"
+            android:text="المجموع الكلى"
+            android:textStyle="bold"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_11ssp" />
+        <LinearLayout
+            android:layout_width="@dimen/_60sdp"
+            android:layout_height="@dimen/_60sdp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:elevation="2dp"
+            android:background="@drawable/shadow_white_circle"
+            >
+        <TextView
+            android:id="@+id/item_details_fragment_btn_plus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:text="55"
+            />
+
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:paddingBottom="@dimen/_25sdp"
+            android:layout_marginTop="@dimen/_25sdp"
+            >
+            <Button
+                android:id="@+id/client_and_restaurant_login_buer_next_btn"
+                style="@style/Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="تأكيد الطلب"
+                android:layout_weight="1"
+
+                android:layout_marginStart="@dimen/_18sdp"
+                android:layout_marginEnd="@dimen/_12sdp"
+                />
+            <Button
+                android:id="@+id/client_and_restaurant_login_buer_next_btn2"
+                style="@style/Button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="اضافه طلب"
+                android:layout_weight="1"
+
+                android:layout_marginStart="@dimen/_12sdp"
+                android:layout_marginEnd="@dimen/_18sdp"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
