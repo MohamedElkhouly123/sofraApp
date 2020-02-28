@@ -12,6 +12,8 @@ import com.example.sofra.view.fragment.BaSeFragment;
 
 import butterknife.ButterKnife;
 
+import static com.example.sofra.utils.HelperMethod.replaceFragment;
+
 public class NotificationsFragment extends BaSeFragment {
 
 
@@ -26,6 +28,10 @@ public class NotificationsFragment extends BaSeFragment {
         return root;
     }
 
-
+    @Override
+    public void onBack() {
+        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, homeCycleActivity.homeFragment);
+        homeCycleActivity.navView.getMenu().getItem(0).setChecked(true);
+    }
 
 }

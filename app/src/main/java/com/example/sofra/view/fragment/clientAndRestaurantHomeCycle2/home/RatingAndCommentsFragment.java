@@ -9,13 +9,18 @@ import androidx.annotation.NonNull;
 
 import com.example.sofra.R;
 import com.example.sofra.view.fragment.BaSeFragment;
+import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.more.MoreFragment;
+import com.example.sofra.view.fragment.splashCycle.SplashFragment;
 
 import butterknife.ButterKnife;
+
+import static com.example.sofra.utils.HelperMethod.replaceFragment;
 
 public class RatingAndCommentsFragment extends BaSeFragment {
 
 
 
+    public String ISCLIENT = SplashFragment.getClient();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -26,6 +31,15 @@ public class RatingAndCommentsFragment extends BaSeFragment {
         return root;
     }
 
+    @Override
+    public void onBack() {
+        if (ISCLIENT=="true") {
+            replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, homeCycleActivity.homeFragment);
+            homeCycleActivity.navView.getMenu().getItem(0).setChecked(true);
+        }  if(ISCLIENT=="false"){
+            replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, new MoreFragment());
+        }
 
+    }
 
 }

@@ -34,6 +34,7 @@ import com.example.sofra.data.model.restaurantsListAndDetailsResponce.Restaurant
 import com.example.sofra.utils.OnEndLess;
 import com.example.sofra.utils.RestaurantAddAndUpdateCategoryDialog;
 import com.example.sofra.view.activity.BaseActivity;
+import com.example.sofra.view.activity.HomeCycleActivity;
 import com.example.sofra.view.fragment.BaSeFragment;
 import com.example.sofra.view.fragment.splashCycle.SplashFragment;
 import com.example.sofra.view.viewModel.ViewModelClient;
@@ -115,6 +116,8 @@ public class HomeFragment extends BaSeFragment {
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, root);
+        homeCycleActivity= (HomeCycleActivity) getActivity();
+        homeCycleActivity.setNavigation("v");
         setRestaurantOrClientView();
         setUpActivity();
         initListener();

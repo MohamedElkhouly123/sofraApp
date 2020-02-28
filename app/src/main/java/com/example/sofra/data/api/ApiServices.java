@@ -13,7 +13,6 @@ import com.example.sofra.data.model.getSetting.GetSettingData;
 import com.example.sofra.data.model.listRestaurantItem.FoodItemsResponse;
 import com.example.sofra.data.model.orderResponse.OrderResponse;
 import com.example.sofra.data.model.paymentMethods.PaymentMethodsResponce;
-import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoriesListResponse;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryResponse;
 import com.example.sofra.data.model.restaurantChangeState.RestaurantChangeStateResponse;
 import com.example.sofra.data.model.restaurantCommission.RestaurantCommissionResponse;
@@ -105,9 +104,8 @@ public interface ApiServices {
 
     @POST("client/remove-token")
     @FormUrlEncoded
-    Call<ClientResetPasswordResponse> clientRemoveToken(
+    Call<RestaurantCategoryResponse> clientRemoveToken(
             @Field("token") String token,
-            @Field("type") String type,
             @Field("api_token") String api_token
     );
 
@@ -123,7 +121,6 @@ public interface ApiServices {
             @Field("phone") String phone,
             @Field("name") String name,
             @Field("api_token") String apiToken,
-//            @Part("profile_image") MultipartBody.Part profileImage,
             @Field("items[]") List<Integer> items,
             @Field("quantities[]") List<Integer> quantities,
             @Field("notes[]") List<Integer> notes
@@ -235,7 +232,7 @@ public interface ApiServices {
 
     @POST("restaurant/remove-token")
     @FormUrlEncoded
-    Call<ClientResetPasswordResponse> restaurantRemoveToken(
+    Call<RestaurantCategoryResponse> restaurantRemoveToken(
             @Field("token") String token,
             @Field("api_token") String api_token
     );

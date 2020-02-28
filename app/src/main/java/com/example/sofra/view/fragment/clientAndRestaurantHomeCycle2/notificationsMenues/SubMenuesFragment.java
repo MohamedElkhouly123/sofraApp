@@ -27,7 +27,11 @@ public class SubMenuesFragment extends BaSeFragment {
 
         return root;
     }
-
+    @Override
+    public void onBack() {
+        super.onBack();
+        homeCycleActivity.navView.getMenu().getItem(0).setChecked(true);
+    }
 
 
 }

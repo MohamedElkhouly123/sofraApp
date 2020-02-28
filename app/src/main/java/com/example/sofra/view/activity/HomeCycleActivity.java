@@ -10,9 +10,12 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.sofra.R;
+import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.FoodMenueFragment;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.HomeFragment;
+import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.RestaurantCommissionFragment;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.more.MoreFragment;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.notificationsMenues.MenuesFragment;
+import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.notificationsMenues.NotificationsFragment;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.update_my_info.RestaurantAndClientEditProfileFragment;
 import com.example.sofra.view.fragment.splashCycle.SplashFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -106,17 +109,24 @@ public class HomeCycleActivity extends BaseActivity implements BottomNavigationV
 
 //    @Override
 //    public void onBackPressed() {
-//        finish();
-//    }
+//        if (navView.getSelectedItemId() == R.id.navigation_menues) {
+//            navView.setSelectedItemId(R.id.navigation_home);
+//        }    }
 
     @OnClick({R.id.toolbar_notification, R.id.toolbar_shopping_cart, R.id.toolbar_calculator})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.toolbar_notification:
+                replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new NotificationsFragment());
+                navView.getMenu().getItem(0).setChecked(true);
                 break;
             case R.id.toolbar_shopping_cart:
+                replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new FoodMenueFragment());
+                navView.getMenu().getItem(0).setChecked(true);
                 break;
             case R.id.toolbar_calculator:
+                replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new RestaurantCommissionFragment());
+                navView.getMenu().getItem(0).setChecked(true);
                 break;
         }
     }

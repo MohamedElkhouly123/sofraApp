@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.sofra.R;
@@ -35,6 +36,14 @@ public class MenuesFragment extends BaSeFragment {
         View root = inflater.inflate(R.layout.fragment_menues, container, false);
         ButterKnife.bind(this, root);
         setUpActivity();
+//        getActivity().getSupportFragmentManager().addOnBackStackChangedListener(new FragmentManager.OnBackStackChangedListener() {
+//            @Override
+//            public void onBackStackChanged() {
+//                if (homeCycleActivity.navView.getSelectedItemId() == R.id.navigation_menues&&onBack) {
+//                    homeCycleActivity.navView.setSelectedItemId(R.id.navigation_home);
+//        }
+//            }
+//        });
 //        if (ISCLIENT=="true") {
             tabLayout.addTab(tabLayout.newTab().setText("طلبات جديدة"));
             tabLayout.addTab(tabLayout.newTab().setText("طلبات حالية"));
@@ -73,8 +82,8 @@ public class MenuesFragment extends BaSeFragment {
 
     @Override
     public void onBack() {
-        homeCycleActivity.navView.getMenu().getItem(0).setChecked(true);
         super.onBack();
+        homeCycleActivity.navView.getMenu().getItem(0).setChecked(true);
     }
 
 
