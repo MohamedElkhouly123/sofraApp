@@ -13,7 +13,7 @@
             android:paddingBottom="@dimen/_30sdp"
             >
             <LinearLayout
-                android:id="@+id/more_my_favourte_lay"
+                android:id="@+id/more_my_Offers_lay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -101,7 +101,7 @@
                 android:layout_marginEnd="@dimen/_20sdp"
                 />
             <LinearLayout
-                android:id="@+id/more_my_put_rate_on_store_lay"
+                android:id="@+id/more_my_put_coments_rate_on_store_lay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -124,6 +124,7 @@
                     style="@style/MoreText"/>
             </LinearLayout>
             <ImageView
+                android:id="@+id/more_my_put_coments_rate_on_store_view_line"
                 style="@style/view_style"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginStart="@dimen/_20sdp"
@@ -131,7 +132,7 @@
                 android:visibility="gone"
                 />
             <LinearLayout
-                android:id="@+id/more_nottiffy_setting_lay"
+                android:id="@+id/more_change_password_lay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -149,7 +150,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="اعدادات الاشعارات"
+                    android:text="تغيير كلمه المرور"
                     style="@style/MoreText"/>
             </LinearLayout>
             <ImageView

@@ -15,6 +15,7 @@ import com.example.sofra.R;
 import com.example.sofra.data.model.clientLogin.ClientGeneralResponse;
 import com.example.sofra.data.model.clientResetPassword.ClientResetPasswordResponse;
 import com.example.sofra.view.fragment.BaSeFragment;
+import com.example.sofra.view.fragment.splashCycle.SplashFragment;
 import com.example.sofra.view.viewModel.ViewModelClient;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -50,7 +51,7 @@ public class RestaurantAndClientSetNewPasswordFragment extends BaSeFragment {
     private String password;
     private String passwordConfirm;
     private ViewModelClient viewModel;
-    public String ISCLIENT = LoadData(getActivity(), CLIENT);
+    public String ISCLIENT = SplashFragment.getClient();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -67,11 +68,12 @@ public class RestaurantAndClientSetNewPasswordFragment extends BaSeFragment {
         viewModel.makeGeneralRegisterationAndEdit().observe(this, new Observer<ClientGeneralResponse>() {
             @Override
             public void onChanged(@Nullable ClientGeneralResponse response) {
-                if (response.getStatus() == 1) {
-                    replaceFragment(getActivity().getSupportFragmentManager(), R.id.user_activity_fram, new RestaurantAndClientLoginFragment());
-                    showToast(getActivity(),"success");
+                if(response!=null){
+                    if (response.getStatus() == 1) {
+                        replaceFragment(getActivity().getSupportFragmentManager(), R.id.user_activity_fram, new RestaurantAndClientLoginFragment());
+                        showToast(getActivity(),"success");
 
-                }
+                    }  }
             }
         });
     }
@@ -128,11 +130,11 @@ public class RestaurantAndClientSetNewPasswordFragment extends BaSeFragment {
             return;
         }
 
-        Call<ClientResetPasswordResponse> resetPasswordCall;
+        Call<ClientResetPasswordResponse> resetPasswordCall=null;
 
         if (ISCLIENT=="true") {
             resetPasswordCall = getApiClient().clientNewPassword(pinCode,password,passwordConfirm);
-        } else {
+        }  if(ISCLIENT=="false"){
 
             resetPasswordCall = getApiClient().restaurantNewPassword(pinCode,password,passwordConfirm);
         }

@@ -3,11 +3,9 @@ package com.example.sofra.adapter;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
-import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.HomeFragment;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.notificationsMenues.MenuesFragment;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.notificationsMenues.SubMenuesFragment;
 
-import static com.example.sofra.data.local.SharedPreferencesManger.SaveData;
 
 public class MyTabbedAdapter extends FragmentPagerAdapter {
     private MenuesFragment context;
@@ -23,14 +21,14 @@ public class MyTabbedAdapter extends FragmentPagerAdapter {
         switch (position) {
             case 0:
                 subMenuesFragment.SUBMENUE= 1;
-                return subMenuesFragment;
+                return new SubMenuesFragment();
 
             case 1:
                 subMenuesFragment.SUBMENUE= 2;
-                return subMenuesFragment;
+                return new SubMenuesFragment();
             case 2:
                 subMenuesFragment.SUBMENUE= 3;
-                return subMenuesFragment;
+                return new SubMenuesFragment();
 
             default:
                 return new MenuesFragment();

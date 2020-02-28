@@ -8,9 +8,12 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 
 import com.example.sofra.R;
+import com.example.sofra.view.activity.HomeCycleActivity;
 import com.example.sofra.view.fragment.BaSeFragment;
 
 import butterknife.ButterKnife;
+
+import static com.example.sofra.utils.HelperMethod.replaceFragment;
 
 public class ChangePasswordFragment extends BaSeFragment {
 
@@ -22,10 +25,12 @@ public class ChangePasswordFragment extends BaSeFragment {
 
         View root = inflater.inflate(R.layout.fragment_more_change_password, container, false);
         ButterKnife.bind(this, root);
-//
         return root;
     }
 
-
+    @Override
+    public void onBack() {
+        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, new MoreFragment());
+    }
 
 }

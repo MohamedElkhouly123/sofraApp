@@ -17,7 +17,7 @@ import com.example.sofra.data.model.clientMakeNewOrder.ClientMakeNewOrderPivot;
 
 
 //@Database(entities = {Client.class, ClientData.class}, version = 1, exportSchema = false)  // more than ClientMakeNewOrderItem
-@TypeConverters({DataTypeConverter.class})
+//@TypeConverters({DataTypeConverter.class})
 public abstract class DataBase extends RoomDatabase {
     private static final String DB_NAME = "database.db";
     private static volatile DataBase instance;
@@ -31,7 +31,7 @@ public abstract class DataBase extends RoomDatabase {
     }
 
     private static DataBase create(final Context context) {
-        RoomDatabase.Builder<DataBase> builder = Room.databaseBuilder(context, DataBase.class, DB_NAME);
+        Builder<DataBase> builder = Room.databaseBuilder(context, DataBase.class, DB_NAME);
         return builder.build();
     }
 

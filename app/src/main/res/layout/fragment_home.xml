@@ -10,6 +10,20 @@
     android:orientation="vertical"
 
     >
+    <TextView
+        android:id="@+id/restaurant_home_category_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
+        android:gravity="center_horizontal"
+        android:text="تصنيفاتى"
+        android:visibility="gone"
+        android:textStyle="bold"
+        android:textColor="@color/pink"
+        android:fontFamily="@font/janna"
+        android:textSize="@dimen/_16ssp" />
+
             <LinearLayout
                 android:id="@+id/client_home_fillter_lyout"
                 android:layout_width="match_parent"
@@ -31,14 +45,13 @@
                     android:padding="@dimen/_4sdp"
                     android:background="@drawable/searchlight3">
                     <ImageView
-                        android:id="@+id/imageView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="@dimen/_8sdp"
                         android:layout_marginStart="@dimen/_8sdp"
                         android:src="@drawable/ic_arrow_downward_red_24dp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent"  />
 
                     <Spinner
@@ -74,12 +87,12 @@
                         android:layout_marginStart="@dimen/_6sdp"
                         android:layout_marginEnd="@dimen/_6sdp"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
-                        android:id="@+id/client_home_fillter_search_etxt"
-                        android:layout_width="match_parent"
+                        android:id="@+id/client_home_fillter_search_keyword_etxt"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@android:color/transparent"
@@ -87,8 +100,8 @@
                         android:layout_marginEnd="@dimen/_6sdp"
                         android:hint="البحث هنا"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/client_home_fillter_search_img_btn"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/client_home_fillter_search_img_btn"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </LinearLayout>
@@ -100,7 +113,7 @@
      >
 
         <com.facebook.shimmer.ShimmerFrameLayout
-            android:id="@+id/client_and_restaurant_home_fragment_s_fl_shimmer_donations"
+            android:id="@+id/client_and_restaurant_home_fragment_s_fl_shimmer"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -138,7 +151,7 @@
         </com.facebook.shimmer.ShimmerFrameLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/client_and_restaurant_home_Fragment_sr_refresh_donations"
+            android:id="@+id/client_and_restaurant_home_Fragment_sr_refresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -166,6 +179,8 @@
                         android:layout_alignParentBottom="true" />
 
                     <include layout="@layout/error" />
+                    <include layout="@layout/not_found_result_error" />
+
 
                 </RelativeLayout>
 

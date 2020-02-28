@@ -42,12 +42,12 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/item_restaurant_cancel_reason_dialog_et_cancel_reason"
+                style="@style/text_input"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_100sdp"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
-                app:hintTextColor="@color/gray"
                 android:gravity="center">
 
                 <EditText

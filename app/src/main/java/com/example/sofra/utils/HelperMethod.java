@@ -29,8 +29,10 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.GenericRequestBuilder;
 import com.bumptech.glide.Glide;
 
+import com.bumptech.glide.RequestManager;
 import com.example.sofra.R;
 import com.example.sofra.data.model.DateTxt;
 import com.yanzhenjie.album.Action;
@@ -49,6 +51,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -88,8 +91,10 @@ public class HelperMethod {
     public static MultipartBody.Part convertFileToMultipart(String pathImageFile, String Key) {
         if (pathImageFile != null) {
             File file = new File(pathImageFile);
-            RequestBody reqFileselect = RequestBody.create(MediaType.parse("image/*"), file);
-            MultipartBody.Part Imagebody = MultipartBody.Part.createFormData(Key, file.getName(), reqFileselect);
+//            RequestBody reqFileselect = RequestBody.create(MediaType.parse("image/*"), file);
+            RequestBody reqFileselect = RequestBody.create(MediaType.parse("*/*"), file);
+//            MultipartBody.Part Imagebody = MultipartBody.Part.createFormData(Key, file.getName(), reqFileselect);
+            MultipartBody.Part Imagebody = MultipartBody.Part.createFormData("photo", file.getName(), reqFileselect);
             return Imagebody;
         } else {
             return null;
@@ -142,6 +147,19 @@ public class HelperMethod {
         Glide.with(context)
                 .load(URl)
                 .into(imageView);
+
+//        Glide.with(imageView.getContext())
+//                .setDefaultRequestOptions(new RequestOptions()
+//                        .circleCrop())
+//                .load(imageURL)
+//                .placeholder(R.drawable.loading)
+//                .into(imageView);
+    }
+
+    public static void onLoadCirImageFromUrl(CircleImageView cirImageView, String URl, Context context) {
+        Glide.with(context)
+                .load(URl)
+                .into(cirImageView);
     }
 
     public static void showProgressDialog(Activity activity, String title) {

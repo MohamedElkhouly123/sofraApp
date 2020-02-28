@@ -9,10 +9,10 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:padding="@dimen/_20sdp"
-        android:layout_marginStart="@dimen/_30sdp"
-        android:layout_marginEnd="@dimen/_30sdp"
-        app:cardCornerRadius="@dimen/_24sdp">
 
+        app:cardCornerRadius="@dimen/_24sdp">
+<!--        android:layout_marginStart="@dimen/_30sdp"-->
+<!--        android:layout_marginEnd="@dimen/_30sdp"-->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

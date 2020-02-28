@@ -1,5 +1,6 @@
 package com.example.sofra.utils.notifictionsServices;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -19,6 +20,11 @@ import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
 
 import com.example.sofra.R;
+import com.example.sofra.data.model.clientLogin.ClientData;
+import com.example.sofra.data.model.clientResetPassword.ClientResetPasswordResponse;
+import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryResponse;
+import com.example.sofra.utils.HelperMethod;
+import com.example.sofra.utils.ToastCreator;
 import com.example.sofra.view.activity.HomeCycleActivity;
 import com.example.sofra.view.activity.SplashCycleActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -27,6 +33,17 @@ import com.google.firebase.messaging.RemoteMessage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+import static com.example.sofra.data.api.ApiClient.getApiClient;
+import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData2;
+import static com.example.sofra.utils.HelperMethod.dismissProgressDialog;
+import static com.example.sofra.utils.HelperMethod.progressDialog;
+import static com.example.sofra.utils.HelperMethod.showToast;
+import static com.example.sofra.utils.ToastCreator.onCreateErrorToast;
+
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = MyFirebaseMessagingService.class.getSimpleName();
 
@@ -34,6 +51,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     NotificationCompat.Builder mBuilder;
     NotificationManagerCompat nmc;
     NotificationManager manager;
+    private ClientData clientData;
 
     private void showNotification(int id,String title,String message) {
 
@@ -122,7 +140,18 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         // If you want to send messages to this application instance or
         // manage this apps subscriptions on the server side, send the
         // Instance ID token to your app server.
-        sendRegistrationToServer(token);
+        clientData = LoadUserData2(getApplicationContext());
+        if (clientData != null ) {
+
+            Call<ClientResetPasswordResponse> tokenCall;
+            String apiToken = clientData.getApiToken();
+            tokenCall = getApiClient().clientSignUpToken(token, "android", apiToken);
+            sendRegistrationToServer(tokenCall);
+        }
+        else {
+            showToast((Activity) getApplicationContext(), "you must Login first" );
+
+        }
     }
     // [END on_new_token]
 
@@ -136,9 +165,45 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         WorkManager.getInstance().beginWith(work).enqueue();
         // [END dispatch_job]
     }
-    private void sendRegistrationToServer(String token) {
+    private void sendRegistrationToServer(final Call<ClientResetPasswordResponse> method) {
         // TODO: Implement this method to send token to your app server.
-    }
+            if (progressDialog == null) {
+//                HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
+            } else {
+                if (!progressDialog.isShowing()) {
+//                    HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
+                }
+            }
+
+            method.enqueue(new Callback<ClientResetPasswordResponse>() {
+                @Override
+                public void onResponse(Call<ClientResetPasswordResponse> call, Response<ClientResetPasswordResponse> response) {
+
+                    if (response.body() != null) {
+                        try {
+                            dismissProgressDialog();
+
+                            if (response.body().getStatus() == 1) {
+
+//                                ToastCreator.onCreateSuccessToast(activity, response.body().getMsg());
+                            } else {
+//                                onCreateErrorToast(activity, response.body().getMsg());
+                            }
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ClientResetPasswordResponse> call, Throwable t) {
+                    dismissProgressDialog();
+//                    onCreateErrorToast(activity, activity.getString(R.string.error));
+                }
+            });
+        }
+
+
     @RequiresApi(api = Build.VERSION_CODES.Q)
     private void handleNotification(String message,String title) {
 

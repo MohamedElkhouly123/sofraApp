@@ -53,7 +53,7 @@ public interface ApiServices {
             @Part("password_confirmation") RequestBody passwordConfirmation,
             @Part("phone") RequestBody phone,
             @Part("region_id") RequestBody region_id,
-            @Part("profile_image") MultipartBody.Part profileImage
+            @Part() MultipartBody.Part profileImage
     );
     @POST("client/reset-password")
     @FormUrlEncoded
@@ -92,7 +92,7 @@ public interface ApiServices {
             @Part("email") RequestBody email,
             @Part("phone") RequestBody phone,
             @Part("region_id") RequestBody region_id,
-            @Part("profile_image") MultipartBody.Part profileImage
+            @Part() MultipartBody.Part profileImage
             );
 
     @POST("client/signup-token")
@@ -198,7 +198,7 @@ public interface ApiServices {
             @Part("region_id") RequestBody regionId,
             @Part("delivery_cost") RequestBody deliveryCost,
             @Part("minimum_charger") RequestBody minimumCharger,
-            @Part("photo") MultipartBody.Part photo,
+            @Part() MultipartBody.Part photo,
             @Part("delivery_time") RequestBody deliveryTime
 
             );
@@ -248,7 +248,7 @@ public interface ApiServices {
             @Part("price") RequestBody price,
             @Part("starting_at") RequestBody starting_at,
             @Part("name") RequestBody name,
-            @Part("photo") MultipartBody.Part photo,
+            @Part() MultipartBody.Part photo,
             @Part("ending_at") RequestBody ending_at,
             @Part("api_token") RequestBody api_token,
             @Part("offer_price") RequestBody offer_price
@@ -263,7 +263,7 @@ public interface ApiServices {
             @Part("price") RequestBody price,
             @Part("starting_at") RequestBody starting_at,
             @Part("name") RequestBody name,
-            @Part("photo") MultipartBody.Part photo,
+            @Part() MultipartBody.Part photo,
             @Part("ending_at") RequestBody ending_at,
             @Part("offer_price") RequestBody offer_price,
             @Part("api_token") RequestBody api_token
@@ -280,7 +280,7 @@ public interface ApiServices {
             @Part("delivery_cost") RequestBody deliveryCost,
             @Part("minimum_charger") RequestBody minimumCharger,
             @Part("availability") RequestBody availability,
-            @Part("photo") MultipartBody.Part photo,
+            @Part() MultipartBody.Part photo,
             @Part("api_token") RequestBody apiToken,
             @Part("delivery_time") RequestBody deliveryTime
     );
@@ -401,7 +401,7 @@ public interface ApiServices {
             @Part("price") RequestBody price,
             @Part("preparing_time") RequestBody preparingTime,
             @Part("name") RequestBody name,
-            @Part("photo") MultipartBody.Part photo,
+            @Part() MultipartBody.Part photo,
             @Part("api_token") RequestBody apiToken,
             @Part("offer_price") RequestBody offerPrice,
             @Part("category_id") RequestBody categoryId
@@ -414,7 +414,7 @@ public interface ApiServices {
             @Part("price") RequestBody price,
             @Part("preparing_time") RequestBody preparingTime,
             @Part("name") RequestBody name,
-            @Part("photo") MultipartBody.Part photo,
+            @Part() MultipartBody.Part photo,
             @Part("item_id") RequestBody itemId,
             @Part("api_token") RequestBody apiToken,
             @Part("offer_price") RequestBody offerPrice
@@ -487,7 +487,7 @@ public interface ApiServices {
     @Multipart
     Call<RestaurantCategoryResponse> restaurantNewCategory(
             @Part("name") RequestBody name,
-            @Part("photo") MultipartBody.Part photo,
+            @Part() MultipartBody.Part photo,
             @Part("api_token") RequestBody apiToken
     );
 
@@ -500,7 +500,7 @@ public interface ApiServices {
     @Multipart
     Call<RestaurantCategoryResponse> restaurantUpdateCategory(
             @Part("name") RequestBody name,
-            @Part("photo") MultipartBody.Part photo,
+            @Part() MultipartBody.Part photo,
             @Part("api_token") RequestBody apiToken,
             @Part("category_id") RequestBody categoryId
 
@@ -524,7 +524,9 @@ public interface ApiServices {
     @GET("restaurants")
     Call<RestaurantsListResponce> getRestaurantsWithFiltter(
             @Query("keyword") String keyword,
-            @Query("region_id") String regionId
+            @Query("region_id") int regionId,
+            @Query("page") int page
+
             );
 
     @GET("restaurant")
@@ -539,7 +541,7 @@ public interface ApiServices {
     );
 
     @GET("categories")
-    Call<RestaurantCategoriesListResponse> getRestaurantCategoriesList(
+    Call<RestaurantCategoryResponse> getRestaurantCategoriesList(
             @Query("restaurant_id") String restaurantId,
             @Query("category_id") String categoryId
     );

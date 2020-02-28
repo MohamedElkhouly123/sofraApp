@@ -27,6 +27,7 @@ import com.example.sofra.data.model.clientResetPassword.ClientResetPasswordRespo
 import com.example.sofra.data.model.generalRespose.GeneralRespose;
 import com.example.sofra.utils.ToastCreator;
 import com.example.sofra.view.fragment.BaSeFragment;
+import com.example.sofra.view.fragment.splashCycle.SplashFragment;
 import com.example.sofra.view.viewModel.ViewModelClient;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -48,7 +49,6 @@ import static com.example.sofra.data.api.ApiClient.getApiClient;
 import static com.example.sofra.data.local.SharedPreferencesManger.CLIENT;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadData;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
-import static com.example.sofra.utils.GeneralRequest.getSpinnerData;
 import static com.example.sofra.utils.HelperMethod.convertFileToMultipart;
 import static com.example.sofra.utils.HelperMethod.convertToRequestBody;
 import static com.example.sofra.utils.HelperMethod.disappearKeypad;
@@ -97,7 +97,7 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
     Button restaurantRegisterBuerNextBtn;
     @BindView(R.id.restaurant_registers_buyer_restrant_name_etxt)
     TextInputEditText restaurantRegistersBuyerRestrantNameEtxt;
-    private String ISCLIENT = LoadData(getActivity(), CLIENT);
+    public String ISCLIENT = SplashFragment.getClient();
 //    public  boolean EDITPROFILE=false;
     private SpinnerAdapter neighborhoodsAdapter, citiesAdapter;
     private int  neighborhoodSelectedId = 0, citiesSelectedId = 0;
@@ -106,11 +106,8 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
     private ViewModelClient viewModel;
     private String mPath;
     private static final String CLIENTPROFILEIMAGE ="CLIENTPROFILEIMAGE" ;
-    private String apiToken;
-    private String token;
-    private ClientData clientData;
 
-
+//    private String client= SplashFragment.getClient();
     public RestaurantAndClientRegisterFragment() {
         // Required empty public constructor
     }
@@ -123,7 +120,6 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
         isClient();
         initListener();
         setSpinner();
-        clientData = LoadUserData(getActivity());
         clientRegistersBuyerFragmentTilPassword.getEditText().setTypeface(Typeface.DEFAULT);
         clientRegistersBuyerFragmentTilPassword.getEditText().setTransformationMethod(new PasswordTransformationMethod());
         clientRigisterFragmentTilConfirmPassword.getEditText().setTypeface(Typeface.DEFAULT);
@@ -137,24 +133,26 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
         viewModel.makeGeneralRegisterationAndEdit().observe(this, new Observer<ClientGeneralResponse>() {
             @Override
             public void onChanged(@Nullable ClientGeneralResponse response) {
-                if (response.getStatus() == 1) {
-                    showToast(getActivity(),"success");
+                if(response!=null){
+                    if (response.getStatus() == 1) {
+                        showToast(getActivity(),"success");
 
-                }
+                    }  }
             }
         });
 
         viewModel.makegetSpinnerData().observe(this, new Observer<GeneralRespose>() {
             @Override
             public void onChanged(@Nullable GeneralRespose response) {
-                if (response.getStatus() == 1) {
+                if(response!=null){
+                    if (response.getStatus() == 1) {
                     showToast(getActivity(),"success");
 
                 } else {
                     showToast(getActivity(),"error");
 
                 }
-            }
+            }}
         });
     }
 
@@ -165,7 +163,7 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
             clientRegistersBuyerFragmentTilRestrantName.setHint("الاسم");
             restaurantRegisterBuerNextBtn.setText(R.string.contact_data_register);
 
-        } else {
+        }  if(ISCLIENT=="false"){
             clientRegistersBuyerFragmentTilOrderTime.setVisibility(View.VISIBLE);
             registersBuyerFragmentTilLeastRangeOfOrder.setVisibility(View.VISIBLE);
             registersBuyerFragmentTilDeleveryPrice.setVisibility(View.VISIBLE);
@@ -253,7 +251,8 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
         if (ISCLIENT=="true") {
             // photo
             textInputLayouts.add(clientRegistersBuyerFragmentTilOrderPhone);
-        } else {
+        }  if(ISCLIENT=="false"){
+
             textInputLayouts.add(clientRegistersBuyerFragmentTilOrderTime);
             textInputLayouts.add(registersBuyerFragmentTilLeastRangeOfOrder);
             textInputLayouts.add(registersBuyerFragmentTilDeleveryPrice);
@@ -312,7 +311,7 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
                 return;
             }
 
-        } else {
+        }  if(ISCLIENT=="false"){
             if (!validationLength(clientRegistersBuyerFragmentTilOrderTime, getString(R.string.invalid_order_time), 3)) {
                 return;
             }
@@ -343,18 +342,14 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
         MultipartBody.Part clientProfilePhoto= convertFileToMultipart(mPath,CLIENTPROFILEIMAGE);
         RequestBody regionId = convertToRequestBody(String.valueOf(neighborhoodsAdapter.selectedId));
         String passwordSave = clientRegistersBuyerFragmentTilPassword.getEditText().getText().toString();
-        apiToken=clientData.getApiToken();
-        token=new ClientFireBaseToken().getToken();
         Call<ClientGeneralResponse> clientCall;
-        Call<ClientResetPasswordResponse> tokenCall;
 
         if (ISCLIENT=="true") {
 
             clientCall = getApiClient().clientRegistration(name, email,  password, passwordConfirmation,phone, regionId, clientProfilePhoto);
-            tokenCall = getApiClient().clientSignUpToken(token, "android",apiToken);
-            viewModel.makeGeneralRegisterationAndEditToServer(getActivity(),clientCall,tokenCall, passwordSave, true, true);
+            viewModel.makeGeneralRegisterationAndEditToServer(getActivity(),clientCall, passwordSave, true, true);
 
-        } else {
+        }  if(ISCLIENT=="false"){
             contactData.name=name;
             contactData.email=email;
             contactData.orderTime=orderTime;

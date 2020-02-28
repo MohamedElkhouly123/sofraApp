@@ -53,5 +53,8 @@
     <string name="default_notification_channel_id">18</string>
     <string name="enter_password_old">كلمة المرور القديمة</string>
     <string name="change_password">تغيير</string>
+    <string name="update_dialog">تعديل</string>
+    <string name="error_list">Same thing happened, Please try again later</string>
+    <string name="add">أضافة</string>
 
 </resources>

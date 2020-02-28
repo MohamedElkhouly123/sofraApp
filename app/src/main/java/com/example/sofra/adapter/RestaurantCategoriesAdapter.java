@@ -19,8 +19,10 @@ import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.sofra.R;
 import com.example.sofra.data.model.clientLogin.ClientData;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoriesListData;
+import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryData;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryResponse;
 import com.example.sofra.utils.HelperMethod;
+import com.example.sofra.utils.RestaurantAddAndUpdateCategoryDialog;
 import com.example.sofra.utils.ToastCreator;
 import com.example.sofra.view.activity.BaseActivity;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.RestaurantCategoryMenuSubCategorysFragment;
@@ -40,16 +42,15 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.http.Multipart;
 
 import static com.example.sofra.data.api.ApiClient.getApiClient;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
+import static com.example.sofra.utils.GeneralRequest.deleteAndUpdateItemCallBack;
 import static com.example.sofra.utils.HelperMethod.alertDialog;
 import static com.example.sofra.utils.HelperMethod.convertFileToMultipart;
 import static com.example.sofra.utils.HelperMethod.convertToRequestBody;
 import static com.example.sofra.utils.HelperMethod.dismissProgressDialog;
 import static com.example.sofra.utils.HelperMethod.onLoadImageFromUrl;
-import static com.example.sofra.utils.HelperMethod.openGallery;
 import static com.example.sofra.utils.HelperMethod.openGalleryِAlpom;
 import static com.example.sofra.utils.HelperMethod.progressDialog;
 import static com.example.sofra.utils.HelperMethod.replaceFragment;
@@ -61,14 +62,14 @@ public class RestaurantCategoriesAdapter extends RecyclerView.Adapter<Restaurant
 
     private Context context;
     private BaseActivity activity;
-    private List<RestaurantCategoriesListData> restaurantDataList = new ArrayList<>();
+    private List<RestaurantCategoryData> restaurantDataList = new ArrayList<>();
     private ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
     private ClientData clientData;
     private String lang;
     private static final String CLIENTPROFILEIMAGE ="CLIENTPROFILEIMAGE" ;
     private String mPath;
     private ArrayList<AlbumFile> alpom= new ArrayList<>();
-    public RestaurantCategoriesAdapter(Activity activity, List<RestaurantCategoriesListData> restaurantDataList) {
+    public RestaurantCategoriesAdapter(Activity activity, List<RestaurantCategoryData> restaurantDataList) {
         this.context = activity;
         this.activity = (BaseActivity) activity;
         this.restaurantDataList = restaurantDataList;
@@ -99,8 +100,7 @@ public class RestaurantCategoriesAdapter extends RecyclerView.Adapter<Restaurant
 
         try {
             holder.position = position;
-            holder.itemRestaurantCategoryTvName.setText(
-                    restaurantDataList.get(position).getName());
+            holder.itemRestaurantCategoryTvName.setText(restaurantDataList.get(position).getName());
 
             onLoadImageFromUrl(holder.itemRestaurantCategoryImgPhoto, restaurantDataList.get(position).getPhotoUrl(), context);
 
@@ -151,10 +151,7 @@ public class RestaurantCategoriesAdapter extends RecyclerView.Adapter<Restaurant
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.item_restaurant_category_img_edit)
-        ImageView itemRestaurantCategoryImgEdit;
-        @BindView(R.id.item_restaurant_category_img_remove)
-        ImageView itemRestaurantCategoryImgRemove;
+
         @BindView(R.id.item_restaurant_category_img_photo)
         ImageView itemRestaurantCategoryImgPhoto;
         @BindView(R.id.item_restaurant_category_tv_name)
@@ -181,14 +178,18 @@ public class RestaurantCategoriesAdapter extends RecyclerView.Adapter<Restaurant
         public void onViewClicked(View view) {
             switch (view.getId()) {
                 case R.id.item_restaurant_category_img_edit:
-                    restaurantAddCategoryDialogAddBtn.setText("تعديل");
+//                    RestaurantCategoryData restaurantDataListOfPossision =restaurantDataList.get(position);
+//                    RestaurantAddAndUpdateCategoryDialog.showDialog(activity,"update",restaurantDataListOfPossision )
+                    restaurantAddCategoryDialogAddBtn.setText(R.string.update_dialog);
                     showDialog();
                     break;
                 case R.id.item_restaurant_category_img_remove:
                     Call<RestaurantCategoryResponse> deletItemCal = getApiClient().restaurantDeleteCategory(clientData.getApiToken(), restaurantDataList.get(position).getId());
-                    deleteAndUpdateItemCallBack(deletItemCal);
+                    deleteAndUpdateItemCallBack(activity,deletItemCal);
                     restaurantDataList.remove(position);
                     notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, restaurantDataList.size());
+
                     break;
                 case R.id.restaurant_add_category_dialog_img_add_photo:
 //                    openGallery(activity);
@@ -206,21 +207,24 @@ public class RestaurantCategoriesAdapter extends RecyclerView.Adapter<Restaurant
                     RequestBody updatedCategoryId= convertToRequestBody(String.valueOf(restaurantDataList.get(position).getId()));
                     MultipartBody.Part updatedCategoryPhoto=convertFileToMultipart(mPath,CLIENTPROFILEIMAGE);
                     Call<RestaurantCategoryResponse> updateItemCal = getApiClient().restaurantUpdateCategory( updatedCaegoryName,updatedCategoryPhoto,updatedCategoryApiToken,updatedCategoryId);
-                    deleteAndUpdateItemCallBack(updateItemCal);
-
+                    deleteAndUpdateItemCallBack(activity,updateItemCal);
+                    restaurantDataList.get(position).setName(restaurantAddCategoryDialogTilCategoryName.getEditText().getText().toString());
+                    restaurantDataList.get(position).setPhotoUrl(mPath);
+                    notifyItemChanged(position);
                     break;
 
             }
         }
 
-        private void showDialog() {
-
+        private void showDialog(){
             try {
                 final View view = activity.getLayoutInflater().inflate(R.layout.dialog_restaurant_add_category, null);
 //            alertDialog = new AlertDialog.Builder(HomeFragment.this).create();
                 alertDialog = new AlertDialog.Builder(context).create();
+                restaurantAddCategoryDialogAddBtn.setText(R.string.update_dialog);
                 restaurantAddCategoryDialogTilCategoryName.getEditText().setText(restaurantDataList.get(position).getName());
-                onLoadImageFromUrl(restaurantAddCategoryDialogImgAddPhoto, restaurantDataList.get(position).getPhotoUrl(), context);
+                onLoadImageFromUrl(restaurantAddCategoryDialogImgAddPhoto, restaurantDataList.get(position).getPhotoUrl(), activity);
+
                 alertDialog.setCancelable(false);
                 alertDialog.setView(view);
                 alertDialog.show();
@@ -228,47 +232,22 @@ public class RestaurantCategoriesAdapter extends RecyclerView.Adapter<Restaurant
             } catch (Exception e) {
 
             }
-
-        }
-
-        private void deleteAndUpdateItemCallBack(final Call<RestaurantCategoryResponse> method) {
-            if (progressDialog == null) {
-                HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
-            } else {
-                if (!progressDialog.isShowing()) {
-                    HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
-                }
-            }
-
-            method.enqueue(new Callback<RestaurantCategoryResponse>() {
-                @Override
-                public void onResponse(Call<RestaurantCategoryResponse> call, Response<RestaurantCategoryResponse> response) {
-
-                    if (response.body() != null) {
-                        try {
-                            dismissProgressDialog();
-
-                            if (response.body().getStatus() == 1) {
-
-                                ToastCreator.onCreateSuccessToast(activity, response.body().getMsg());
-                            } else {
-                                onCreateErrorToast(activity, response.body().getMsg());
-                            }
-                        } catch (Exception e) {
-
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<RestaurantCategoryResponse> call, Throwable t) {
-                    dismissProgressDialog();
-                    onCreateErrorToast(activity, activity.getString(R.string.error));
-                }
-            });
         }
 
 
 
     }
 }
+
+//    public void removeItem(int position){
+//        mData.remove(position);
+//        notifyItemRemoved(position);
+//        notifyItemRangeChanged(position, mData.size());
+//    }
+//    and then I would add the item at that particular position as shown below:
+//
+//public void addItem(int position, Landscape landscape){
+//        mData.add(position, landscape);
+//        notifyItemInserted(position);
+//        notifyItemRangeChanged(position, mData.size());
+//        }

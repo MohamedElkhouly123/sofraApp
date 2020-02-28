@@ -11,13 +11,15 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.sofra.R;
 import com.example.sofra.adapter.MyTabbedAdapter;
 import com.example.sofra.view.fragment.BaSeFragment;
+import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.HomeFragment;
+import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.more.MoreFragment;
 import com.google.android.material.tabs.TabLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.example.sofra.data.local.SharedPreferencesManger.CLIENT;
-import static com.example.sofra.data.local.SharedPreferencesManger.LoadData;
+import static com.example.sofra.utils.HelperMethod.replaceFragment;
+
 
 public class MenuesFragment extends BaSeFragment {
 
@@ -32,6 +34,7 @@ public class MenuesFragment extends BaSeFragment {
 
         View root = inflater.inflate(R.layout.fragment_menues, container, false);
         ButterKnife.bind(this, root);
+        setUpActivity();
 //        if (ISCLIENT=="true") {
             tabLayout.addTab(tabLayout.newTab().setText("طلبات جديدة"));
             tabLayout.addTab(tabLayout.newTab().setText("طلبات حالية"));
@@ -68,6 +71,11 @@ public class MenuesFragment extends BaSeFragment {
         return root;
     }
 
+    @Override
+    public void onBack() {
+        homeCycleActivity.navView.getMenu().getItem(0).setChecked(true);
+        super.onBack();
+    }
 
 
 }

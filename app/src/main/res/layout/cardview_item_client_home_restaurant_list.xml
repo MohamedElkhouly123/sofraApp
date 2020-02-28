@@ -13,18 +13,17 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/_18sdp"
-        android:layout_marginEnd="@dimen/_18sdp"
+        android:layout_marginStart="@dimen/_15sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
         >
 
         <androidx.cardview.widget.CardView
-            android:layout_marginStart="@dimen/_60sdp"
+            android:layout_marginStart="@dimen/_50sdp"
             android:layout_marginTop="@dimen/_16sdp"
             android:layout_marginBottom="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_12sdp"
             android:layout_width="match_parent"
             android:layout_centerVertical="true"
-            android:layout_height="@dimen/_98sdp"
+            android:layout_height="@dimen/_100sdp"
             android:foreground="?selectableItemBackground"
             app:cardCornerRadius="@dimen/_20sdp">
 
@@ -45,7 +44,7 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/item_restaurant_list_tv_restaurant_name"
+                        android:id="@+id/item_client_restaurants_list_tv_restaurant_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/janna"
@@ -67,29 +66,29 @@
                         app:layout_constraintTop_toTopOf="parent">
 
                         <ImageView
-                            android:id="@+id/item_restaurant_list_img_opened"
+                            android:id="@+id/item_client_restaurants_list_img_opened"
                             android:layout_width="@dimen/_12sdp"
                             android:layout_height="@dimen/_12sdp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginEnd="@dimen/_4sdp"
-                            android:background="@drawable/green" />
+                            android:background="@drawable/shape_green_circle" />
 
                         <TextView
-                            android:id="@+id/item_restaurant_list_tv_opened"
+                            android:id="@+id/item_client_restaurants_list_tv_opened"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="opened"
+                            android:text="مفتوح"
                             android:textAlignment="center"
                             android:textColor="#9A5A5959" />
                     </LinearLayout>
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <RatingBar
-                    android:id="@+id/item_restaurant_list_rb_rating"
+                    android:id="@+id/item_client_restaurants_list_rb_rating"
                     android:layout_width="wrap_content"
                     android:layout_marginStart="-49dp"
-                    android:layout_marginTop="-6dp"
-                    android:layout_height="@dimen/_30sdp"
+                    android:layout_marginTop="-3dp"
+                    android:layout_height="@dimen/_35sdp"
                     android:isIndicator="true"
                     android:numStars="4"
                     android:scaleX=".5"
@@ -104,11 +103,11 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Minimum Range : "
+                        android:text="الحد الادنى للطلب : "
                         android:textColor="#9A5A5959" />
 
                     <TextView
-                        android:id="@+id/item_restaurant_list_tv_minimum_order"
+                        android:id="@+id/item_client_restaurants_list_tv_minimum_order"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="132"
@@ -123,11 +122,11 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Delivery Cost : "
+                        android:text="رسوم التوصيل : "
                         android:textColor="#9A5A5959" />
 
                     <TextView
-                        android:id="@+id/item_restaurant_list_tv_delivery_fees"
+                        android:id="@+id/item_client_restaurants_list_tv_delivery_fees"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="10 $"
@@ -138,11 +137,11 @@
     </RelativeLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/item_restaurant_list_img_restaurant_crimg"
+        android:id="@+id/item_client_restaurants_list_img_restaurant_crimg"
         android:layout_width="@dimen/_82sdp"
         android:layout_height="@dimen/_85sdp"
         android:layout_centerVertical="true"
-        android:layout_marginStart="@dimen/_25sdp"
+        android:layout_marginStart="@dimen/_15sdp"
         android:src="@drawable/backg"
 
         />

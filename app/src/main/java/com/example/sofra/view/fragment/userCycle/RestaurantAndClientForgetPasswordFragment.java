@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.sofra.R;
 import com.example.sofra.data.model.clientResetPassword.ClientResetPasswordResponse;
 import com.example.sofra.view.fragment.BaSeFragment;
+import com.example.sofra.view.fragment.splashCycle.SplashFragment;
 import com.example.sofra.view.viewModel.ViewModelClient;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -44,7 +45,7 @@ public class RestaurantAndClientForgetPasswordFragment extends BaSeFragment {
     List<TextInputLayout> textInputLayoutList = new ArrayList<>();
     private String email;
     private ViewModelClient viewModel;
-    public String ISCLIENT = LoadData(getActivity(), CLIENT);
+    public String ISCLIENT = SplashFragment.getClient();
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -61,10 +62,12 @@ public class RestaurantAndClientForgetPasswordFragment extends BaSeFragment {
         viewModel.makeResetAndNewPasswordAndTokenResponse().observe(this, new Observer<ClientResetPasswordResponse>() {
             @Override
             public void onChanged(@Nullable ClientResetPasswordResponse response) {
-                if (response.getStatus() == 1) {
-                    replaceFragment(getActivity().getSupportFragmentManager(), R.id.user_activity_fram, new RestaurantAndClientForgetPasswordFragment());
-                    showToast(getActivity(),"success");
+                if(response!=null) {
+                    if (response.getStatus() == 1) {
+                        replaceFragment(getActivity().getSupportFragmentManager(), R.id.user_activity_fram, new RestaurantAndClientForgetPasswordFragment());
+                        showToast(getActivity(), "success");
 
+                    }
                 }
             }
         });
@@ -106,11 +109,11 @@ public class RestaurantAndClientForgetPasswordFragment extends BaSeFragment {
         email = forgetPasswordFragmentTilEmail.getEditText().getText().toString();
 
 
-        Call<ClientResetPasswordResponse> resetPasswordCall;
+        Call<ClientResetPasswordResponse> resetPasswordCall = null;
 
         if (ISCLIENT=="true") {
             resetPasswordCall = getApiClient().clientResetPassword(email);
-        } else {
+        }  if(ISCLIENT=="false"){
 
             resetPasswordCall = getApiClient().restaurantResetPassword(email);
         }

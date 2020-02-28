@@ -21,6 +21,7 @@ import com.example.sofra.data.model.clientResetPassword.ClientResetPasswordRespo
 import com.example.sofra.utils.HelperMethod;
 import com.example.sofra.utils.KeyboardUtils;
 import com.example.sofra.view.fragment.BaSeFragment;
+import com.example.sofra.view.fragment.splashCycle.SplashFragment;
 import com.example.sofra.view.viewModel.ViewModelClient;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -58,10 +59,11 @@ public class RestaurantAndClientLoginFragment extends BaSeFragment {
     private String password;
     private String apiToken;
     private String token;
-    private ClientData clientData;
+//    private ClientData clientData;
 
+    public String ISCLIENT = SplashFragment.getClient();
     private ViewModelClient viewModel;
-    public String ISCLIENT = LoadData(getActivity(), CLIENT);
+//    public String ISCLIENT = LoadData(getActivity(), CLIENT);
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -71,7 +73,7 @@ public class RestaurantAndClientLoginFragment extends BaSeFragment {
         addKeyboardToggleListener();
         textInputLayoutList.add(loginFragmentTilEmail);
         textInputLayoutList.add(loginFragmentTilPassword);
-        clientData = LoadUserData(getActivity());
+//        clientData = LoadUserData(getActivity());
         loginFragmentTilPassword.getEditText().setTypeface(Typeface.DEFAULT);
         loginFragmentTilPassword.getEditText().setTransformationMethod(new PasswordTransformationMethod());
 
@@ -85,10 +87,11 @@ public class RestaurantAndClientLoginFragment extends BaSeFragment {
         viewModel.makeGeneralRegisterationAndEdit().observe(this, new Observer<ClientGeneralResponse>() {
             @Override
             public void onChanged(@Nullable ClientGeneralResponse response) {
-                if (response.getStatus() == 1) {
-                    showToast(getActivity(),"success");
+                if(response!=null){
+                    if (response.getStatus() == 1) {
+                        showToast(getActivity(),"success");
 
-                }
+                    }  }
             }
         });
     }
@@ -152,27 +155,27 @@ public class RestaurantAndClientLoginFragment extends BaSeFragment {
     private void onCall() {
          email = loginFragmentTilEmail.getEditText().getText().toString();
          password = loginFragmentTilPassword.getEditText().getText().toString();
-         apiToken=clientData.getApiToken();
-         token=new ClientFireBaseToken().getToken();
+//         apiToken=clientData.getApiToken();
+//         token=new ClientFireBaseToken().getToken();
         boolean remember = true;
 
 //        Call<ClientGeneralResponse> clientCall = getApiClient().clientLogin(email, password);
 
 
-        Call<ClientGeneralResponse> loginCall;
+        Call<ClientGeneralResponse> loginCall = null;
         Call<ClientResetPasswordResponse> tokenCall;
 
 
         if (ISCLIENT=="true") {
             loginCall = getApiClient().clientLogin(email, password);
-            tokenCall = getApiClient().clientSignUpToken(token, "android",apiToken);
+//            tokenCall = getApiClient().clientSignUpToken(token, "android",apiToken);
 
-        } else {
+        }  if(ISCLIENT=="false"){
 
             loginCall = getApiClient().restaurantLogin(email, password);
-            tokenCall = getApiClient().restaurantSignUpToken(token, "android",apiToken);
+//            tokenCall = getApiClient().restaurantSignUpToken(token, "android",apiToken);
         }
-        viewModel.makeGeneralRegisterationAndEditToServer(getActivity(),loginCall,tokenCall, password, remember, true);
+        viewModel.makeGeneralRegisterationAndEditToServer(getActivity(),loginCall, password, remember, true);
 
 
     }

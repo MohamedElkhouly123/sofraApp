@@ -18,20 +18,29 @@ import butterknife.OnClick;
 
 import static com.example.sofra.data.local.SharedPreferencesManger.CLIENT;
 
-import static com.example.sofra.data.local.SharedPreferencesManger.LoadBoolean;
-import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
-import static com.example.sofra.data.local.SharedPreferencesManger.REMEMBER_ME;
+import static com.example.sofra.data.local.SharedPreferencesManger.LoadData;
 import static com.example.sofra.data.local.SharedPreferencesManger.SaveData;
+import static com.example.sofra.utils.HelperMethod.showToast;
 
 
 public class SplashFragment extends BaSeFragment {
 
+    public static String getClient() {
+        return client;
+    }
+
+    public static void setClient(String client) {
+        SplashFragment.client = client;
+    }
+
+    public static String client;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         View root = inflater.inflate(R.layout.fragment_splash, container, false);
         ButterKnife.bind(this, root);
+//        clean(getActivity());
 //        if (LoadUserData(getActivity()) != null && LoadBoolean(getActivity(), REMEMBER_ME)) {
 //            startActivity(new Intent(getActivity(), HomeCycleActivity.class));
 //            getActivity().finish();
@@ -50,13 +59,18 @@ public class SplashFragment extends BaSeFragment {
         switch (view.getId()) {
             case R.id.splash_food_client_btn:
                 SaveData(getActivity(), CLIENT, "true");
+                setClient("true");
+                String CLIENTV2 = LoadData(getActivity(), CLIENT);
+                showToast(getActivity(), CLIENTV2);
                 Intent intent = new Intent(getActivity(), HomeCycleActivity.class);
                 getActivity().startActivity(intent);
                 getActivity().finish();
                 break;
             case R.id.splash_food_restaurant_btn:
                 SaveData(getActivity(), CLIENT, "false");
-//                Boolean CLIENTV = LoadBoolData(getActivity(), CLIENT);
+                setClient("false");
+                String CLIENTV = LoadData(getActivity(), CLIENT);
+                showToast(getActivity(), CLIENTV);
                 Intent intent2 = new Intent(getActivity(), UserCycleActivity.class);
                 getActivity().startActivity(intent2);
                 getActivity().finish();

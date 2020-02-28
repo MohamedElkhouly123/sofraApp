@@ -1,17 +1,20 @@
 package com.example.sofra.view.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.fragment.app.Fragment;
+
 import com.example.sofra.R;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.HomeFragment;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.more.MoreFragment;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.notificationsMenues.MenuesFragment;
-import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.update_my_info.ProfileFragment;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.update_my_info.RestaurantAndClientEditProfileFragment;
+import com.example.sofra.view.fragment.splashCycle.SplashFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import butterknife.BindView;
@@ -26,6 +29,7 @@ import static com.example.sofra.utils.HelperMethod.replaceFragment;
 public class HomeCycleActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
 
+    public HomeFragment homeFragment;
     @BindView(R.id.toolbar_notification)
     ImageButton toolbarNotification;
     @BindView(R.id.toolbar_title)
@@ -34,8 +38,8 @@ public class HomeCycleActivity extends BaseActivity implements BottomNavigationV
     ImageButton toolbarShoppingCart;
     @BindView(R.id.toolbar_calculator)
     ImageButton toolbarCalculator;
-    private BottomNavigationView navView;
-    public String ISCLIENT = LoadData(this, CLIENT);
+    public BottomNavigationView navView;
+    public String ISCLIENT = SplashFragment.getClient();
 
     public HomeCycleActivity() {
         // Required empty public constructor
@@ -46,19 +50,29 @@ public class HomeCycleActivity extends BaseActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_cycle);
         ButterKnife.bind(this);
-        replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new HomeFragment());
-
+        homeFragment=new HomeFragment();
+        replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram,homeFragment);
         navView = (BottomNavigationView) findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(this);
         if (ISCLIENT=="true") {
             toolbarShoppingCart.setVisibility(View.VISIBLE);
-        } else {
+        }  if(ISCLIENT=="false"){
             toolbarCalculator.setVisibility(View.VISIBLE);
 
         }
 
     }
 
+    private void displayView(int position) {
+        switch (position) {
+            case 0:
+                Intent intentHome = new Intent(HomeCycleActivity.this,HomeCycleActivity.class);
+                startActivity(intentHome);
+                break;
+            case 1:
+                Intent intentHome2 = new Intent(HomeCycleActivity.this,HomeCycleActivity.class);
+                startActivity(intentHome2);
+                break;}}
     public void setNavigation(String visibility) {
         navView = (BottomNavigationView) findViewById(R.id.nav_view);
         if (visibility.equals("v")) {
@@ -76,7 +90,7 @@ public class HomeCycleActivity extends BaseActivity implements BottomNavigationV
         int id = item.getItemId();
 
         if (id == R.id.navigation_home) {
-            replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new HomeFragment());
+            replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram,homeFragment);
         } else if (id == R.id.navigation_update_my_info) {
             replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new RestaurantAndClientEditProfileFragment());
         } else if (id == R.id.navigation_menues) {
@@ -90,10 +104,10 @@ public class HomeCycleActivity extends BaseActivity implements BottomNavigationV
         return true;
     }
 
-    @Override
-    public void onBackPressed() {
-        finish();
-    }
+//    @Override
+//    public void onBackPressed() {
+//        finish();
+//    }
 
     @OnClick({R.id.toolbar_notification, R.id.toolbar_shopping_cart, R.id.toolbar_calculator})
     public void onViewClicked(View view) {

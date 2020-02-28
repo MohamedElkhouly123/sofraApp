@@ -51,7 +51,7 @@ import static com.example.sofra.utils.validation.Validation.validationTextInputL
 public class ContactDataFragment extends BaSeFragment {
 
 
-    private static final String RESTAURANTPROFILEIMAGE ="RESTAURANTPROFILEIMAGE" ;
+    private static final String RESTAURANTPROFILEIMAGE ="photo" ;
     public RequestBody name;
     public RequestBody email;
     public RequestBody password;
@@ -73,9 +73,9 @@ public class ContactDataFragment extends BaSeFragment {
     TextInputLayout conectDataFragmentTilWhatsApp;
     private ViewModelClient viewModel;
     private String mPath;
-    private String apiToken;
-    private String token;
-    private ClientData clientData;
+//    private String apiToken;
+//    private String token;
+//    private ClientData clientData;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -84,7 +84,7 @@ public class ContactDataFragment extends BaSeFragment {
         View root = inflater.inflate(R.layout.fragment_contact_data, container, false);
         ButterKnife.bind(this, root);
         initListener();
-        clientData = LoadUserData(getActivity());
+//        clientData = LoadUserData(getActivity());
 
 
         return root;
@@ -95,10 +95,12 @@ public class ContactDataFragment extends BaSeFragment {
         viewModel.makeGeneralRegisterationAndEdit().observe(this, new Observer<ClientGeneralResponse>() {
             @Override
             public void onChanged(@Nullable ClientGeneralResponse response) {
-                if (response.getStatus() == 1) {
-                    showToast(getActivity(), "success");
+                if(response!=null){
+                    if (response.getStatus() == 1) {
+                        showToast(getActivity(),"success");
 
-                }
+                    }  }
+
             }
         });
     }
@@ -175,13 +177,13 @@ public class ContactDataFragment extends BaSeFragment {
         phone =convertToRequestBody(conectDataFragmentTilPhone.getEditText().getText().toString());
         orderTime = convertToRequestBody(conectDataFragmentTilWhatsApp.getEditText().getText().toString());
         MultipartBody.Part restaurantProfilePhoto = convertFileToMultipart(mPath,RESTAURANTPROFILEIMAGE);
-        apiToken=clientData.getApiToken();
-        token=new ClientFireBaseToken().getToken();
+//        apiToken=clientData.getApiToken();
+//        token=new ClientFireBaseToken().getToken();
         Call<ClientGeneralResponse> clientCall;
         Call<ClientResetPasswordResponse> tokenCall;
-        tokenCall = getApiClient().restaurantSignUpToken(token, "android",apiToken);
+//        tokenCall = getApiClient().restaurantSignUpToken(token, "android",apiToken);
         clientCall = getApiClient().restaurantRegistration(name, email, password, passwordConfirmation, phone,whatsApp, regionId, deleveryPrice,leastRangeOfOrder,restaurantProfilePhoto,orderTime);
-        viewModel.makeGeneralRegisterationAndEditToServer(getActivity(), clientCall,tokenCall, passwordSave, true, true);
+        viewModel.makeGeneralRegisterationAndEditToServer(getActivity(), clientCall, passwordSave, true, true);
 
 
 

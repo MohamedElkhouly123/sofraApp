@@ -26,16 +26,16 @@
                 android:paddingBottom="?attr/actionBarSize"
                 >
                 <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/client_conect_data_img_restraunt_image_botton"
+                    android:id="@+id/restaurant_and_client_edit_profile_conect_data_image_botton"
                     android:layout_width="@dimen/_70sdp"
                     android:layout_height="@dimen/_70sdp"
-                    android:layout_marginTop="@dimen/_40sdp"
+                    android:layout_marginTop="@dimen/_25sdp"
                     android:layout_gravity="center"
                     android:src="@drawable/logo"
                     android:padding="@dimen/_10sdp"
                     />
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/restaurant_registers_buyer_fragment_til_restrant_name"
+                    android:id="@+id/restaurant_and_client_edit_profile_fragment_til_restrant_name"
                     style="@style/text_input2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -52,7 +52,7 @@
                         android:inputType="text" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/restaurant_registers_buyer_fragment_til_email"
+                    android:id="@+id/restaurant_and_client_edit_profile_fragment_til_email"
                     style="@style/text_input2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -72,7 +72,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/client_registers_buyer_fragment_til_order_phone"
+                    android:id="@+id/restaurant_and_client_edit_profile_fragment_til_order_phone"
                     style="@style/text_input2"
                     android:visibility="gone"
                     android:layout_width="match_parent"
@@ -91,7 +91,7 @@
                         android:inputType="phone" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/restaurant_registers_buyer_fragment_til_city"
+                    android:id="@+id/restaurant_and_client_edit_profile_fragment_til_city"
                     style="@style/text_input2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -119,13 +119,13 @@
                             android:layout_width="@dimen/_24sdp"
                             android:layout_height="match_parent"
                             android:layout_marginEnd="@dimen/_8sdp"
-                            android:layout_marginBottom="@dimen/_8sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
                             android:src="@drawable/ic_arrow_downward_blue_24dp"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent"  />
 
                         <Spinner
-                            android:id="@+id/restaurant_registers_buyer_fragment_sp_city"
+                            android:id="@+id/restaurant_and_client_edit_profile_fragment_sp_city"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_45sdp"
                             android:layout_marginStart="@dimen/_26sdp"
@@ -139,7 +139,7 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/restaurant_registers_buyer_fragment_til_neighborhood"
+                    android:id="@+id/restaurant_and_client_edit_profile_fragment_til_neighborhood"
                     style="@style/text_input2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -167,14 +167,14 @@
                             android:layout_width="@dimen/_24sdp"
                             android:layout_height="match_parent"
                             android:layout_marginEnd="@dimen/_8sdp"
-                            android:layout_marginBottom="@dimen/_8sdp"
+                            android:layout_marginBottom="@dimen/_2sdp"
                             android:src="@drawable/ic_arrow_downward_blue_24dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <Spinner
-                            android:id="@+id/restaurant_registers_buyer_fragment_sp_neighborhood"
+                            android:id="@+id/rrestaurant_and_client_edit_profile_fragment_sp_neighborhood"
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_45sdp"
                             android:layout_marginStart="@dimen/_26sdp"
@@ -193,10 +193,10 @@
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:orientation="vertical"
-                   android:visibility="visible"
+                   android:visibility="gone"
                    >
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/restaurant_registers_buyer_fragment_til_least_range_of_order"
+                    android:id="@+id/restaurant_and_client_edit_profile_fragment_til_least_range_of_order"
                     style="@style/text_input2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -213,7 +213,7 @@
                         android:inputType="textAutoComplete" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/restaurant_registers_buyer_fragment_til_order_time"
+                    android:id="@+id/restaurant_and_client_edit_profile_fragment_til_order_time"
                     style="@style/text_input2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -230,7 +230,7 @@
                         android:inputType="textAutoComplete" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/restaurant_registers_buyer_fragment_til_delevery_price"
+                    android:id="@+id/restaurant_and_client_edit_profile_fragment_til_delevery_price"
                     style="@style/text_input2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -265,7 +265,7 @@
                            android:textSize="@dimen/_14ssp"
                            />
                    <Switch
-                       android:id="@+id/switch1"
+                       android:id="@+id/restaurant_and_client_edit_profile_switch1"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:layout_marginStart="@dimen/_25sdp"
@@ -298,7 +298,7 @@
                    </androidx.constraintlayout.widget.ConstraintLayout>
 
                    <com.google.android.material.textfield.TextInputLayout
-                       android:id="@+id/conect_data_fragment_til_phone"
+                       android:id="@+id/restaurant_and_client_edit_profile_conect_data_fragment_til_phone"
                        style="@style/text_input2"
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
@@ -317,7 +317,7 @@
                    </com.google.android.material.textfield.TextInputLayout>
 
                    <com.google.android.material.textfield.TextInputLayout
-                       android:id="@+id/conect_data_fragment_til_whats_app"
+                       android:id="@+id/restaurant_and_client_edit_profile_conect_data_fragment_til_whats_app"
                        style="@style/text_input2"
                        android:layout_width="match_parent"
                        android:layout_height="@dimen/_45sdp"
@@ -336,7 +336,7 @@
 
                </LinearLayout>
                 <Button
-                    android:id="@+id/client_register_buer_next_btn"
+                    android:id="@+id/restaurant_and_client_edit_profile_update_btn"
                     style="@style/Button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

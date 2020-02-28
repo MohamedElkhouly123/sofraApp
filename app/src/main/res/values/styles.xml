@@ -69,7 +69,7 @@
     <style name="text_restaurant_informations">
         <item name="android:fontFamily">@font/janna</item>
         <item name="android:textColor">@color/blue</item>
-        <item name="android:textSize">@dimen/_16ssp</item>
+        <item name="android:textSize">@dimen/_13ssp</item>
         <item name="android:textStyle">bold</item>
 
     </style>

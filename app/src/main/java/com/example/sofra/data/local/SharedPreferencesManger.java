@@ -1,6 +1,7 @@
 package com.example.sofra.data.local;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.sofra.data.model.clientLogin.ClientData;
@@ -17,7 +18,7 @@ public class SharedPreferencesManger {
     public static void setSharedPreferences(Activity activity) {
         if (sharedPreferences == null) {
             sharedPreferences = activity.getSharedPreferences(
-                    "Blood", activity.MODE_PRIVATE);
+                    "Sofra", activity.MODE_PRIVATE);
         }
     }
 
@@ -70,7 +71,15 @@ public class SharedPreferencesManger {
 
         return loginData;
     }
+    public static ClientData LoadUserData2(Context activity) {
+        setSharedPreferences((Activity) activity);
 
+        ClientData loginData = null;
+        Gson gson = new Gson();
+        loginData = gson.fromJson(LoadData((Activity) activity, USER_DATA), ClientData.class);
+
+        return loginData;
+    }
     public static boolean LoadBoolean(Activity activity, String data_Key) {
         setSharedPreferences(activity);
 
