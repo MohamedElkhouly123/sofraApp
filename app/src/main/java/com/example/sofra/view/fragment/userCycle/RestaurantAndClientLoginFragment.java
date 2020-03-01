@@ -38,6 +38,7 @@ import static com.example.sofra.data.local.SharedPreferencesManger.CLIENT;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadData;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.sofra.utils.HelperMethod.replaceFragment;
+import static com.example.sofra.utils.HelperMethod.replaceFragmentWithAnimation;
 import static com.example.sofra.utils.HelperMethod.showToast;
 import static com.example.sofra.utils.validation.Validation.cleanError;
 import static com.example.sofra.utils.validation.Validation.validationEmail;
@@ -118,7 +119,7 @@ public class RestaurantAndClientLoginFragment extends BaSeFragment {
         HelperMethod.disappearKeypad(getActivity(), view);
         switch (view.getId()) {
             case R.id.client_and_restaurant_login_forget_id:
-                replaceFragment(getActivity().getSupportFragmentManager(), R.id.user_activity_fram, new RestaurantAndClientForgetPasswordFragment());
+                replaceFragmentWithAnimation(getActivity().getSupportFragmentManager(), R.id.user_activity_fram, new RestaurantAndClientForgetPasswordFragment(),"r");
 
                 break;
             case R.id.client_and_restaurant_login_buer_next_btn:
@@ -126,7 +127,7 @@ public class RestaurantAndClientLoginFragment extends BaSeFragment {
 
                 break;
             case R.id.client_and_restaurant_login_creat_new_account_txt:
-                replaceFragment(getActivity().getSupportFragmentManager(), R.id.user_activity_fram, new RestaurantAndClientRegisterFragment());
+                replaceFragmentWithAnimation(getActivity().getSupportFragmentManager(), R.id.user_activity_fram, new RestaurantAndClientRegisterFragment(),"b");
 
                 break;
         }
@@ -163,7 +164,7 @@ public class RestaurantAndClientLoginFragment extends BaSeFragment {
 
 
         Call<ClientGeneralResponse> loginCall = null;
-        Call<ClientResetPasswordResponse> tokenCall;
+//        Call<ClientResetPasswordResponse> tokenCall;
 
 
         if (ISCLIENT=="true") {

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 
 import com.example.sofra.R;
+import com.example.sofra.data.model.clientLogin.ClientData;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.FoodMenueFragment;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.HomeFragment;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.RestaurantCommissionFragment;
@@ -26,6 +27,7 @@ import butterknife.OnClick;
 
 import static com.example.sofra.data.local.SharedPreferencesManger.CLIENT;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadData;
+import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.sofra.utils.HelperMethod.replaceFragment;
 
 
@@ -43,6 +45,8 @@ public class HomeCycleActivity extends BaseActivity implements BottomNavigationV
     ImageButton toolbarCalculator;
     public BottomNavigationView navView;
     public String ISCLIENT = SplashFragment.getClient();
+    private ClientData clientData;
+    private boolean goLogin=false;
 
     public HomeCycleActivity() {
         // Required empty public constructor
@@ -54,6 +58,7 @@ public class HomeCycleActivity extends BaseActivity implements BottomNavigationV
         setContentView(R.layout.activity_home_cycle);
         ButterKnife.bind(this);
         homeFragment=new HomeFragment();
+        clientData = LoadUserData(this);
         replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram,homeFragment);
         navView = (BottomNavigationView) findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(this);
@@ -95,22 +100,37 @@ public class HomeCycleActivity extends BaseActivity implements BottomNavigationV
         if (id == R.id.navigation_home) {
             replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram,homeFragment);
         } else if (id == R.id.navigation_update_my_info) {
-            replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new RestaurantAndClientEditProfileFragment());
+            if(clientData!=null) {
+                replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new RestaurantAndClientEditProfileFragment());
+            }else {
+             new  MoreFragment().goToRegisterFirst(this);
+                  goLogin = true;
+            }
         } else if (id == R.id.navigation_menues) {
             replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new MenuesFragment());
 
         } else if (id == R.id.navigation_more_setting) {
             replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new MoreFragment());
         }
+        navView.setSelectedItemId(R.id.navigation_more_setting);
 
 
         return true;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (goLogin && LoadUserData(this) != null) {
+            //  goLogin = false;
+            replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new MoreFragment());
+        }
+    }
+
 //    @Override
 //    public void onBackPressed() {
 //        if (navView.getSelectedItemId() == R.id.navigation_menues) {
-//            navView.setSelectedItemId(R.id.navigation_home);
+//            navView.setSelectedItemId(R.id.na);
 //        }    }
 
     @OnClick({R.id.toolbar_notification, R.id.toolbar_shopping_cart, R.id.toolbar_calculator})

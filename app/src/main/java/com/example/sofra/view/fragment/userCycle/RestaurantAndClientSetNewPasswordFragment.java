@@ -25,8 +25,6 @@ import butterknife.OnClick;
 import retrofit2.Call;
 
 import static com.example.sofra.data.api.ApiClient.getApiClient;
-import static com.example.sofra.data.local.SharedPreferencesManger.CLIENT;
-import static com.example.sofra.data.local.SharedPreferencesManger.LoadData;
 import static com.example.sofra.utils.HelperMethod.disappearKeypad;
 import static com.example.sofra.utils.HelperMethod.replaceFragment;
 import static com.example.sofra.utils.HelperMethod.showToast;
@@ -138,7 +136,7 @@ public class RestaurantAndClientSetNewPasswordFragment extends BaSeFragment {
 
             resetPasswordCall = getApiClient().restaurantNewPassword(pinCode,password,passwordConfirm);
         }
-        viewModel.makeResetAndNewPasswordAndToken(getActivity(),resetPasswordCall);
+        viewModel.getAndMakeResetAndNewPasswordAndTokenAndChangeStatus(getActivity(),resetPasswordCall);
 
     }
 

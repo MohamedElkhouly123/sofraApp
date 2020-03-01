@@ -98,7 +98,7 @@ public class ViewModelClient extends ViewModel {
                                     }  if(ISCLIENT=="false") {
                                         tokenCall = getApiClient().restaurantSignUpToken(token, "android",apiToken);
                                     }
-                                        makeResetAndNewPasswordAndToken(activity,tokenCall);
+                                        getAndMakeResetAndNewPasswordAndTokenAndChangeStatus(activity,tokenCall);
                                     Intent intent = new Intent(activity, HomeCycleActivity.class);
                                     activity.startActivity(intent);
                                     activity.finish();
@@ -133,11 +133,11 @@ public class ViewModelClient extends ViewModel {
 
     }
 
-    public MutableLiveData<ClientResetPasswordResponse> makeResetAndNewPasswordAndTokenResponse() {
+    public MutableLiveData<ClientResetPasswordResponse> makeResetAndNewPasswordAndTokenAndChangeStatusResponse() {
         return newResetAndPasswordAndTokenResponse;
     }
 
-    public void makeResetAndNewPasswordAndToken(final Activity activity, final Call<ClientResetPasswordResponse> method) {
+    public void getAndMakeResetAndNewPasswordAndTokenAndChangeStatus(final Activity activity, final Call<ClientResetPasswordResponse> method) {
         if (isConnected(activity)) {
 
             if (progressDialog == null) {

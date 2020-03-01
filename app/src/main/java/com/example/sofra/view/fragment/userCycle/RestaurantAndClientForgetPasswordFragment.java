@@ -26,8 +26,6 @@ import butterknife.OnClick;
 import retrofit2.Call;
 
 import static com.example.sofra.data.api.ApiClient.getApiClient;
-import static com.example.sofra.data.local.SharedPreferencesManger.CLIENT;
-import static com.example.sofra.data.local.SharedPreferencesManger.LoadData;
 import static com.example.sofra.utils.HelperMethod.disappearKeypad;
 import static com.example.sofra.utils.HelperMethod.replaceFragment;
 import static com.example.sofra.utils.HelperMethod.showToast;
@@ -59,7 +57,7 @@ public class RestaurantAndClientForgetPasswordFragment extends BaSeFragment {
     }
     private void initListener() {
         viewModel = ViewModelProviders.of(this).get(ViewModelClient.class);
-        viewModel.makeResetAndNewPasswordAndTokenResponse().observe(this, new Observer<ClientResetPasswordResponse>() {
+        viewModel.makeResetAndNewPasswordAndTokenAndChangeStatusResponse().observe(this, new Observer<ClientResetPasswordResponse>() {
             @Override
             public void onChanged(@Nullable ClientResetPasswordResponse response) {
                 if(response!=null) {
@@ -117,7 +115,7 @@ public class RestaurantAndClientForgetPasswordFragment extends BaSeFragment {
 
             resetPasswordCall = getApiClient().restaurantResetPassword(email);
         }
-        viewModel.makeResetAndNewPasswordAndToken(getActivity(),resetPasswordCall);
+        viewModel.getAndMakeResetAndNewPasswordAndTokenAndChangeStatus(getActivity(),resetPasswordCall);
 
 
     }

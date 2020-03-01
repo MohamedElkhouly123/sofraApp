@@ -66,6 +66,30 @@ public class HelperMethod {
         transaction.addToBackStack(null);
         transaction.commit();
     }
+
+    public static void replaceFragmentWithAnimation(FragmentManager getChildFragmentManager, int id, Fragment fragment,String fromWhere) {
+        FragmentTransaction transaction = getChildFragmentManager.beginTransaction();
+        if(fromWhere=="l"){
+//            android.R.anim.slide_in_left
+        transaction.setCustomAnimations(R.anim.slide_in_left,
+                R.anim.slide_out_right);}
+        if(fromWhere=="r"){
+            transaction.setCustomAnimations(R.anim.enter_from_right,
+                    R.anim.exit_to_left);}
+        if(fromWhere=="t"){
+            transaction.setCustomAnimations(R.anim.slide_out_down, R.anim.slide_in_down);}
+        if(fromWhere=="b"){
+            transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_up);}
+//        if(fromWhere=="rr"){
+//            transaction.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.slide_in_left, R.anim.slide_out_right);}
+//        if(fromWhere=="t"){
+//            transaction.setCustomAnimations(R.anim.slide_in_down, R.anim.slide_out_up);}
+//        if(fromWhere=="b"){
+//            transaction.setCustomAnimations(R.anim.slide_in_up, R.anim.slide_out_down);}
+        transaction.replace(id, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
     public static void setInitRecyclerViewAsGridLayoutManager(Activity activity, RecyclerView recyclerView, GridLayoutManager gridLayoutManager, int numberOfColumns) {
         gridLayoutManager = new GridLayoutManager(activity, numberOfColumns);
         recyclerView.setHasFixedSize(true);

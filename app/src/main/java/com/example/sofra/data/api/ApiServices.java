@@ -292,7 +292,8 @@ public interface ApiServices {
 
     @POST("restaurant/change-state")
     @FormUrlEncoded
-    Call<RestaurantChangeStateResponse> restaurantChangeState(
+//    RestaurantChangeStateResponse
+    Call<ClientResetPasswordResponse> restaurantChangeState(
             @Field("state") String state,
             @Field("api_token") String api_token
     );
