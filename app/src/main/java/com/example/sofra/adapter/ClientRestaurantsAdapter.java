@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.sofra.R;
 import com.example.sofra.data.model.clientLogin.ClientData;
 import com.example.sofra.data.model.restaurantsListAndDetailsResponce.RestaurantsListData;
@@ -25,7 +28,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
+import static com.example.sofra.utils.HelperMethod.onLoadCirImageFromUrl;
 import static com.example.sofra.utils.HelperMethod.onLoadImageFromUrl;
+import static com.example.sofra.utils.HelperMethod.showToast;
 
 public class ClientRestaurantsAdapter extends RecyclerView.Adapter<ClientRestaurantsAdapter.ViewHolder> {
 
@@ -42,6 +47,7 @@ public class ClientRestaurantsAdapter extends RecyclerView.Adapter<ClientRestaur
                                     ) {
         this.context = context;
         this.activity = activity;
+        this.clientRestaurantsDataList.clear();
         this.clientRestaurantsDataList = clientRestaurantsDataList;
         clientData = LoadUserData(activity);
 
@@ -59,12 +65,20 @@ public class ClientRestaurantsAdapter extends RecyclerView.Adapter<ClientRestaur
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         setData(holder, position);
         setAction(holder, position);
+        setAnimation(holder.itemView, position, holder);
+
     }
 
     private void setData(ViewHolder holder, int position) {
         try {
             holder.position = position;
-            onLoadImageFromUrl(holder.itemClientRestaurantsListImgRestaurantCrimg, clientRestaurantsDataList.get(position).getPhotoUrl(), context);
+//            Glide.with(context)
+//                    .load(clientRestaurantsDataList.get(position).getPhotoUrl())
+//                    .into(holder.itemClientRestaurantsListImgRestaurantCrimg);
+//            Glide.with(activity).load(clientRestaurantsDataList.get(position).getPhotoUrl()).into(holder.itemClientRestaurantsListImgRestaurantCrimg);
+//            Picasso.get().load(clientRestaurantsDataList.get(position).getPhotoUrl()).placeholder(holder.position).into(holder.itemClientRestaurantsListImgRestaurantCrimg);
+            showToast(activity,"photo  " +clientRestaurantsDataList.get(position).getPhotoUrl() );
+            onLoadCirImageFromUrl(holder.itemClientRestaurantsListImgRestaurantCrimg, clientRestaurantsDataList.get(position).getPhotoUrl(), context);
             holder.itemClientRestaurantsListTvRestaurantName.setText(clientRestaurantsDataList.get(position).getName());
             holder.itemClientRestaurantsListRbRating.setRating(clientRestaurantsDataList.get(position).getRate());
             holder.itemClientRestaurantsListTvMinimumOrder.setText(clientRestaurantsDataList.get(position).getMinimumCharger());
@@ -80,6 +94,13 @@ public class ClientRestaurantsAdapter extends RecyclerView.Adapter<ClientRestaur
         } catch (Exception e) {
 
         }
+
+    }
+
+    private void setAnimation(View viewToAnimate, int position, ViewHolder holder) {
+        Animation animation = null;
+        animation = AnimationUtils.loadAnimation(activity, R.anim.rv_animation_down_to_up);
+        viewToAnimate.startAnimation(animation);
 
     }
 

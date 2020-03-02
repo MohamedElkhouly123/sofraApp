@@ -22,6 +22,7 @@ import com.example.sofra.data.model.clientLogin.ClientGeneralResponse;
 import com.example.sofra.data.model.clientResetPassword.ClientResetPasswordResponse;
 import com.example.sofra.data.model.generalRespose.GeneralRespose;
 import com.example.sofra.utils.ToastCreator;
+import com.example.sofra.view.activity.HomeCycleActivity;
 import com.example.sofra.view.fragment.BaSeFragment;
 import com.example.sofra.view.fragment.splashCycle.SplashFragment;
 import com.example.sofra.view.viewModel.ViewModelClient;
@@ -46,6 +47,7 @@ import static com.example.sofra.utils.HelperMethod.convertFileToMultipart;
 import static com.example.sofra.utils.HelperMethod.convertToRequestBody;
 import static com.example.sofra.utils.HelperMethod.onLoadCirImageFromUrl;
 import static com.example.sofra.utils.HelperMethod.openGalleryِAlpom;
+import static com.example.sofra.utils.HelperMethod.replaceFragment;
 import static com.example.sofra.utils.HelperMethod.showToast;
 import static com.example.sofra.utils.validation.Validation.cleanError;
 import static com.example.sofra.utils.validation.Validation.validationAllEmpty;
@@ -101,6 +103,7 @@ public class RestaurantAndClientEditProfileFragment extends BaSeFragment {
     private AdapterView.OnItemSelectedListener listener;
     private SpinnerAdapter neighborhoodsAdapter;
     private String CLIENTPROFILEIMAGE="photo";
+    private boolean goLogin=false;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -108,8 +111,9 @@ public class RestaurantAndClientEditProfileFragment extends BaSeFragment {
         View root = inflater.inflate(R.layout.fragment_restaurant_and_client_edit_profile, container, false);
         ButterKnife.bind(this, root);
         setUpActivity();
+        homeCycleActivity= (HomeCycleActivity) getActivity();
         clientData = LoadUserData(getActivity());
-
+//        if(clientData!=null) {
         if (ISCLIENT=="true") {
 
             restaurantAndClientEditProfileFragmentTilOrderPhone.setVisibility(View.VISIBLE);
@@ -120,6 +124,10 @@ public class RestaurantAndClientEditProfileFragment extends BaSeFragment {
         initListener();
         setUserData();
         setSpinner();
+//        }else {
+//            homeCycleActivity.goToRegisterFirst(getActivity());
+//            goLogin = true;
+//        }
         return root;
     }
     private void initListener() {
@@ -223,6 +231,14 @@ public class RestaurantAndClientEditProfileFragment extends BaSeFragment {
 
     }
 
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        if (goLogin && LoadUserData(getActivity()) != null) {
+//            goLogin = false;
+//            replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, new RestaurantAndClientEditProfileFragment());
+//        }
+//    }
 
     @OnClick({R.id.restaurant_and_client_edit_profile_conect_data_image_botton, R.id.restaurant_and_client_edit_profile_update_btn})
     public void onViewClicked(View view) {

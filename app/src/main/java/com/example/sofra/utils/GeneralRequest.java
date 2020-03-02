@@ -12,6 +12,7 @@ import com.example.sofra.data.model.clientLogin.ClientGeneralResponse;
 import com.example.sofra.data.model.generalRespose.GeneralRespose;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryResponse;
 import com.example.sofra.view.activity.HomeCycleActivity;
+import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.HomeFragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -56,6 +57,7 @@ public class GeneralRequest {
             @Override
             public void onFailure(Call<RestaurantCategoryResponse> call, Throwable t) {
                 dismissProgressDialog();
+                new HomeFragment().isDialogDataAddSuccess=false;
                 onCreateErrorToast(activity, activity.getString(R.string.error));
             }
         });

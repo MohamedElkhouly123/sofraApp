@@ -31,7 +31,7 @@ public class FoodMenueFragment extends BaSeFragment {
 
     @Override
     public void onBack() {
-        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, homeCycleActivity.homeFragment);
+        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, new HomeFragment());
         homeCycleActivity.navView.getMenu().getItem(0).setChecked(true);
     }
 }

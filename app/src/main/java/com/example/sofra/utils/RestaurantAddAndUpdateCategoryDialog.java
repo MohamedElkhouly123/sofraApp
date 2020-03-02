@@ -9,31 +9,29 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.FragmentActivity;
 
 import com.example.sofra.R;
+import com.example.sofra.adapter.RestaurantCategoriesAdapter;
 import com.example.sofra.data.model.clientLogin.ClientData;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryData;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryResponse;
-import com.example.sofra.view.activity.BaseActivity;
+import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.HomeFragment;
 import com.google.android.material.textfield.TextInputLayout;
 import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.AlbumFile;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 
+import static com.example.sofra.adapter.RestaurantCategoriesAdapter.dialogCategoryName;
+import static com.example.sofra.adapter.RestaurantCategoriesAdapter.dialogCategoryPath;
 import static com.example.sofra.data.api.ApiClient.getApiClient;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.sofra.utils.GeneralRequest.deleteAndUpdateItemCallBack;
-import static com.example.sofra.utils.HelperMethod.alertDialog;
 import static com.example.sofra.utils.HelperMethod.convertFileToMultipart;
 import static com.example.sofra.utils.HelperMethod.convertToRequestBody;
 import static com.example.sofra.utils.HelperMethod.onLoadImageFromUrl;
@@ -51,7 +49,8 @@ public class RestaurantAddAndUpdateCategoryDialog  {
     static CircleImageView restaurantAddCategoryDialogImgAddPhoto;
     static TextInputLayout restaurantAddCategoryDialogTilCategoryName;
     static Button restaurantAddCategoryDialogAddBtn;
-    String addOrUpdate;
+    public static RestaurantCategoryData restaurantDataListOfPossision;
+    private static String addOrUpdate2;
 //    static AlertDialog alertDialog;
     private Context context;
 //    private boolean Cancelable;
@@ -72,34 +71,50 @@ public class RestaurantAddAndUpdateCategoryDialog  {
             alertDialogBuilder.setView(view);
             alertDialogBuilder.setCancelable(true);
             final AlertDialog dialog = alertDialogBuilder.create();
-            dialog.show();
-
+            addOrUpdate2=addOrUpdate;
              restaurantAddCategoryDialogTilCategoryName = (TextInputLayout) view.findViewById(R.id.restaurant_add_category_dialog_til_category_name);
              restaurantAddCategoryDialogAddBtn = (Button) view.findViewById(R.id.restaurant_add_category_dialog_add_and_update_btn);
              restaurantAddCategoryDialogImgAddPhoto = (CircleImageView) view.findViewById(R.id.restaurant_add_category_dialog_img_add_photo);
-            if (addOrUpdate.equals("update")) {
+            if (addOrUpdate2.equals("update")) {
                 restaurantAddCategoryDialogAddBtn.setText(R.string.update_dialog);
-//                restaurantAddCategoryDialogTilCategoryName.getEditText().setText(restaurantDataListOfPossision.getName());
-//                onLoadImageFromUrl(restaurantAddCategoryDialogImgAddPhoto, restaurantDataListOfPossision.getPhotoUrl(), activity);
+                restaurantAddCategoryDialogTilCategoryName.getEditText().setText(restaurantDataListOfPossision.getName());
+                onLoadImageFromUrl(restaurantAddCategoryDialogImgAddPhoto,restaurantDataListOfPossision.getPhotoUrl(), activity);
+                if(mPath == null){
+                       mPath=restaurantDataListOfPossision.getPhotoUrl();
+                }
+
             }else {
                 restaurantAddCategoryDialogAddBtn.setText(R.string.add);
 
             }
+            dialog.show();
             clientData = LoadUserData(activity);
             restaurantAddCategoryDialogAddBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+//                    if (restaurantAddCategoryDialogTilCategoryName.getEditText().getText().toString()==null||mPath==null){}
                     if(mPath != null&&restaurantAddCategoryDialogTilCategoryName.getEditText().getText().toString()!=""){
                        RequestBody updatedCaegoryName=convertToRequestBody(restaurantAddCategoryDialogTilCategoryName.getEditText().getText().toString());
                        RequestBody updatedCategoryApiToken=convertToRequestBody(clientData.getApiToken());
 //                        RequestBody updatedCategoryApiToken=convertToRequestBody("Jptu3JVmDXGpJEaQO9ZrjRg5RuAVCo45OC2AcOKqbVZPmu0ZJPN3T1sm0cWx");
                        MultipartBody.Part updatedCategoryPhoto=convertFileToMultipart(mPath,CLIENTPROFILEIMAGE);
-                        showToast(activity, String.valueOf(updatedCategoryPhoto));
-                        Call<RestaurantCategoryResponse> updateItemCal = getApiClient().restaurantNewCategory( updatedCaegoryName,updatedCategoryPhoto,updatedCategoryApiToken);
-                       deleteAndUpdateItemCallBack(activity,updateItemCal);
+                        RequestBody updatedCategoryId= convertToRequestBody(String.valueOf(restaurantDataListOfPossision.getId()));
+//                        showToast(activity, String.valueOf(updatedCategoryPhoto));
+                        Call<RestaurantCategoryResponse> updateAndAddItemCal=null;
+                        if (addOrUpdate2.equals("update")) {
+                            updateAndAddItemCal= getApiClient().restaurantUpdateCategory( updatedCaegoryName,updatedCategoryPhoto,updatedCategoryApiToken,updatedCategoryId);
+                            dialogCategoryPath =mPath;
+                            dialogCategoryName =restaurantAddCategoryDialogTilCategoryName.getEditText().getText().toString();
+                        }else {
+                            updateAndAddItemCal= getApiClient().restaurantNewCategory( updatedCaegoryName,updatedCategoryPhoto,updatedCategoryApiToken);
+                            new HomeFragment().restaurantDataListOfPossision.setName(restaurantAddCategoryDialogTilCategoryName.getEditText().getText().toString());
+                            new HomeFragment().restaurantDataListOfPossision.setPhotoUrl(mPath);
+                        }
+                        deleteAndUpdateItemCallBack(activity,updateAndAddItemCal);
                         dialog.dismiss();
                 }else {
-
+                                            showToast(activity, "لابد من اكمال البيانات الفارغه اولا");
+                        return;
                     }
 
                 }
@@ -111,6 +126,7 @@ public class RestaurantAddAndUpdateCategoryDialog  {
                         @Override
                         public void onAction(@NonNull ArrayList<AlbumFile> result) {
                             mPath=result.get(0).getPath();
+                            onLoadImageFromUrl(restaurantAddCategoryDialogImgAddPhoto, mPath, context);
                         }
                     }, 1);
 //                    showToast(activity, restaurantAddCategoryDialogTilCategoryName.getEditText().getText().toString());

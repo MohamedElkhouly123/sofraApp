@@ -1,5 +1,6 @@
 package com.example.sofra.view.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -29,6 +30,7 @@ import static com.example.sofra.data.local.SharedPreferencesManger.CLIENT;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadData;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.sofra.utils.HelperMethod.replaceFragment;
+import static com.example.sofra.utils.HelperMethod.showToast;
 
 
 public class HomeCycleActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
@@ -47,7 +49,7 @@ public class HomeCycleActivity extends BaseActivity implements BottomNavigationV
     public String ISCLIENT = SplashFragment.getClient();
     private ClientData clientData;
     private boolean goLogin=false;
-
+    private boolean backFromLogin=false;
     public HomeCycleActivity() {
         // Required empty public constructor
     }
@@ -59,7 +61,7 @@ public class HomeCycleActivity extends BaseActivity implements BottomNavigationV
         ButterKnife.bind(this);
         homeFragment=new HomeFragment();
         clientData = LoadUserData(this);
-        replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram,homeFragment);
+        replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram,new HomeFragment());
         navView = (BottomNavigationView) findViewById(R.id.nav_view);
         navView.setOnNavigationItemSelectedListener(this);
         if (ISCLIENT=="true") {
@@ -98,13 +100,14 @@ public class HomeCycleActivity extends BaseActivity implements BottomNavigationV
         int id = item.getItemId();
 
         if (id == R.id.navigation_home) {
-            replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram,homeFragment);
+            replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram,new HomeFragment());
         } else if (id == R.id.navigation_update_my_info) {
             if(clientData!=null) {
                 replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new RestaurantAndClientEditProfileFragment());
             }else {
-             new  MoreFragment().goToRegisterFirst(this);
-                  goLogin = true;
+                goToRegisterFirst(this);
+                goLogin = true;
+                backFromLogin=true;
             }
         } else if (id == R.id.navigation_menues) {
             replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new MenuesFragment());
@@ -112,7 +115,6 @@ public class HomeCycleActivity extends BaseActivity implements BottomNavigationV
         } else if (id == R.id.navigation_more_setting) {
             replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new MoreFragment());
         }
-        navView.setSelectedItemId(R.id.navigation_more_setting);
 
 
         return true;
@@ -122,9 +124,21 @@ public class HomeCycleActivity extends BaseActivity implements BottomNavigationV
     public void onResume() {
         super.onResume();
         if (goLogin && LoadUserData(this) != null) {
-            //  goLogin = false;
-            replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new MoreFragment());
+              goLogin = false;
+            replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new RestaurantAndClientEditProfileFragment());
         }
+        else if(backFromLogin){
+            backFromLogin=false;
+            replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new HomeFragment());
+            navView.setSelectedItemId(R.id.navigation_home);
+
+        }
+    }
+
+    public void goToRegisterFirst(Activity activity){
+        showToast(activity, "Go To Register or Login First");
+        Intent intent2 = new Intent(HomeCycleActivity.this, UserCycleActivity.class);
+        startActivity(intent2);
     }
 
 //    @Override

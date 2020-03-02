@@ -6,28 +6,23 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.sofra.R;
 import com.example.sofra.data.model.clientLogin.ClientData;
-import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoriesListData;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryData;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryResponse;
-import com.example.sofra.utils.HelperMethod;
 import com.example.sofra.utils.RestaurantAddAndUpdateCategoryDialog;
-import com.example.sofra.utils.ToastCreator;
 import com.example.sofra.view.activity.BaseActivity;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.RestaurantCategoryMenuSubCategorysFragment;
-import com.google.android.material.textfield.TextInputLayout;
-import com.yanzhenjie.album.Action;
 import com.yanzhenjie.album.AlbumFile;
 
 import java.util.ArrayList;
@@ -36,25 +31,17 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import de.hdodenhof.circleimageview.CircleImageView;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static com.example.sofra.data.api.ApiClient.getApiClient;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.sofra.utils.GeneralRequest.deleteAndUpdateItemCallBack;
-import static com.example.sofra.utils.HelperMethod.alertDialog;
-import static com.example.sofra.utils.HelperMethod.convertFileToMultipart;
-import static com.example.sofra.utils.HelperMethod.convertToRequestBody;
-import static com.example.sofra.utils.HelperMethod.dismissProgressDialog;
 import static com.example.sofra.utils.HelperMethod.onLoadImageFromUrl;
-import static com.example.sofra.utils.HelperMethod.openGalleryِAlpom;
-import static com.example.sofra.utils.HelperMethod.progressDialog;
 import static com.example.sofra.utils.HelperMethod.replaceFragment;
+import static com.example.sofra.utils.HelperMethod.showToast;
+import static com.example.sofra.utils.RestaurantAddAndUpdateCategoryDialog.showDialog;
 import static com.example.sofra.utils.ToastCreator.onCreateErrorToast;
+import static com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.HomeFragment.isDialogDataAddSuccess;
 
 
 public class RestaurantCategoriesAdapter extends RecyclerView.Adapter<RestaurantCategoriesAdapter.ViewHolder> {
@@ -66,12 +53,15 @@ public class RestaurantCategoriesAdapter extends RecyclerView.Adapter<Restaurant
     private ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
     private ClientData clientData;
     private String lang;
+    private int lastPosition = -1;
     private static final String CLIENTPROFILEIMAGE ="CLIENTPROFILEIMAGE" ;
-    private String mPath;
+    public static String dialogCategoryPath;
+    public static String dialogCategoryName;
     private ArrayList<AlbumFile> alpom= new ArrayList<>();
     public RestaurantCategoriesAdapter(Activity activity, List<RestaurantCategoryData> restaurantDataList) {
         this.context = activity;
         this.activity = (BaseActivity) activity;
+        this.restaurantDataList.clear();
         this.restaurantDataList = restaurantDataList;
         viewBinderHelper.setOpenOnlyOne(true);
         clientData = LoadUserData(activity);
@@ -91,6 +81,7 @@ public class RestaurantCategoriesAdapter extends RecyclerView.Adapter<Restaurant
         setData(holder, position);
         setSwipe(holder, position);
         setAction(holder, position);
+        setAnimation(holder.itemView, position, holder);
 
     }
 
@@ -109,6 +100,22 @@ public class RestaurantCategoriesAdapter extends RecyclerView.Adapter<Restaurant
 
         }
 
+
+    }
+
+    private void setAnimation(View viewToAnimate, int position, ViewHolder holder) {
+        Animation animation = null;
+//        if (position > lastPosition) {
+            animation = AnimationUtils.loadAnimation(activity, R.anim.rv_animation_down_to_up);
+//            lastPosition = position;
+//        }
+//        else if (position < lastPosition) {
+//
+//            animation = AnimationUtils.loadAnimation(activity,R.anim.rv_animation_up_to_down);
+//            lastPosition = -1;
+//
+//        }
+        viewToAnimate.startAnimation(animation);
 
     }
 
@@ -158,12 +165,7 @@ public class RestaurantCategoriesAdapter extends RecyclerView.Adapter<Restaurant
         TextView itemRestaurantCategoryTvName;
         @BindView(R.id.item_restaurant_category_swipe_layout)
         SwipeRevealLayout itemRestaurantCategorySwipeLayout;
-        @BindView(R.id.restaurant_add_category_dialog_img_add_photo)
-        CircleImageView restaurantAddCategoryDialogImgAddPhoto;
-        @BindView(R.id.set_new_password_bin_code_etxt)
-        TextInputLayout restaurantAddCategoryDialogTilCategoryName;
-        @BindView(R.id.restaurant_add_category_dialog_add_and_update_btn)
-        Button restaurantAddCategoryDialogAddBtn;
+
         private View view;
         private int position;
 
@@ -174,14 +176,19 @@ public class RestaurantCategoriesAdapter extends RecyclerView.Adapter<Restaurant
         }
 
 
-        @OnClick({R.id.item_restaurant_category_img_edit, R.id.item_restaurant_category_img_remove,R.id.restaurant_add_category_dialog_img_add_photo, R.id.restaurant_add_category_dialog_add_and_update_btn})
+        @OnClick({R.id.item_restaurant_category_img_edit, R.id.item_restaurant_category_img_remove})
         public void onViewClicked(View view) {
             switch (view.getId()) {
                 case R.id.item_restaurant_category_img_edit:
-//                    RestaurantCategoryData restaurantDataListOfPossision =restaurantDataList.get(position);
-//                    RestaurantAddAndUpdateCategoryDialog.showDialog(activity,"update",restaurantDataListOfPossision )
-                    restaurantAddCategoryDialogAddBtn.setText(R.string.update_dialog);
-                    showDialog();
+                    isDialogDataAddSuccess=true;
+                    RestaurantAddAndUpdateCategoryDialog restaurantAddAndUpdateCategoryDialog=new RestaurantAddAndUpdateCategoryDialog();
+                    restaurantAddAndUpdateCategoryDialog.restaurantDataListOfPossision =restaurantDataList.get(position);
+                    showDialog(activity,context,"update");
+                    if(dialogCategoryName!=null&&isDialogDataAddSuccess){
+                        showToast(activity,dialogCategoryName+"\n"+ dialogCategoryPath);
+                        restaurantDataList.get(position).setName(dialogCategoryName);
+                        restaurantDataList.get(position).setPhotoUrl(dialogCategoryPath);
+                        notifyItemChanged(position);}
                     break;
                 case R.id.item_restaurant_category_img_remove:
                     Call<RestaurantCategoryResponse> deletItemCal = getApiClient().restaurantDeleteCategory(clientData.getApiToken(), restaurantDataList.get(position).getId());
@@ -191,48 +198,48 @@ public class RestaurantCategoriesAdapter extends RecyclerView.Adapter<Restaurant
                     notifyItemRangeChanged(position, restaurantDataList.size());
 
                     break;
-                case R.id.restaurant_add_category_dialog_img_add_photo:
-//                    openGallery(activity);
-                    openGalleryِAlpom(context, alpom, new Action<ArrayList<AlbumFile>>() {
-                        @Override
-                        public void onAction(@NonNull ArrayList<AlbumFile> result) {
-                            mPath=result.get(0).getPath();
-                        }
-                    }, 1);
-
-                    break;
-                case R.id.restaurant_add_category_dialog_add_and_update_btn:
-                    RequestBody updatedCaegoryName=convertToRequestBody(restaurantAddCategoryDialogTilCategoryName.getEditText().getText().toString());
-                    RequestBody updatedCategoryApiToken=convertToRequestBody(clientData.getApiToken());
-                    RequestBody updatedCategoryId= convertToRequestBody(String.valueOf(restaurantDataList.get(position).getId()));
-                    MultipartBody.Part updatedCategoryPhoto=convertFileToMultipart(mPath,CLIENTPROFILEIMAGE);
-                    Call<RestaurantCategoryResponse> updateItemCal = getApiClient().restaurantUpdateCategory( updatedCaegoryName,updatedCategoryPhoto,updatedCategoryApiToken,updatedCategoryId);
-                    deleteAndUpdateItemCallBack(activity,updateItemCal);
-                    restaurantDataList.get(position).setName(restaurantAddCategoryDialogTilCategoryName.getEditText().getText().toString());
-                    restaurantDataList.get(position).setPhotoUrl(mPath);
-                    notifyItemChanged(position);
-                    break;
-
-            }
-        }
-
-        private void showDialog(){
-            try {
-                final View view = activity.getLayoutInflater().inflate(R.layout.dialog_restaurant_add_category, null);
-//            alertDialog = new AlertDialog.Builder(HomeFragment.this).create();
-                alertDialog = new AlertDialog.Builder(context).create();
-                restaurantAddCategoryDialogAddBtn.setText(R.string.update_dialog);
-                restaurantAddCategoryDialogTilCategoryName.getEditText().setText(restaurantDataList.get(position).getName());
-                onLoadImageFromUrl(restaurantAddCategoryDialogImgAddPhoto, restaurantDataList.get(position).getPhotoUrl(), activity);
-
-                alertDialog.setCancelable(false);
-                alertDialog.setView(view);
-                alertDialog.show();
-
-            } catch (Exception e) {
+//                case R.id.restaurant_add_category_dialog_img_add_photo:
+////                    openGallery(activity);
+//                    openGalleryِAlpom(context, alpom, new Action<ArrayList<AlbumFile>>() {
+//                        @Override
+//                        public void onAction(@NonNull ArrayList<AlbumFile> result) {
+//                            mPath=result.get(0).getPath();
+//                        }
+//                    }, 1);
+//
+//                    break;
+//                case R.id.restaurant_add_category_dialog_add_and_update_btn:
+//                    RequestBody updatedCaegoryName=convertToRequestBody(restaurantAddCategoryDialogTilCategoryName.getEditText().getText().toString());
+//                    RequestBody updatedCategoryApiToken=convertToRequestBody(clientData.getApiToken());
+//                    RequestBody updatedCategoryId= convertToRequestBody(String.valueOf(restaurantDataList.get(position).getId()));
+//                    MultipartBody.Part updatedCategoryPhoto=convertFileToMultipart(mPath,CLIENTPROFILEIMAGE);
+//                    Call<RestaurantCategoryResponse> updateItemCal = getApiClient().restaurantUpdateCategory( updatedCaegoryName,updatedCategoryPhoto,updatedCategoryApiToken,updatedCategoryId);
+//                    deleteAndUpdateItemCallBack(activity,updateItemCal);
+//                    restaurantDataList.get(position).setName(restaurantAddCategoryDialogTilCategoryName.getEditText().getText().toString());
+//                    restaurantDataList.get(position).setPhotoUrl(mPath);
+//                    notifyItemChanged(position);
+//                    break;
 
             }
         }
+
+//        private void showDialog(){
+//            try {
+//                final View view = activity.getLayoutInflater().inflate(R.layout.dialog_restaurant_add_category, null);
+////            alertDialog = new AlertDialog.Builder(HomeFragment.this).create();
+//                alertDialog = new AlertDialog.Builder(context).create();
+//                restaurantAddCategoryDialogAddBtn.setText(R.string.update_dialog);
+//                restaurantAddCategoryDialogTilCategoryName.getEditText().setText(restaurantDataList.get(position).getName());
+//                onLoadImageFromUrl(restaurantAddCategoryDialogImgAddPhoto, restaurantDataList.get(position).getPhotoUrl(), activity);
+//
+//                alertDialog.setCancelable(false);
+//                alertDialog.setView(view);
+//                alertDialog.show();
+//
+//            } catch (Exception e) {
+//
+//            }
+//        }
 
 
 

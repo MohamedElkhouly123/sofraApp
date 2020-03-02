@@ -39,8 +39,8 @@ public class ClientFireBaseToken extends FirebaseMessagingService {
 //                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
-//    setToken( FirebaseInstanceId.getInstance().getToken());
-        setToken( token);
+    setToken( FirebaseInstanceId.getInstance().getToken());
+//        setToken( token);
 
     }
 

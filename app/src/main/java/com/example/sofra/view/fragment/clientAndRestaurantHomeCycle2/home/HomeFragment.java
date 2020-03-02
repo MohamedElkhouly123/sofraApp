@@ -93,6 +93,8 @@ public class HomeFragment extends BaSeFragment {
     TextView restaurantHomeCategoryTv;
 //    public String ISCLIENT = LoadData(getActivity(), CLIENT);
 
+    public static boolean isDialogDataAddSuccess=true;
+    public RestaurantCategoryData restaurantDataListOfPossision =new RestaurantCategoryData();
     public String ISCLIENT = SplashFragment.getClient();
     @BindView(R.id.no_result_error_title)
     TextView noResultErrorTitle;
@@ -143,49 +145,52 @@ public class HomeFragment extends BaSeFragment {
 
         viewModel = ViewModelProviders.of(this).get(ViewModelClient.class);
         if (ISCLIENT=="true") {
-            viewModel.makeClientHomeRestaurantsDataList().observe(this, new Observer<RestaurantsListResponce>() {
-            @Override
-            public void onChanged(@Nullable RestaurantsListResponce response) {
-                try {
-                    if(response!=null){
-                        if (response.getStatus() == 1) {
-                            maxPage = response.getData().getLastPage();
-                            showToast(getActivity(), "max="+maxPage);
 
-                            if (response.getData().getTotal() != 0) {
-                                clientrestaurantsListData.addAll(response.getData().getData());
-                                showToast(getActivity(), "list="+clientrestaurantsListData.get(1));
-
-                                clientrestaurantsAdapter.notifyDataSetChanged();
-
-                            } else {
-                                noResultErrorTitle.setVisibility(View.VISIBLE);
-                            }
-                            showToast(getActivity(), "success1");
-
-                        }  }else {
-                        showToast(getActivity(), "null");
-
-                    }
-
-                }catch(Exception e) { }
-        }
-    });
-//            viewModel = ViewModelProviders.of(this).get(ViewModelClient.class);
             viewModel.makegetSpinnerData().observe(this,new Observer<GeneralRespose>() {
                 @Override
                 public void onChanged (@Nullable GeneralRespose response){
                     if(response!=null){
                     if (response.getStatus() == 1) {
-                        showToast(getActivity(), "success2");
+//                        showToast(getActivity(), "success2");
 
                     } else {
-                        showToast(getActivity(), "error");
+//                        showToast(getActivity(), "error");
 
                     }
                 }}
             });
+
             setSpinner();
+
+            viewModel.makeClientHomeRestaurantsDataList().observe(this, new Observer<RestaurantsListResponce>() {
+                @Override
+                public void onChanged(@Nullable RestaurantsListResponce response) {
+                    try {
+                        if(response!=null){
+                            if (response.getStatus() == 1) {
+                                maxPage = response.getData().getLastPage();
+//                                showToast(getActivity(), "max="+maxPage);
+
+                                if (response.getData() != null && response.getData().getTotal() != 0) {
+                                    clientrestaurantsListData.clear();
+                                    clientrestaurantsListData.addAll(response.getData().getData());
+//                                showToast(getActivity(), "list="+clientrestaurantsListData.get(1));
+
+                                    clientrestaurantsAdapter.notifyDataSetChanged();
+
+                                } else {
+                                    noResultErrorTitle.setVisibility(View.VISIBLE);
+                                }
+                                showToast(getActivity(), "success1");
+
+                            }  }else {
+                            showToast(getActivity(), "null");
+
+                        }
+
+                    }catch(Exception e) { }
+                }
+            });
 
         }
         if(ISCLIENT=="false"){
@@ -196,20 +201,21 @@ public class HomeFragment extends BaSeFragment {
                                 if(response!=null){
                                     if (response.getStatus() == 1) {
                                         maxPage = response.getData().getLastPage();
-                                        showToast(getActivity(), "max="+maxPage);
+//                                        showToast(getActivity(), "max="+maxPage);
 
 //                                        if (response.getData().getTotal() != 0) {
-                                        if (response.getData() != null && response.getData().getTotal() > 0){
-                                            showToast(getActivity(), "list=");
+                                        if (response.getData() != null && response.getData().getTotal() != 0){
+//                                            showToast(getActivity(), "list=");
 //                                            restaurantCategoriesListData = response.getData().getData();
+                                            restaurantCategoriesListData.clear();
                                             restaurantCategoriesListData.addAll(response.getData().getData());
-                                            init();
+//                                            init();
                                             restaurantCategoriesAdapter.notifyDataSetChanged();
 
                                         } else {
                                             noResultErrorTitle.setVisibility(View.VISIBLE);
                                         }
-                                        showToast(getActivity(), "success3");
+//                                        showToast(getActivity(), "success3");
 
                                     }  }else {
                                     showToast(getActivity(), "null");
@@ -246,7 +252,7 @@ public class HomeFragment extends BaSeFragment {
                     if (maxPage != 0 && current_page != 1) {
                         onEndLess.previous_page = current_page;
                         loadMore.setVisibility(View.VISIBLE);
-                        if (Filter&&ISCLIENT=="true") {
+                        if (Filter) {
                             clientGetRestaurantsListByFilter(current_page);
                         } else {
                             getRestaurantOrClientHomeList(current_page);
@@ -265,6 +271,8 @@ public class HomeFragment extends BaSeFragment {
         if (ISCLIENT=="true") {
             clientrestaurantsAdapter = new ClientRestaurantsAdapter(getContext(), getActivity(), clientrestaurantsListData);
             clientAndRestaurantHomeRecyclerView.setAdapter(clientrestaurantsAdapter);
+            showToast(getActivity(), "success adapter");
+
         }  if(ISCLIENT=="false"){
 
             restaurantCategoriesAdapter = new RestaurantCategoriesAdapter(getActivity(), restaurantCategoriesListData);
@@ -282,7 +290,7 @@ public class HomeFragment extends BaSeFragment {
             @Override
             public void onRefresh() {
 
-                if (Filter&&ISCLIENT=="true") {
+                if (Filter) {
                     clientGetRestaurantsListByFilter(1);
                 } else {
                     getRestaurantOrClientHomeList(1);
@@ -313,6 +321,7 @@ public class HomeFragment extends BaSeFragment {
             clientRestaurantsCall = getApiClient().getRestaurantsWithoutFiltter(page);
             startShimmer(page);
             viewModel.getClientHomeRestaurantsDataList(getActivity(), noResultErrorTitle,clientRestaurantsCall, clientAndRestaurantHomeFragmentSrRefreshRv, loadMore, clientAndRestaurantHomeFragmentSFlShimmer);
+            showToast(getActivity(), "success without fillter");
 
         }  if(ISCLIENT=="false"){
             clientData = LoadUserData(getActivity());
@@ -387,14 +396,15 @@ public class HomeFragment extends BaSeFragment {
                 }
                 break;
             case R.id.restaurant_home_add_category_floating_action_btn:
-
+                isDialogDataAddSuccess=true;
 //                new DialogAddCategory(getContext(),getActivity(),false);
                 showDialog(getActivity(),getContext(),"add");
-
 //                if (Filter) {
 //                    clientGetRestaurantsListByFilter(1);
 //                } else {
-                    getRestaurantOrClientHomeList(1);
+                if(restaurantDataListOfPossision.getName()!=null&&isDialogDataAddSuccess){
+                restaurantCategoriesListData.add(restaurantDataListOfPossision);
+                restaurantCategoriesAdapter.notifyItemInserted(restaurantCategoriesListData.size());}
 //                }
                 break;
         }

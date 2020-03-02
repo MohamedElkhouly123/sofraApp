@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders;
 import com.example.sofra.R;
 import com.example.sofra.data.model.clientLogin.ClientData;
 import com.example.sofra.data.model.clientResetPassword.ClientResetPasswordResponse;
+import com.example.sofra.view.activity.HomeCycleActivity;
 import com.example.sofra.view.fragment.BaSeFragment;
 import com.example.sofra.view.fragment.splashCycle.SplashFragment;
 import com.example.sofra.view.viewModel.ViewModelClient;
@@ -29,7 +30,9 @@ import butterknife.OnClick;
 import retrofit2.Call;
 
 import static com.example.sofra.data.api.ApiClient.getApiClient;
+import static com.example.sofra.data.local.SharedPreferencesManger.LoadData;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
+import static com.example.sofra.data.local.SharedPreferencesManger.USER_PASSWORD;
 import static com.example.sofra.utils.HelperMethod.replaceFragment;
 import static com.example.sofra.utils.HelperMethod.showToast;
 import static com.example.sofra.utils.validation.Validation.cleanError;
@@ -62,9 +65,11 @@ public class ChangePasswordFragment extends BaSeFragment {
         ButterKnife.bind(this, root);
         initListener();
         clientData = LoadUserData(getActivity());
+        homeCycleActivity= (HomeCycleActivity) getActivity();
         if(clientData!=null){
-            oldPassword= clientData.getUser().getPassword();
-        changePasswordFragmentTilPasswordOld.getEditText().setText(oldPassword);}
+            oldPassword= LoadData(getActivity(), USER_PASSWORD);
+            showToast(getActivity(),oldPassword);
+            changePasswordFragmentTilPasswordOld.getEditText().setText(oldPassword);}
         changePasswordFragmentTilPasswordOld.getEditText().setTypeface(Typeface.DEFAULT);
         changePasswordFragmentTilPasswordOld.getEditText().setTransformationMethod(new PasswordTransformationMethod());
         changePasswordFragmentTilNewPassword.getEditText().setTypeface(Typeface.DEFAULT);
@@ -82,7 +87,7 @@ public class ChangePasswordFragment extends BaSeFragment {
                 if(response!=null){
                     if (response.getStatus() == 1) {
                         showToast(getActivity(),"success");
-                        new  MoreFragment().goToRegisterFirst(getActivity());
+                        homeCycleActivity.goToRegisterFirst(getActivity());
                         goLogin = true;
 
                     }  }

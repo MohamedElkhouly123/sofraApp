@@ -212,7 +212,7 @@ public class ViewModelClient extends ViewModel {
 
                         dismissProgressDialog();
                         if (response.body().getStatus() == 1) {
-                            showToast(activity, "hereSpinner");
+//                            showToast(activity, "hereSpinner");
 
                             adapter.setData(response.body().getData().getData(), hint);
 
@@ -342,7 +342,6 @@ public class ViewModelClient extends ViewModel {
 
                     if (response.body() != null) {
                         try {
-                            showToast(activity, "here5");
 
                             clientAndRestaurantHomeFragmentSFlShimmer.stopShimmer();
                             clientAndRestaurantHomeFragmentSFlShimmer.setVisibility(View.GONE);
@@ -383,10 +382,10 @@ public class ViewModelClient extends ViewModel {
                         loadMore.setVisibility(View.GONE);
                         clientAndRestaurantHomeFragmentSrRefreshRv.setRefreshing(false);
                         new HomeFragment().setError(String.valueOf(R.string.error_list));
+                        clientHomeRestaurantsDataListResponse.postValue(null);
                     } catch (Exception e) {
 
                     }
-                    clientHomeRestaurantsDataListResponse.postValue(null);
 
                 }
             });

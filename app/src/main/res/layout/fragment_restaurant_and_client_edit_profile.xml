@@ -99,7 +99,7 @@
                     >
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_40sdp"
+                        android:layout_height="@dimen/_45sdp"
                         >
 
                         <EditText
@@ -108,8 +108,10 @@
                             style="@style/EditText2"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_marginTop="@dimen/_5sdp"
                             android:drawableStart="@drawable/ic_home_blue_24dp"
                             android:focusable="false"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -127,11 +129,13 @@
                         <Spinner
                             android:id="@+id/restaurant_and_client_edit_profile_fragment_sp_city"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_45sdp"
-                            android:layout_marginStart="@dimen/_26sdp"
-                            android:layout_marginBottom="@dimen/_15sdp"
-                            android:gravity="center_vertical"
+                            android:layout_height="@dimen/_40sdp"
+                            android:layout_marginStart="@dimen/_28sdp"
+                            android:layout_marginBottom="@dimen/_23sdp"
                             android:background="@android:color/transparent"
+                            android:gravity="center_vertical"
+                            android:textAlignment="center"
+                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
@@ -147,7 +151,7 @@
                     >
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_40sdp">
+                        android:layout_height="@dimen/_45sdp">
 
                         <EditText
                             android:id="@+id/restaurant_registers_buyer_neighborhood_etxt"
@@ -157,6 +161,7 @@
                             android:layout_height="match_parent"
                             android:drawableStart="@drawable/ic_home_blue_24dp"
                             android:focusable="false"
+                            android:layout_marginTop="@dimen/_5sdp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
@@ -176,9 +181,9 @@
                         <Spinner
                             android:id="@+id/rrestaurant_and_client_edit_profile_fragment_sp_neighborhood"
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_45sdp"
-                            android:layout_marginStart="@dimen/_26sdp"
-                            android:layout_marginBottom="@dimen/_10sdp"
+                            android:layout_height="@dimen/_35sdp"
+                            android:layout_marginStart="@dimen/_28sdp"
+                            android:layout_marginBottom="@dimen/_23sdp"
                             android:gravity="center_vertical"
                             android:background="@android:color/transparent"
                             app:layout_constraintBottom_toBottomOf="parent"

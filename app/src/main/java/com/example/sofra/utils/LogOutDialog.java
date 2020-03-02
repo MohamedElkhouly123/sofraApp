@@ -15,6 +15,7 @@ import com.example.sofra.data.model.clientGetAllNotofications.ClientFireBaseToke
 import com.example.sofra.data.model.clientLogin.ClientData;
 import com.example.sofra.data.model.clientResetPassword.ClientResetPasswordResponse;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryResponse;
+import com.example.sofra.view.activity.SplashCycleActivity;
 import com.example.sofra.view.activity.UserCycleActivity;
 import com.example.sofra.view.fragment.splashCycle.SplashFragment;
 
@@ -58,7 +59,7 @@ public class LogOutDialog {
                     removetTokenCall = getApiClient().restaurantRemoveToken(token,apiToken);
                 }
                 deleteAndUpdateItemCallBack(activity,removetTokenCall);
-                Intent i = new Intent(activity, UserCycleActivity.class);
+                Intent i = new Intent(activity, SplashCycleActivity.class);
 
                 activity.startActivity(i);
                 // close this activity
