@@ -1,4 +1,4 @@
-package com.example.sofra.utils.utilsSmileDialog;
+package com.example.sofra.utils.SmileDialog;
 
 public interface DialogCallback {
 

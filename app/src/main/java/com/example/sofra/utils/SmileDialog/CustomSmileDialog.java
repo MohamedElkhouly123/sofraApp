@@ -1,17 +1,17 @@
-package com.example.sofra.utils.utilsSmileDialog;
+package com.example.sofra.utils.SmileDialog;
 
 import android.app.Dialog;
 import android.content.Context;
 
 import androidx.annotation.NonNull;
 
-public class CustomDialog extends Dialog {
-    public CustomDialog(@NonNull Context context) {
+public class CustomSmileDialog extends Dialog {
+    public CustomSmileDialog(@NonNull Context context) {
         super(context);
         this.setCancelable(false);
     }
 
-    public CustomDialog(@NonNull Context context, int themeResId) {
+    public CustomSmileDialog(@NonNull Context context, int themeResId) {
         super(context, themeResId);
         this.setCancelable(false);
     }
