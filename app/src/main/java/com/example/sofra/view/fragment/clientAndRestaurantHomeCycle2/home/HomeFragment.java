@@ -399,7 +399,7 @@ public class HomeFragment extends BaSeFragment {
                 break;
             case R.id.restaurant_home_add_category_floating_action_btn:
                 isDialogDataAddSuccess=true;
-//                new DialogAddCategory(getContext(),getActivity(),false);
+//                new DialogNormal(getContext(),getActivity(),false);
                 showDialog(getActivity(),getContext(),"add");
 //                if (Filter) {
 //                    clientGetRestaurantsListByFilter(1);

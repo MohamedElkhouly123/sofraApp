@@ -4,16 +4,10 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
-import android.provider.MediaStore;
 import android.view.Gravity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -22,7 +16,6 @@ import com.example.sofra.data.model.clientLogin.ClientData;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryResponse;
 import com.google.android.material.textfield.TextInputLayout;
 import com.yanzhenjie.album.Action;
-import com.yanzhenjie.album.Album;
 import com.yanzhenjie.album.AlbumFile;
 
 import java.util.ArrayList;
@@ -44,7 +37,7 @@ import static com.example.sofra.utils.HelperMethod.convertToRequestBody;
 import static com.example.sofra.utils.HelperMethod.openGalleryِAlpom;
 import static com.example.sofra.utils.HelperMethod.showToast;
 
-public class DialogAddCategory extends Dialog {
+public class DialogNormal extends Dialog {
 
 
 
@@ -63,7 +56,7 @@ public class DialogAddCategory extends Dialog {
 
     private static final int RESULT_LOAD_IMAGE = 1;
 
-    public DialogAddCategory(Context context, Activity activity, boolean Cancelable) {
+    public DialogNormal(Context context, Activity activity, boolean Cancelable) {
         super(context);
         this.activity = activity;
         this.context = context;
@@ -77,7 +70,7 @@ public class DialogAddCategory extends Dialog {
             setContentView(R.layout.dialog_restaurant_add_category);
             ButterKnife.bind(this);
 
-            DialogAddCategory.this.setCancelable(Cancelable);
+            DialogNormal.this.setCancelable(Cancelable);
 
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
             getWindow().setLayout(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.WRAP_CONTENT);
