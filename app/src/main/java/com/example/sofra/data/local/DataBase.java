@@ -6,14 +6,12 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-import androidx.room.TypeConverters;
 
 
-import com.example.sofra.data.model.clientMakeNewOrder.ClientMakeNewOrderItem;
-import com.example.sofra.data.model.clientMakeNewOrder.ClientMakeNewOrderPivot;
+import com.example.sofra.data.model.clientMakeNewOrder.ClientMakeNewOrderItemForRoom;
 
 
-@Database(entities = {ClientMakeNewOrderPivot.class,}, version = 1, exportSchema = false)
+@Database(entities = {ClientMakeNewOrderItemForRoom.class,}, version = 1, exportSchema = false)
 
 
 //@Database(entities = {Client.class, ClientData.class}, version = 1, exportSchema = false)  // more than ClientMakeNewOrderItem
@@ -31,11 +29,11 @@ public abstract class DataBase extends RoomDatabase {
     }
 
     private static DataBase create(final Context context) {
-        Builder<DataBase> builder = Room.databaseBuilder(context, DataBase.class, DB_NAME);
+        Builder<DataBase> builder = Room.databaseBuilder(context, DataBase.class, DB_NAME).fallbackToDestructiveMigration();
         return builder.build();
     }
 
     // endregion
     // region DAOs
-    public abstract UserProfileDao userProfileDao();
+    public abstract ClientMakeNewOrderItemForRoomDao addNewOrderItemDao();
 }

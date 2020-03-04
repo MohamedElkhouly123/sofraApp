@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -258,7 +259,7 @@ public class ViewModelClient extends ViewModel {
         return restaurantHomeCategoriesDataListResponse;
     }
 
-    public void getRestaurantHomeCategoriesDataList(final Activity activity,final TextView noResultErrorTitle, final Call<RestaurantCategoryResponse> method,final SwipeRefreshLayout clientAndRestaurantHomeFragmentSrRefreshRv, final RelativeLayout loadMore, final ShimmerFrameLayout clientAndRestaurantHomeFragmentSFlShimmer) {
+    public void getRestaurantHomeCategoriesDataList(final Activity activity, final LinearLayout errorSubView, final Call<RestaurantCategoryResponse> method, final SwipeRefreshLayout clientAndRestaurantHomeFragmentSrRefreshRv, final RelativeLayout loadMore, final ShimmerFrameLayout clientAndRestaurantHomeFragmentSFlShimmer) {
         if (isConnected(activity)) {
 
 
@@ -318,6 +319,7 @@ public class ViewModelClient extends ViewModel {
                 clientAndRestaurantHomeFragmentSFlShimmer.setVisibility(View.GONE);
                 loadMore.setVisibility(View.GONE);
                 clientAndRestaurantHomeFragmentSrRefreshRv.setRefreshing(false);
+                errorSubView.setVisibility(View.VISIBLE);
                 new HomeFragment().setError(String.valueOf(R.string.error_inter_net));
                 onCreateErrorToast(activity, activity.getString(R.string.error_inter_net));
             } catch (Exception e) {
@@ -331,14 +333,14 @@ public class ViewModelClient extends ViewModel {
         return clientHomeRestaurantsDataListResponse;
     }
 
-    public void getClientHomeRestaurantsDataList(final Activity activity,final TextView noResultErrorTitle, final Call<RestaurantsListResponce> method, final SwipeRefreshLayout clientAndRestaurantHomeFragmentSrRefreshRv, final RelativeLayout loadMore, final ShimmerFrameLayout clientAndRestaurantHomeFragmentSFlShimmer) {
+    public void getClientHomeRestaurantsDataList(final Activity activity, final LinearLayout errorSubView, final Call<RestaurantsListResponce> method, final SwipeRefreshLayout clientAndRestaurantHomeFragmentSrRefreshRv, final RelativeLayout loadMore, final ShimmerFrameLayout clientAndRestaurantHomeFragmentSFlShimmer) {
         if (isConnected(activity)) {
 
 
             method.enqueue(new Callback<RestaurantsListResponce>() {
                 @Override
                 public void onResponse(Call<RestaurantsListResponce> call, Response<RestaurantsListResponce> response) {
-                    showToast(activity, "here4");
+//                    showToast(activity, "here4");
 
                     if (response.body() != null) {
                         try {
@@ -395,6 +397,8 @@ public class ViewModelClient extends ViewModel {
                 clientAndRestaurantHomeFragmentSFlShimmer.setVisibility(View.GONE);
                 loadMore.setVisibility(View.GONE);
                 clientAndRestaurantHomeFragmentSrRefreshRv.setRefreshing(false);
+                errorSubView.setVisibility(View.VISIBLE);
+//                errorTitle.setText(errorTitleTxt);
                 new HomeFragment().setError(String.valueOf(R.string.error_inter_net));
                 onCreateErrorToast(activity, activity.getString(R.string.error_inter_net));
             } catch (Exception e) {

@@ -3,6 +3,7 @@ package com.example.sofra.adapter;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
@@ -36,6 +38,7 @@ import retrofit2.Call;
 import static com.example.sofra.data.api.ApiClient.getApiClient;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.sofra.utils.GeneralRequest.deleteAndUpdateItemCallBack;
+import static com.example.sofra.utils.HelperMethod.alertDialog;
 import static com.example.sofra.utils.HelperMethod.onLoadImageFromUrl;
 import static com.example.sofra.utils.HelperMethod.replaceFragment;
 import static com.example.sofra.utils.HelperMethod.showToast;
@@ -180,22 +183,19 @@ public class RestaurantCategoriesAdapter extends RecyclerView.Adapter<Restaurant
         public void onViewClicked(View view) {
             switch (view.getId()) {
                 case R.id.item_restaurant_category_img_edit:
-                    isDialogDataAddSuccess=true;
-                    RestaurantAddAndUpdateCategoryDialog restaurantAddAndUpdateCategoryDialog=new RestaurantAddAndUpdateCategoryDialog();
-                    restaurantAddAndUpdateCategoryDialog.restaurantDataListOfPossision =restaurantDataList.get(position);
-                    showDialog(activity,context,"update");
-                    if(dialogCategoryName!=null&&isDialogDataAddSuccess){
-                        showToast(activity,dialogCategoryName+"\n"+ dialogCategoryPath);
+                    isDialogDataAddSuccess = true;
+                    RestaurantAddAndUpdateCategoryDialog restaurantAddAndUpdateCategoryDialog = new RestaurantAddAndUpdateCategoryDialog();
+                    restaurantAddAndUpdateCategoryDialog.restaurantDataListOfPossision = restaurantDataList.get(position);
+                    showDialog(activity, context, "update");
+                    if (dialogCategoryName != null && isDialogDataAddSuccess) {
+                        showToast(activity, dialogCategoryName + "\n" + dialogCategoryPath);
                         restaurantDataList.get(position).setName(dialogCategoryName);
                         restaurantDataList.get(position).setPhotoUrl(dialogCategoryPath);
-                        notifyItemChanged(position);}
+                        notifyItemChanged(position);
+                    }
                     break;
                 case R.id.item_restaurant_category_img_remove:
-                    Call<RestaurantCategoryResponse> deletItemCal = getApiClient().restaurantDeleteCategory(clientData.getApiToken(), restaurantDataList.get(position).getId());
-                    deleteAndUpdateItemCallBack(activity,deletItemCal);
-                    restaurantDataList.remove(position);
-                    notifyItemRemoved(position);
-                    notifyItemRangeChanged(position, restaurantDataList.size());
+                    showDeleteDialog();
 
                     break;
 //                case R.id.restaurant_add_category_dialog_img_add_photo:
@@ -223,23 +223,53 @@ public class RestaurantCategoriesAdapter extends RecyclerView.Adapter<Restaurant
             }
         }
 
-//        private void showDialog(){
-//            try {
+        private void showDeleteDialog(){
+            try {
 //                final View view = activity.getLayoutInflater().inflate(R.layout.dialog_restaurant_add_category, null);
-////            alertDialog = new AlertDialog.Builder(HomeFragment.this).create();
-//                alertDialog = new AlertDialog.Builder(context).create();
-//                restaurantAddCategoryDialogAddBtn.setText(R.string.update_dialog);
-//                restaurantAddCategoryDialogTilCategoryName.getEditText().setText(restaurantDataList.get(position).getName());
-//                onLoadImageFromUrl(restaurantAddCategoryDialogImgAddPhoto, restaurantDataList.get(position).getPhotoUrl(), activity);
-//
-//                alertDialog.setCancelable(false);
+//            alertDialog = new AlertDialog.Builder(HomeFragment.this).create();
+                AlertDialog alertDialog;
+                 alertDialog = new AlertDialog.Builder(activity).create();
+                alertDialog.setTitle("Delete");
+                alertDialog.setMessage("هل انت متاكد من الحذف ؟");
+                alertDialog.setCancelable(false);
+
+                alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "تاكيد", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Call<RestaurantCategoryResponse> deletItemCal = getApiClient().restaurantDeleteCategory(clientData.getApiToken(), restaurantDataList.get(position).getId());
+                        deleteAndUpdateItemCallBack(activity, deletItemCal);
+                        restaurantDataList.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, restaurantDataList.size());
+
+                    }
+                });
+
+
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "الغاء", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        alertDialog.dismiss() ;
+                    }
+                });
+
 //                alertDialog.setView(view);
-//                alertDialog.show();
-//
-//            } catch (Exception e) {
-//
-//            }
-//        }
+                alertDialog.setOnShowListener( new DialogInterface.OnShowListener() {
+                    @SuppressLint("ResourceAsColor")
+                    @Override
+                    public void onShow(DialogInterface arg0) {
+                        alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(R.color.pink);
+                        alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(R.color.pink);
+
+                    }
+                });
+
+                                alertDialog.show();
+
+            } catch (Exception e) {
+
+            }
+        }
 
 
 

@@ -18,7 +18,10 @@ import butterknife.OnClick;
 
 import static com.example.sofra.data.local.SharedPreferencesManger.CLIENT;
 
+import static com.example.sofra.data.local.SharedPreferencesManger.LoadBoolean;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadData;
+import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
+import static com.example.sofra.data.local.SharedPreferencesManger.REMEMBER_ME;
 import static com.example.sofra.data.local.SharedPreferencesManger.SaveData;
 import static com.example.sofra.data.local.SharedPreferencesManger.clean;
 import static com.example.sofra.utils.HelperMethod.showToast;

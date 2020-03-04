@@ -9,8 +9,13 @@ import androidx.annotation.NonNull;
 
 import com.example.sofra.R;
 import com.example.sofra.view.fragment.BaSeFragment;
+import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.HomeFragment;
+import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.more.ContactWithUsFragment;
 
 import butterknife.ButterKnife;
+
+import static com.example.sofra.utils.HelperMethod.replaceFragment;
+import static com.example.sofra.utils.HelperMethod.replaceFragmentWithAnimation;
 
 public class SubMenuesFragment extends BaSeFragment {
 
@@ -29,7 +34,7 @@ public class SubMenuesFragment extends BaSeFragment {
     }
     @Override
     public void onBack() {
-        super.onBack();
+        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, new HomeFragment());
         homeCycleActivity.navView.getMenu().getItem(0).setChecked(true);
     }
 

@@ -82,7 +82,7 @@ public class MenuesFragment extends BaSeFragment {
 
     @Override
     public void onBack() {
-        super.onBack();
+        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, new HomeFragment());
         homeCycleActivity.navView.getMenu().getItem(0).setChecked(true);
     }
 

@@ -53,7 +53,7 @@ public class RestaurantsListData {
     private String activated;
     @SerializedName("rate")
     @Expose
-    private Integer rate;
+    private Float rate;
     @SerializedName("photo_url")
     @Expose
     private String photoUrl;
@@ -176,11 +176,11 @@ public class RestaurantsListData {
         this.activated = activated;
     }
 
-    public Integer getRate() {
+    public Float getRate() {
         return rate;
     }
 
-    public void setRate(Integer rate) {
+    public void setRate(Float rate) {
         this.rate = rate;
     }
 

@@ -10,27 +10,29 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LiveData;
 
 import com.example.sofra.R;
+import com.example.sofra.data.local.DataBase;
 import com.example.sofra.data.model.clientLogin.ClientData;
+import com.example.sofra.data.model.clientMakeNewOrder.ClientMakeNewOrderItemForRoom;
 import com.example.sofra.utils.LogOutDialog;
-import com.example.sofra.utils.RestaurantAddAndUpdateCategoryDialog;
 import com.example.sofra.view.activity.HomeCycleActivity;
 import com.example.sofra.view.activity.UserCycleActivity;
 import com.example.sofra.view.fragment.BaSeFragment;
-import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.HomeFragment;
 import com.example.sofra.view.fragment.splashCycle.SplashFragment;
+
+import java.util.List;
+import java.util.concurrent.Executors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.example.sofra.data.local.SharedPreferencesManger.CLIENT;
-import static com.example.sofra.data.local.SharedPreferencesManger.LoadData;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.sofra.utils.HelperMethod.replaceFragment;
+import static com.example.sofra.utils.HelperMethod.replaceFragmentWithAnimation;
 import static com.example.sofra.utils.HelperMethod.showToast;
-import static com.example.sofra.utils.RestaurantAddAndUpdateCategoryDialog.showDialog;
 
 public class MoreFragment extends BaSeFragment {
 
@@ -70,18 +72,42 @@ public class MoreFragment extends BaSeFragment {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.more_my_Offers_lay:
-                if(clientData!=null) {
-                    replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, new RestaurantAndClientOffersFragment());
+//                if(clientData!=null) {
+                DataBase dataBase=DataBase.getInstance(getContext());
+                                    ClientMakeNewOrderItemForRoom clientMakeNewOrderItemForRoom=new ClientMakeNewOrderItemForRoom();
+                    clientMakeNewOrderItemForRoom.setCategoryId("2");
+                    clientMakeNewOrderItemForRoom.setDescription("good2");
+                    clientMakeNewOrderItemForRoom.setName("checolete2");
+                LiveData<List<ClientMakeNewOrderItemForRoom>> items2;
+                 String[] name = new String[10];
+                Executors.newSingleThreadExecutor().execute(() -> {
+
+                    dataBase.addNewOrderItemDao().insert(clientMakeNewOrderItemForRoom);
+                    dataBase.addNewOrderItemDao().add(clientMakeNewOrderItemForRoom);
+                    dataBase.addNewOrderItemDao().add(clientMakeNewOrderItemForRoom);
+
+//                    DataBase.getInstance(getContext()).addNewOrderItemDao().update(clientMakeNewOrderItemForRoom);
+                    List<ClientMakeNewOrderItemForRoom> items= dataBase.addNewOrderItemDao().getAllItems();
+                  for (int i=0;i>items.size();i++) {
+                      name[i] = items.get(i).getDescription();
+                  }
+                });
+//                for (int i=0;i>name.length;i++) {
+
+                    showToast(getActivity(), name[0]);
+//                }
+
+                replaceFragmentWithAnimation(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, new RestaurantAndClientOffersFragment(),"t");
                     homeCycleActivity.setNavigation("g");
-                }else {
-                    goToRegisterFirst(getActivity());
-                    goLogin = true;
-                }
+//                }else {
+//                    goToRegisterFirst(getActivity());
+//                    goLogin = true;
+//                }
 
                 break;
             case R.id.more_contact_us_lay:
                 if(clientData!=null) {
-                    replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, new ContactWithUsFragment());
+                    replaceFragmentWithAnimation(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, new ContactWithUsFragment(),"t");
                 homeCycleActivity.setNavigation("g");
                 }else {
                     goToRegisterFirst(getActivity());
@@ -91,16 +117,16 @@ public class MoreFragment extends BaSeFragment {
 //                showDialog(getActivity(),getContext(),"add");
                 break;
             case R.id.more_about_app_lay:
-                replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, new AboutAppFragment());
+                replaceFragmentWithAnimation(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, new AboutAppFragment(),"t");
                 homeCycleActivity.setNavigation("g");
                 break;
             case R.id.more_my_put_coments_rate_on_store_lay:
-                replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, new RestaurantCommentsFragment());
+                replaceFragmentWithAnimation(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, new RestaurantCommentsFragment(),"t");
                 homeCycleActivity.setNavigation("g");
                 break;
             case R.id.more_change_password_lay:
                 if(clientData!=null) {
-                    replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, new ChangePasswordFragment());
+                    replaceFragmentWithAnimation(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, new ChangePasswordFragment(),"t");
                 homeCycleActivity.setNavigation("g");
         }else {
             goToRegisterFirst(getActivity());

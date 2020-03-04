@@ -181,7 +181,7 @@ public class HomeFragment extends BaSeFragment {
                                 } else {
                                     noResultErrorTitle.setVisibility(View.VISIBLE);
                                 }
-                                showToast(getActivity(), "success1");
+//                                showToast(getActivity(), "success1");
 
                             }  }else {
                             showToast(getActivity(), "null");
@@ -271,7 +271,7 @@ public class HomeFragment extends BaSeFragment {
         if (ISCLIENT=="true") {
             clientrestaurantsAdapter = new ClientRestaurantsAdapter(getContext(), getActivity(), clientrestaurantsListData);
             clientAndRestaurantHomeRecyclerView.setAdapter(clientrestaurantsAdapter);
-            showToast(getActivity(), "success adapter");
+//            showToast(getActivity(), "success adapter");
 
         }  if(ISCLIENT=="false"){
 
@@ -307,7 +307,7 @@ public class HomeFragment extends BaSeFragment {
         Call<RestaurantsListResponce> clientRestaurantsCall;
         clientRestaurantsCall = getApiClient().getRestaurantsWithFiltter(keyword, cityFilterAdapter.selectedId, page);
         startShimmer(page);
-        viewModel.getClientHomeRestaurantsDataList(getActivity(),noResultErrorTitle, clientRestaurantsCall, clientAndRestaurantHomeFragmentSrRefreshRv, loadMore,clientAndRestaurantHomeFragmentSFlShimmer);
+        viewModel.getClientHomeRestaurantsDataList(getActivity(),errorSubView, clientRestaurantsCall, clientAndRestaurantHomeFragmentSrRefreshRv, loadMore,clientAndRestaurantHomeFragmentSFlShimmer);
 
 
     }
@@ -318,17 +318,19 @@ public class HomeFragment extends BaSeFragment {
         Call<RestaurantCategoryResponse> restaurantCategoriesCall;
 
         if (ISCLIENT.equals("true")) {
-            clientRestaurantsCall = getApiClient().getRestaurantsWithoutFiltter(page);
+            clientRestaurantsCall = getApiClient().getRestaurantsWithFiltter(keyword, cityFilterAdapter.selectedId, page);
+
+//            clientRestaurantsCall = getApiClient().getRestaurantsWithoutFiltter(page);
             startShimmer(page);
-            viewModel.getClientHomeRestaurantsDataList(getActivity(), noResultErrorTitle,clientRestaurantsCall, clientAndRestaurantHomeFragmentSrRefreshRv, loadMore, clientAndRestaurantHomeFragmentSFlShimmer);
-            showToast(getActivity(), "success without fillter");
+            viewModel.getClientHomeRestaurantsDataList(getActivity(), errorSubView,clientRestaurantsCall, clientAndRestaurantHomeFragmentSrRefreshRv, loadMore, clientAndRestaurantHomeFragmentSFlShimmer);
+//            showToast(getActivity(), "success without fillter");
 
         }  if(ISCLIENT=="false"){
             clientData = LoadUserData(getActivity());
             restaurantCategoriesCall = getApiClient().getRestaurantCategories(clientData.getApiToken());
 
             startShimmer(page);
-            viewModel.getRestaurantHomeCategoriesDataList(getActivity(), noResultErrorTitle,restaurantCategoriesCall, clientAndRestaurantHomeFragmentSrRefreshRv, loadMore, clientAndRestaurantHomeFragmentSFlShimmer);
+            viewModel.getRestaurantHomeCategoriesDataList(getActivity(), errorSubView,restaurantCategoriesCall, clientAndRestaurantHomeFragmentSrRefreshRv, loadMore, clientAndRestaurantHomeFragmentSFlShimmer);
 
         }
 

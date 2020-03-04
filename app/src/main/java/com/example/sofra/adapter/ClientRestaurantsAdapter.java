@@ -77,7 +77,6 @@ public class ClientRestaurantsAdapter extends RecyclerView.Adapter<ClientRestaur
 //                    .into(holder.itemClientRestaurantsListImgRestaurantCrimg);
 //            Glide.with(activity).load(clientRestaurantsDataList.get(position).getPhotoUrl()).into(holder.itemClientRestaurantsListImgRestaurantCrimg);
 //            Picasso.get().load(clientRestaurantsDataList.get(position).getPhotoUrl()).placeholder(holder.position).into(holder.itemClientRestaurantsListImgRestaurantCrimg);
-            showToast(activity,"photo  " +clientRestaurantsDataList.get(position).getPhotoUrl() );
             onLoadCirImageFromUrl(holder.itemClientRestaurantsListImgRestaurantCrimg, clientRestaurantsDataList.get(position).getPhotoUrl(), context);
             holder.itemClientRestaurantsListTvRestaurantName.setText(clientRestaurantsDataList.get(position).getName());
             holder.itemClientRestaurantsListRbRating.setRating(clientRestaurantsDataList.get(position).getRate());

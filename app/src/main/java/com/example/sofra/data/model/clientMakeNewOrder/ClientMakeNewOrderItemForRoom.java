@@ -8,10 +8,10 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-//@Entity(tableName = "clientNewOrder")
-public class ClientMakeNewOrderItem {
-//    @PrimaryKey(autoGenerate = true)
-//    @ColumnInfo(name = "subject_id")
+@Entity(tableName = "clientNewOrder")
+public class ClientMakeNewOrderItemForRoom {
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "subject_id")
     @SerializedName("id")
     @Expose
     private Integer id;
@@ -48,9 +48,9 @@ public class ClientMakeNewOrderItem {
     @SerializedName("has_offer")
     @Expose
     private Boolean hasOffer;
-    @SerializedName("pivot")
-    @Expose
-    private ClientMakeNewOrderPivot pivot;
+//    @SerializedName("pivot")
+//    @Expose
+//    private ClientMakeNewOrderPivot pivot;
 
     public Integer getId() {
         return id;
@@ -148,12 +148,12 @@ public class ClientMakeNewOrderItem {
         this.hasOffer = hasOffer;
     }
 
-    public ClientMakeNewOrderPivot getPivot() {
-        return pivot;
-    }
-
-    public void setPivot(ClientMakeNewOrderPivot pivot) {
-        this.pivot = pivot;
-    }
+//    public ClientMakeNewOrderPivot getPivot() {
+//        return pivot;
+//    }
+//
+//    public void setPivot(ClientMakeNewOrderPivot pivot) {
+//        this.pivot = pivot;
+//    }
 
 }

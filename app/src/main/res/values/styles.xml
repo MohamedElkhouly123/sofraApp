@@ -114,6 +114,11 @@
             @android:color/holo_red_light
         </item>
     </style>
+
+        <style name="rating" parent="Theme.AppCompat">
+            <item name="colorControlNormal">@color/pink</item>
+            <item name="colorControlActivated">@color/pink</item>
+        </style>
 </resources>
 
 

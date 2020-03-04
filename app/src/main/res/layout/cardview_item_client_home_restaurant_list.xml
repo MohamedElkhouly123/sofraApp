@@ -92,10 +92,13 @@
                     android:layout_marginStart="-49dp"
                     android:layout_marginTop="-3dp"
                     android:layout_height="@dimen/_35sdp"
+                    android:backgroundTint="@color/pink"
                     android:isIndicator="true"
                     android:numStars="4"
                     android:scaleX=".5"
-                    android:scaleY=".5" />
+                    android:scaleY=".5"
+                    android:theme="@style/rating"
+                    />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
