@@ -17,7 +17,7 @@
         android:textSize="@dimen/_12ssp" />
 
     <Button
-        android:id="@+id/restaurant_review_btn_add_review"
+        android:id="@+id/client_restaurant_review_btn_add_review"
         android:layout_width="@dimen/_123sdp"
         android:layout_height="@dimen/_28sdp"
         android:layout_gravity="center_horizontal"

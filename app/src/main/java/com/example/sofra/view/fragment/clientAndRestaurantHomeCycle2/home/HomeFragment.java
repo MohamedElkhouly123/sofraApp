@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,13 +26,11 @@ import com.example.sofra.adapter.RestaurantCategoriesAdapter;
 import com.example.sofra.adapter.SpinnerAdapter;
 import com.example.sofra.data.model.clientLogin.ClientData;
 import com.example.sofra.data.model.generalRespose.GeneralRespose;
-import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryData;
+import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryFiltterData;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryResponse;
 import com.example.sofra.data.model.restaurantsListAndDetailsResponce.RestaurantsListData;
 import com.example.sofra.data.model.restaurantsListAndDetailsResponce.RestaurantsListResponce;
 import com.example.sofra.utils.OnEndLess;
-import com.example.sofra.utils.RestaurantAddAndUpdateCategoryDialog;
-import com.example.sofra.view.activity.BaseActivity;
 import com.example.sofra.view.activity.HomeCycleActivity;
 import com.example.sofra.view.fragment.BaSeFragment;
 import com.example.sofra.view.fragment.splashCycle.SplashFragment;
@@ -51,10 +48,7 @@ import pl.droidsonroids.gif.GifImageView;
 import retrofit2.Call;
 
 import static com.example.sofra.data.api.ApiClient.getApiClient;
-import static com.example.sofra.data.local.SharedPreferencesManger.CLIENT;
-import static com.example.sofra.data.local.SharedPreferencesManger.LoadData;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
-import static com.example.sofra.utils.HelperMethod.alertDialog;
 import static com.example.sofra.utils.HelperMethod.showToast;
 import static com.example.sofra.utils.RestaurantAddAndUpdateCategoryDialog.showDialog;
 
@@ -94,13 +88,13 @@ public class HomeFragment extends BaSeFragment {
 //    public String ISCLIENT = LoadData(getActivity(), CLIENT);
 
     public static boolean isDialogDataAddSuccess=true;
-    public RestaurantCategoryData restaurantDataListOfPossision =new RestaurantCategoryData();
+    public RestaurantCategoryFiltterData restaurantDataListOfPossision =new RestaurantCategoryFiltterData();
     public String ISCLIENT = SplashFragment.getClient();
     @BindView(R.id.no_result_error_title)
     TextView noResultErrorTitle;
     private SpinnerAdapter cityFilterAdapter;
     private LinearLayoutManager linearLayout;
-    public List<RestaurantCategoryData> restaurantCategoriesListData = new ArrayList<com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryData>();
+    public List<RestaurantCategoryFiltterData> restaurantCategoriesListData = new ArrayList<RestaurantCategoryFiltterData>();
     public List<RestaurantsListData> clientrestaurantsListData = new ArrayList<>();
     public RestaurantCategoriesAdapter restaurantCategoriesAdapter;
     public ClientRestaurantsAdapter clientrestaurantsAdapter;
@@ -351,8 +345,6 @@ public class HomeFragment extends BaSeFragment {
         onEndLess.previousTotal = 0;
         onEndLess.current_page = 1;
         onEndLess.previous_page = 1;
-//        linearLayout = new LinearLayoutManager(getActivity());
-//        clientAndRestaurantHomeRecyclerView.setLayoutManager(linearLayout);
         if (ISCLIENT.equals("true")) {
             clientrestaurantsListData = new ArrayList<>();
             clientrestaurantsAdapter = new ClientRestaurantsAdapter(getContext(), getActivity(), clientrestaurantsListData);

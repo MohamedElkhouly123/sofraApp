@@ -20,6 +20,7 @@ import com.example.sofra.data.model.clientLogin.ClientData;
 import com.example.sofra.data.model.restaurantsListAndDetailsResponce.RestaurantsListData;
 import com.example.sofra.utils.HelperMethod;
 import com.example.sofra.view.activity.HomeCycleActivity;
+import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.FoodMenueFragment;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.RestaurantCategoryTabsFragment;
 
 import java.util.ArrayList;
@@ -110,7 +111,8 @@ public class ClientRestaurantsAdapter extends RecyclerView.Adapter<ClientRestaur
             public void onClick(View v) {
 
                 HomeCycleActivity navigationActivity = (HomeCycleActivity) activity;
-//                postDetails.postsData = postsDataList.get(position);
+                FoodMenueFragment foodMenueFragment=new FoodMenueFragment();
+                foodMenueFragment.restaurantsListData = clientRestaurantsDataList.get(position);
                 HelperMethod.replaceFragment(navigationActivity.getSupportFragmentManager(), R.id.home_activity_fram, new RestaurantCategoryTabsFragment());
 
             }

@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_160sdp"
-        android:layout_margin="@dimen/_15sdp"
-        app:cardElevation="0dp"
+        android:layout_height="@dimen/_145sdp"
+        android:layout_marginStart="@dimen/_13sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_13sdp"
+        android:layout_marginBottom="@dimen/_5sdp"
         app:cardCornerRadius="@dimen/_24sdp">
 
         <ImageView
-            android:id="@+id/item_menu_img"
+            android:id="@+id/cardview_item_client_food_order_menu_img"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_114sdp"
-            android:scaleType="fitXY"
-            android:src="@drawable/freis"
+            android:layout_height="@dimen/_95sdp"
             android:background="@drawable/round_image"
-            />
+            android:scaleType="centerCrop"
+            android:src="@drawable/freis" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_100sdp"
+            android:layout_marginTop="@dimen/_85sdp"
             android:background="@drawable/white_shape"
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/item_menu_tv_meal_name"
+                android:id="@+id/cardview_item_client_food_order_menu_tv_meal_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_15sdp"
@@ -38,7 +39,7 @@
                 android:textColor="@color/colorPrimary" />
 
             <TextView
-                android:id="@+id/item_menu_tv_meal_details"
+                android:id="@+id/cardview_item_client_food_order_menu_tv_meal_details"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_15sdp"
@@ -47,7 +48,7 @@
                 android:textColor="#9A5A5959" />
 
             <TextView
-                android:id="@+id/item_menu_tv_meal_price"
+                android:id="@+id/cardview_item_client_food_order_menu_tv_meal_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_15sdp"

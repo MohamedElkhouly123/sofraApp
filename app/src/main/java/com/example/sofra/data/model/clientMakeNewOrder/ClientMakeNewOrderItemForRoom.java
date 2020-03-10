@@ -11,10 +11,12 @@ import com.google.gson.annotations.SerializedName;
 @Entity(tableName = "clientNewOrder")
 public class ClientMakeNewOrderItemForRoom {
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "subject_id")
+    private int itemId;
+
     @SerializedName("id")
     @Expose
     private Integer id;
+
     @SerializedName("created_at")
     @Expose
     private String createdAt;
@@ -51,6 +53,39 @@ public class ClientMakeNewOrderItemForRoom {
 //    @SerializedName("pivot")
 //    @Expose
 //    private ClientMakeNewOrderPivot pivot;
+
+
+    public ClientMakeNewOrderItemForRoom() {
+    }
+
+    public ClientMakeNewOrderItemForRoom(String name, String description, String price) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+    }
+
+    public ClientMakeNewOrderItemForRoom(Integer id, String createdAt, String updatedAt, String name, String description, String price, String offerPrice, String photo, String restaurantId, String categoryId, String photoUrl, Boolean hasOffer) {
+        this.id = id;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.offerPrice = offerPrice;
+        this.photo = photo;
+        this.restaurantId = restaurantId;
+        this.categoryId = categoryId;
+        this.photoUrl = photoUrl;
+        this.hasOffer = hasOffer;
+    }
+
+    public int getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
+    }
 
     public Integer getId() {
         return id;

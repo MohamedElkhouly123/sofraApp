@@ -13,6 +13,7 @@ import com.example.sofra.data.model.getSetting.GetSettingData;
 import com.example.sofra.data.model.listRestaurantItem.FoodItemsResponse;
 import com.example.sofra.data.model.orderResponse.OrderResponse;
 import com.example.sofra.data.model.paymentMethods.PaymentMethodsResponce;
+import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoriesListResponse;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryResponse;
 import com.example.sofra.data.model.restaurantChangeState.RestaurantChangeStateResponse;
 import com.example.sofra.data.model.restaurantCommission.RestaurantCommissionResponse;
@@ -535,12 +536,19 @@ public interface ApiServices {
     @GET("items")
     Call<RestaurantSubCategoriesItemsListResponce> getRestaurantSubCategoriesItemsList(
             @Query("restaurant_id") String restaurantId,
-            @Query("category_id") String categoryId
+            @Query("category_id") String categoryId,
+            @Query("page") int page
     );
 
+//    @GET("categories")
+//    Call<RestaurantCategoryResponse> getRestaurantCategoriesList(
+//            @Query("restaurant_id") String restaurantId,
+//            @Query("page") int page
+//    );
+
     @GET("categories")
-    Call<RestaurantCategoryResponse> getRestaurantCategoriesList(
-            @Query("restaurant_id") String restaurantId,
-            @Query("category_id") String categoryId
+    Call<RestaurantCategoriesListResponse> getCategories(
+            @Query("restaurant_id") String restaurant_id
+//            @Query("page") int page
     );
 }

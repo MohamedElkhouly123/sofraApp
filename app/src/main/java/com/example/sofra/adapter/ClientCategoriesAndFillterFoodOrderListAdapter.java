@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -12,12 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.sofra.R;
 import com.example.sofra.data.model.clientLogin.ClientData;
-import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoriesListResponse;
-import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryData;
-import com.example.sofra.data.model.restaurantsListAndDetailsResponce.RestaurantsListData;
-import com.example.sofra.utils.HelperMethod;
+import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryFiltterData;
 import com.example.sofra.view.activity.HomeCycleActivity;
-import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.RestaurantCategoryTabsFragment;
+import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.FoodMenueFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +27,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.sofra.utils.HelperMethod.onLoadImageFromUrl;
+import static com.example.sofra.utils.HelperMethod.showToast;
 
 public class ClientCategoriesAndFillterFoodOrderListAdapter extends RecyclerView.Adapter<ClientCategoriesAndFillterFoodOrderListAdapter.ViewHolder> {
 
@@ -35,18 +35,20 @@ public class ClientCategoriesAndFillterFoodOrderListAdapter extends RecyclerView
 
     private Context context;
     private Activity activity;
-    private List<RestaurantCategoryData> clientCategoriesAndFillterFoodOrderDataList = new ArrayList<>();
+    private List<RestaurantCategoryFiltterData> clientCategoriesAndFillterFoodOrderDataList = new ArrayList<>();
     private ClientData clientData;
 //    private ApiService apiService;
 
     public ClientCategoriesAndFillterFoodOrderListAdapter(Context context,
                                                           Activity activity,
-                                                          List<RestaurantCategoryData> clientCategoriesAndFillterFoodOrderDataList
+                                                          List<RestaurantCategoryFiltterData> clientCategoriesAndFillterFoodOrderDataList
     ) {
         this.context = context;
         this.activity = activity;
         this.clientCategoriesAndFillterFoodOrderDataList = clientCategoriesAndFillterFoodOrderDataList;
         clientData = LoadUserData(activity);
+//        showToast(activity, "addapter"+this.clientCategoriesAndFillterFoodOrderDataList.size());
+
 
     }
 
@@ -62,6 +64,7 @@ public class ClientCategoriesAndFillterFoodOrderListAdapter extends RecyclerView
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         setData(holder, position);
         setAction(holder, position);
+        setAnimation(holder.itemView, position, holder);
     }
 
     private void setData(ViewHolder holder, int position) {
@@ -75,16 +78,23 @@ public class ClientCategoriesAndFillterFoodOrderListAdapter extends RecyclerView
         }
 
     }
+    private void setAnimation(View viewToAnimate, int position, ViewHolder holder) {
+        Animation animation = null;
+        animation = AnimationUtils.loadAnimation(activity, R.anim.rv_animation_left_to_right);
+        viewToAnimate.startAnimation(animation);
 
+    }
     private void setAction(final ViewHolder holder, final int position) {
 
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FoodMenueFragment foodMenueFragment=new FoodMenueFragment();
+                foodMenueFragment.clientGetRestaurantsItemsListByFilter(1, String.valueOf(clientCategoriesAndFillterFoodOrderDataList.get(position).getId()),context,activity);
 
-                HomeCycleActivity navigationActivity = (HomeCycleActivity) activity;
+//                HomeCycleActivity navigationActivity = (HomeCycleActivity) activity;
 //                postDetails.postsData = postsDataList.get(position);
-                HelperMethod.replaceFragment(navigationActivity.getSupportFragmentManager(), R.id.home_activity_fram, new RestaurantCategoryTabsFragment());
+//                HelperMethod.replaceFragment(navigationActivity.getSupportFragmentManager(), R.id.home_activity_fram, new RestaurantCategoryTabsFragment());
 
             }
         });

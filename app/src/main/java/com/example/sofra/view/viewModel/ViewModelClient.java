@@ -8,7 +8,6 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -20,7 +19,10 @@ import com.example.sofra.data.model.clientGetAllNotofications.ClientFireBaseToke
 import com.example.sofra.data.model.clientLogin.ClientGeneralResponse;
 import com.example.sofra.data.model.clientResetPassword.ClientResetPasswordResponse;
 import com.example.sofra.data.model.generalRespose.GeneralRespose;
+import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoriesListResponse;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryResponse;
+import com.example.sofra.data.model.restaurantSubCategoriesItemsListResponce.RestaurantSubCategoriesItemsListData;
+import com.example.sofra.data.model.restaurantSubCategoriesItemsListResponce.RestaurantSubCategoriesItemsListResponce;
 import com.example.sofra.data.model.restaurantsListAndDetailsResponce.RestaurantsListResponce;
 import com.example.sofra.utils.HelperMethod;
 import com.example.sofra.utils.ToastCreator;
@@ -41,7 +43,6 @@ import static com.example.sofra.data.local.SharedPreferencesManger.USER_DATA;
 import static com.example.sofra.data.local.SharedPreferencesManger.USER_PASSWORD;
 import static com.example.sofra.utils.HelperMethod.dismissProgressDialog;
 import static com.example.sofra.utils.HelperMethod.progressDialog;
-import static com.example.sofra.utils.HelperMethod.showToast;
 import static com.example.sofra.utils.ToastCreator.onCreateErrorToast;
 import static com.example.sofra.utils.network.InternetState.isConnected;
 
@@ -54,6 +55,9 @@ public class ViewModelClient extends ViewModel {
     private MutableLiveData<ClientResetPasswordResponse> newResetAndPasswordAndTokenResponse = new MutableLiveData<>();
     private MutableLiveData<RestaurantCategoryResponse> restaurantHomeCategoriesDataListResponse = new MutableLiveData<>();
     private MutableLiveData<RestaurantsListResponce> clientHomeRestaurantsDataListResponse = new MutableLiveData<>();
+    private MutableLiveData<RestaurantSubCategoriesItemsListResponce> clientRestaurantSubCategoriesItemsListDataResponse = new MutableLiveData<>();
+    private MutableLiveData<RestaurantCategoriesListResponse> clientRestaurantCategoryFiltterDataResponse = new MutableLiveData<>();
+
 
     private String token;
     private String apiToken;
@@ -409,5 +413,164 @@ public class ViewModelClient extends ViewModel {
     }
 
 
+    public MutableLiveData<RestaurantCategoriesListResponse> makeClientRestaurantCategoryFiltterDataList() {
+        return clientRestaurantCategoryFiltterDataResponse;
+    }
+
+    public void getClientRestaurantCategoryFiltterDataList(final Activity activity, final LinearLayout errorSubView, final Call<RestaurantCategoriesListResponse> method, final SwipeRefreshLayout clientAndRestaurantHomeFragmentSrRefreshRv, final RelativeLayout loadMore, final ShimmerFrameLayout clientAndRestaurantHomeFragmentSFlShimmer) {
+        if (isConnected(activity)) {
+
+
+            method.enqueue(new Callback<RestaurantCategoriesListResponse>() {
+                @Override
+                public void onResponse(Call<RestaurantCategoriesListResponse> call, Response<RestaurantCategoriesListResponse> response) {
+//                    showToast(activity, "here4");
+
+                    if (response.body() != null) {
+                        try {
+
+                            clientAndRestaurantHomeFragmentSFlShimmer.stopShimmer();
+                            clientAndRestaurantHomeFragmentSFlShimmer.setVisibility(View.GONE);
+                            loadMore.setVisibility(View.GONE);
+                            clientAndRestaurantHomeFragmentSrRefreshRv.setRefreshing(false);
+                            if (response.body().getStatus() == 1) {
+//                               new HomeFragment().maxPage = response.body().getData().getLastPage();
+//                                showToast(activity, "max="+new HomeFragment().maxPage);
+//
+//                                if (response.body().getData().getTotal() != 0) {
+//                                    new HomeFragment().clientrestaurantsListData.addAll(response.body().getData().getData());
+//                                    showToast(activity, "list="+new HomeFragment().clientrestaurantsListData.get(1));
+//
+//                                    new HomeFragment().clientrestaurantsAdapter.notifyDataSetChanged();
+//
+//                                } else {
+//                                    noResultErrorTitle.setVisibility(View.VISIBLE);
+//                                }
+                                clientRestaurantCategoryFiltterDataResponse.postValue(response.body());
+
+                                ToastCreator.onCreateSuccessToast(activity, response.body().getMsg());
+                            } else {
+                                onCreateErrorToast(activity, response.body().getMsg());
+                                new HomeFragment().setError(String.valueOf(R.string.error_list));
+                            }
+
+                        } catch(Exception e){
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<RestaurantCategoriesListResponse> call, Throwable t) {
+                    try {
+                        clientAndRestaurantHomeFragmentSFlShimmer.stopShimmer();
+                        clientAndRestaurantHomeFragmentSFlShimmer.setVisibility(View.GONE);
+                        loadMore.setVisibility(View.GONE);
+                        clientAndRestaurantHomeFragmentSrRefreshRv.setRefreshing(false);
+                        new HomeFragment().setError(String.valueOf(R.string.error_list));
+                        clientRestaurantCategoryFiltterDataResponse.postValue(null);
+                    } catch (Exception e) {
+
+                    }
+
+                }
+            });
+        } else {
+            try {
+                clientAndRestaurantHomeFragmentSFlShimmer.stopShimmer();
+                clientAndRestaurantHomeFragmentSFlShimmer.setVisibility(View.GONE);
+                loadMore.setVisibility(View.GONE);
+                clientAndRestaurantHomeFragmentSrRefreshRv.setRefreshing(false);
+                errorSubView.setVisibility(View.VISIBLE);
+//                errorTitle.setText(errorTitleTxt);
+                new HomeFragment().setError(String.valueOf(R.string.error_inter_net));
+                onCreateErrorToast(activity, activity.getString(R.string.error_inter_net));
+            } catch (Exception e) {
+
+            }
+
+        }
+    }
+
+
+
+    public MutableLiveData<RestaurantSubCategoriesItemsListResponce> makeClientRestaurantSubCategoriesItemsDataList() {
+        return clientRestaurantSubCategoriesItemsListDataResponse;
+    }
+
+    public void getClientRestaurantSubCategoriesItemsDataList(final Activity activity, final LinearLayout errorSubView, final Call<RestaurantSubCategoriesItemsListResponce> method, final SwipeRefreshLayout clientAndRestaurantHomeFragmentSrRefreshRv, final RelativeLayout loadMore, final ShimmerFrameLayout clientAndRestaurantHomeFragmentSFlShimmer) {
+        if (isConnected(activity)) {
+
+
+            method.enqueue(new Callback<RestaurantSubCategoriesItemsListResponce>() {
+                @Override
+                public void onResponse(Call<RestaurantSubCategoriesItemsListResponce> call, Response<RestaurantSubCategoriesItemsListResponce> response) {
+//                    showToast(activity, "here4");
+
+                    if (response.body() != null) {
+                        try {
+
+                            clientAndRestaurantHomeFragmentSFlShimmer.stopShimmer();
+                            clientAndRestaurantHomeFragmentSFlShimmer.setVisibility(View.GONE);
+                            loadMore.setVisibility(View.GONE);
+                            clientAndRestaurantHomeFragmentSrRefreshRv.setRefreshing(false);
+                            if (response.body().getStatus() == 1) {
+//                               new HomeFragment().maxPage = response.body().getData().getLastPage();
+//                                showToast(activity, "max="+new HomeFragment().maxPage);
+//
+//                                if (response.body().getData().getTotal() != 0) {
+//                                    new HomeFragment().clientrestaurantsListData.addAll(response.body().getData().getData());
+//                                    showToast(activity, "list="+new HomeFragment().clientrestaurantsListData.get(1));
+//
+//                                    new HomeFragment().clientrestaurantsAdapter.notifyDataSetChanged();
+//
+//                                } else {
+//                                    noResultErrorTitle.setVisibility(View.VISIBLE);
+//                                }
+                                clientRestaurantSubCategoriesItemsListDataResponse.postValue(response.body());
+
+                                ToastCreator.onCreateSuccessToast(activity, response.body().getMsg());
+                            } else {
+                                onCreateErrorToast(activity, response.body().getMsg());
+                                new HomeFragment().setError(String.valueOf(R.string.error_list));
+                            }
+
+                        } catch(Exception e){
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<RestaurantSubCategoriesItemsListResponce> call, Throwable t) {
+                    try {
+                        clientAndRestaurantHomeFragmentSFlShimmer.stopShimmer();
+                        clientAndRestaurantHomeFragmentSFlShimmer.setVisibility(View.GONE);
+                        loadMore.setVisibility(View.GONE);
+                        clientAndRestaurantHomeFragmentSrRefreshRv.setRefreshing(false);
+                        new HomeFragment().setError(String.valueOf(R.string.error_list));
+                        clientRestaurantSubCategoriesItemsListDataResponse.postValue(null);
+                    } catch (Exception e) {
+
+                    }
+
+                }
+            });
+        } else {
+            try {
+                clientAndRestaurantHomeFragmentSFlShimmer.stopShimmer();
+                clientAndRestaurantHomeFragmentSFlShimmer.setVisibility(View.GONE);
+                loadMore.setVisibility(View.GONE);
+                clientAndRestaurantHomeFragmentSrRefreshRv.setRefreshing(false);
+                errorSubView.setVisibility(View.VISIBLE);
+//                errorTitle.setText(errorTitleTxt);
+                new HomeFragment().setError(String.valueOf(R.string.error_inter_net));
+                onCreateErrorToast(activity, activity.getString(R.string.error_inter_net));
+            } catch (Exception e) {
+
+            }
+
+        }
+    }
 
 }

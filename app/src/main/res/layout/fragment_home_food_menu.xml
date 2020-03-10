@@ -12,7 +12,7 @@
         >
 
         <com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/notifications_fragment_s_fl_shimmer_donations"
+            android:id="@+id/food_order_fragment_s_fl_shimmer_donations"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -22,7 +22,7 @@
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/_70sdp"
+                    android:layout_height="@dimen/_90sdp"
                     android:paddingTop="@dimen/_10sdp"
                     android:orientation="horizontal"
                     android:weightSum="3"
@@ -59,7 +59,7 @@
         </com.facebook.shimmer.ShimmerFrameLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/donations_list_Fragment_sr_refresh_donations"
+            android:id="@+id/food_order_Fragment_sr_refresh_donations"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
 
@@ -70,9 +70,9 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/home_articles_recycler_view_horizental"
+                    android:id="@+id/food_order_fragment_recycler_view_horizental"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/_75sdp"
                     android:layout_above="@+id/load_more"
                     android:paddingTop="@dimen/_15sdp"
                     android:paddingEnd="@dimen/_4sdp"
@@ -84,11 +84,11 @@
                     android:layout_height="match_parent">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/home_articles_recycler_view"
+                        android:id="@+id/food_order_fragment_articles_recycler_view"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_above="@+id/load_more"
-                        android:paddingTop="@dimen/_15sdp"
+                        android:paddingTop="@dimen/_10sdp"
                         android:scrollbars="vertical" />
 
 
@@ -99,6 +99,7 @@
                         android:layout_alignParentBottom="true" />
 
                     <include layout="@layout/error" />
+                    <include layout="@layout/not_found_result_error" />
 
                 </RelativeLayout>
 

@@ -20,7 +20,7 @@ import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.chauthai.swipereveallayout.ViewBinderHelper;
 import com.example.sofra.R;
 import com.example.sofra.data.model.clientLogin.ClientData;
-import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryData;
+import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryFiltterData;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryResponse;
 import com.example.sofra.utils.RestaurantAddAndUpdateCategoryDialog;
 import com.example.sofra.view.activity.BaseActivity;
@@ -38,7 +38,6 @@ import retrofit2.Call;
 import static com.example.sofra.data.api.ApiClient.getApiClient;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.sofra.utils.GeneralRequest.deleteAndUpdateItemCallBack;
-import static com.example.sofra.utils.HelperMethod.alertDialog;
 import static com.example.sofra.utils.HelperMethod.onLoadImageFromUrl;
 import static com.example.sofra.utils.HelperMethod.replaceFragment;
 import static com.example.sofra.utils.HelperMethod.showToast;
@@ -52,7 +51,7 @@ public class RestaurantCategoriesAdapter extends RecyclerView.Adapter<Restaurant
 
     private Context context;
     private BaseActivity activity;
-    private List<RestaurantCategoryData> restaurantDataList = new ArrayList<>();
+    private List<RestaurantCategoryFiltterData> restaurantDataList = new ArrayList<>();
     private ViewBinderHelper viewBinderHelper = new ViewBinderHelper();
     private ClientData clientData;
     private String lang;
@@ -61,7 +60,7 @@ public class RestaurantCategoriesAdapter extends RecyclerView.Adapter<Restaurant
     public static String dialogCategoryPath;
     public static String dialogCategoryName;
     private ArrayList<AlbumFile> alpom= new ArrayList<>();
-    public RestaurantCategoriesAdapter(Activity activity, List<RestaurantCategoryData> restaurantDataList) {
+    public RestaurantCategoriesAdapter(Activity activity, List<RestaurantCategoryFiltterData> restaurantDataList) {
         this.context = activity;
         this.activity = (BaseActivity) activity;
         this.restaurantDataList.clear();

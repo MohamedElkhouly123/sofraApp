@@ -41,11 +41,11 @@ public interface ClientMakeNewOrderItemForRoomDao {
     List<ClientMakeNewOrderItemForRoom> getAllItems();
 //    LiveData<List<ClientMakeNewOrderItemForRoom>> getAllItems();
 
-    @Query("SELECT * FROM clientNewOrder WHERE  subject_id= :id")
+    @Query("SELECT * FROM clientNewOrder WHERE  itemId = :id")
     ClientMakeNewOrderItemForRoom getUsersById(int id);
 
 
-    @Query("SELECT * FROM clientNewOrder WHERE subject_id = :id")
+    @Query("SELECT * FROM clientNewOrder WHERE itemId = :id")
     LiveData<ClientMakeNewOrderItemForRoom> getSubjectById(int id);
 
 //    @Query("select * from clientNewOrder where active = 1;")

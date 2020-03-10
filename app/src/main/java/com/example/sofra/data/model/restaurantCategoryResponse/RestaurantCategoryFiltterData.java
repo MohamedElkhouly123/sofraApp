@@ -5,7 +5,7 @@ import com.example.sofra.data.model.clientLogin.Client;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class RestaurantCategoryData {
+public class RestaurantCategoryFiltterData {
 
     @SerializedName("name")
     @Expose

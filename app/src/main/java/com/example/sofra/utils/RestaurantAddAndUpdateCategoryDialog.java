@@ -11,9 +11,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
 import com.example.sofra.R;
-import com.example.sofra.adapter.RestaurantCategoriesAdapter;
 import com.example.sofra.data.model.clientLogin.ClientData;
-import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryData;
+import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryFiltterData;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryResponse;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.HomeFragment;
 import com.google.android.material.textfield.TextInputLayout;
@@ -49,7 +48,7 @@ public class RestaurantAddAndUpdateCategoryDialog  {
     static CircleImageView restaurantAddCategoryDialogImgAddPhoto;
     static TextInputLayout restaurantAddCategoryDialogTilCategoryName;
     static Button restaurantAddCategoryDialogAddBtn;
-    public static RestaurantCategoryData restaurantDataListOfPossision;
+    public static RestaurantCategoryFiltterData restaurantDataListOfPossision;
     private static String addOrUpdate2;
 //    static AlertDialog alertDialog;
     private Context context;
@@ -60,7 +59,7 @@ public class RestaurantAddAndUpdateCategoryDialog  {
 
 
     public static void showDialog(@NonNull Activity activity,@NonNull Context context, @Nullable String addOrUpdate) {
-//        final RestaurantCategoryData restaurantDataListOfPossision
+//        final RestaurantCategoryFiltterData restaurantDataListOfPossision
         try {
 //            ButterKnife.bind(activity);
             final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(

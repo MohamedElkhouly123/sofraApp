@@ -9,8 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_marginEnd="@dimen/_20sdp"
-        android:layout_marginStart="@dimen/_20sdp"
+
         app:cardCornerRadius="@dimen/_24sdp">
 
         <LinearLayout
@@ -42,20 +41,20 @@
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/item_restaurant_cancel_reason_dialog_et_cancel_reason"
-                style="@style/text_input"
+                style="@style/text_input2"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_100sdp"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginTop="@dimen/_10sdp"
+                android:background="@drawable/shadow_white_shape"
                 android:layout_marginEnd="@dimen/_15sdp"
-                android:gravity="center">
+                >
 
                 <EditText
                     android:id="@+id/et_review_description"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/shadow_white_shape"
-                    android:fontFamily="@font/janna"
+                    android:layout_height="wrap_content"
+                    style="@style/EditText2"
                     android:gravity="start"
                     android:hint="ادخل تقييمك هنا"
                     android:maxLines="7"

@@ -15,7 +15,7 @@ public class RestaurantCategoriesListResponse {
     private String msg;
     @SerializedName("data")
     @Expose
-    private List<RestaurantCategoriesListData> data = null;
+    private List<RestaurantCategoryFiltterData> data = null;
 
     public Integer getStatus() {
         return status;
@@ -33,11 +33,11 @@ public class RestaurantCategoriesListResponse {
         this.msg = msg;
     }
 
-    public List<RestaurantCategoriesListData> getData() {
+    public List<RestaurantCategoryFiltterData> getData() {
         return data;
     }
 
-    public void setData(List<RestaurantCategoriesListData> data) {
+    public void setData(List<RestaurantCategoryFiltterData> data) {
         this.data = data;
     }
 
