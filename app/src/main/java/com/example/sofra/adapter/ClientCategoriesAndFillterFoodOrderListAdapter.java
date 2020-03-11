@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.sofra.R;
 import com.example.sofra.data.model.clientLogin.ClientData;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryFiltterData;
+import com.example.sofra.utils.RVAdapterCallback;
 import com.example.sofra.view.activity.HomeCycleActivity;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.FoodMenueFragment;
 
@@ -37,14 +38,16 @@ public class ClientCategoriesAndFillterFoodOrderListAdapter extends RecyclerView
     private Activity activity;
     private List<RestaurantCategoryFiltterData> clientCategoriesAndFillterFoodOrderDataList = new ArrayList<>();
     private ClientData clientData;
+    private RVAdapterCallback rvAdapterCallback;
 //    private ApiService apiService;
 
     public ClientCategoriesAndFillterFoodOrderListAdapter(Context context,
-                                                          Activity activity,
+                                                          Activity activity,RVAdapterCallback callback,
                                                           List<RestaurantCategoryFiltterData> clientCategoriesAndFillterFoodOrderDataList
     ) {
         this.context = context;
         this.activity = activity;
+        this.rvAdapterCallback=callback;
         this.clientCategoriesAndFillterFoodOrderDataList = clientCategoriesAndFillterFoodOrderDataList;
         clientData = LoadUserData(activity);
 //        showToast(activity, "addapter"+this.clientCategoriesAndFillterFoodOrderDataList.size());
@@ -90,7 +93,12 @@ public class ClientCategoriesAndFillterFoodOrderListAdapter extends RecyclerView
             @Override
             public void onClick(View v) {
                 FoodMenueFragment foodMenueFragment=new FoodMenueFragment();
-                foodMenueFragment.clientGetRestaurantsItemsListByFilter(1, String.valueOf(clientCategoriesAndFillterFoodOrderDataList.get(position).getId()),context,activity);
+//                foodMenueFragment.clientGetRestaurantsItemsListByFilter(1, String.valueOf(clientCategoriesAndFillterFoodOrderDataList.get(position).getId()),context,activity);
+//                foodMenueFragment.useFilter=true;
+
+//                showToast(activity, "true");
+                foodMenueFragment.categoryId=String.valueOf(clientCategoriesAndFillterFoodOrderDataList.get(position).getId());
+                rvAdapterCallback.onMethodCallback();
 
 //                HomeCycleActivity navigationActivity = (HomeCycleActivity) activity;
 //                postDetails.postsData = postsDataList.get(position);

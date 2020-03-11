@@ -33,6 +33,7 @@ import com.example.sofra.data.model.restaurantSubCategoriesItemsListResponce.Res
 import com.example.sofra.data.model.restaurantsListAndDetailsResponce.RestaurantsListData;
 import com.example.sofra.utils.HelperMethod;
 import com.example.sofra.utils.OnEndLess;
+import com.example.sofra.utils.RVAdapterCallback;
 import com.example.sofra.view.fragment.BaSeFragment;
 import com.example.sofra.view.fragment.splashCycle.SplashFragment;
 import com.example.sofra.view.viewModel.ViewModelClient;
@@ -54,7 +55,7 @@ import static com.example.sofra.utils.HelperMethod.progressDialog;
 import static com.example.sofra.utils.HelperMethod.replaceFragment;
 import static com.example.sofra.utils.HelperMethod.showToast;
 
-public class FoodMenueFragment extends BaSeFragment {
+public class FoodMenueFragment extends BaSeFragment implements RVAdapterCallback {
 
 
     @BindView(R.id.food_order_fragment_s_fl_shimmer_donations)
@@ -88,7 +89,7 @@ public class FoodMenueFragment extends BaSeFragment {
     private ClientData clientData;
     public String ISCLIENT ;
     public static RestaurantsListData restaurantsListData = new RestaurantsListData();
-    private static String categoryId;
+    public static String categoryId;
     static View root;
 
     public FoodMenueFragment(){
@@ -166,7 +167,7 @@ public class FoodMenueFragment extends BaSeFragment {
                                     clientRestaurantItemsDataList.clear();
                                     clientRestaurantItemsDataList.addAll(response.getData().getData());
 //                                showToast(getActivity(), "list="+clientRestaurantItemsDataList.get(1));
-
+                                    noResultErrorTitle.setVisibility(View.GONE);
                                     clientRestaurantsItemsAdapter.notifyDataSetChanged();
 
                                 } else {
@@ -215,7 +216,7 @@ public class FoodMenueFragment extends BaSeFragment {
 //        foodOrderFragmentArticlesRecyclerView.addOnScrollListener(onEndLess);
 
         if (ISCLIENT == "true") {
-            clientCategoriesAndFillterFoodOrderListAdapter = new ClientCategoriesAndFillterFoodOrderListAdapter(getContext(), getActivity(), clientRestaurantCategoryFiltterListData);
+            clientCategoriesAndFillterFoodOrderListAdapter = new ClientCategoriesAndFillterFoodOrderListAdapter(getContext(), getActivity(),this, clientRestaurantCategoryFiltterListData);
             foodOrderFragmentRecyclerViewHorizental.setAdapter(clientCategoriesAndFillterFoodOrderListAdapter);
 //            showToast(getActivity(), "success adapter");
         }
@@ -255,7 +256,7 @@ public class FoodMenueFragment extends BaSeFragment {
                         onEndLess.previous_page = current_page;
                         loadMore.setVisibility(View.VISIBLE);
                         if (Filter) {
-                            clientGetRestaurantsItemsListByFilter(current_page, categoryId,getContext(),getActivity());
+                            clientGetRestaurantsItemsListByFilter(current_page);
                         } else {
                             clientGetRestaurantsItemsListWithoutFilter(current_page);
                         }
@@ -286,14 +287,16 @@ public class FoodMenueFragment extends BaSeFragment {
         foodOrderFragmentSrRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                clientGetRestaurantsFiltterList(1);
                 if (Filter) {
-                    clientGetRestaurantsItemsListByFilter(1, categoryId,getContext(),getActivity());
+                    clientGetRestaurantsItemsListByFilter(1);
 //                    showToast(getActivity(), "success refresh fillter " + categoryId);
 
                 } else {
                     clientGetRestaurantsItemsListWithoutFilter(1);
+
                 }
+                clientGetRestaurantsFiltterList(1);
+
 
             }
         });
@@ -310,56 +313,65 @@ public class FoodMenueFragment extends BaSeFragment {
 
 
     }
-
-    public void clientGetRestaurantsItemsListByFilter(int page, String categoryIdOut, Context context, Activity activity) {
+    public void clientGetRestaurantsItemsListByFilter(int page) {
         Filter = true;
-        foodOrderFragmentArticlesRecyclerView=(RecyclerView) root.findViewById(R.id.food_order_fragment_articles_recycler_view);
-        loadMore=(RelativeLayout) root.findViewById(R.id.load_more);
-        String restaurantId = String.valueOf(restaurantsListData.getId());
-        categoryId = categoryIdOut;
-//        init();
-        clientRestaurantItemsDataList = new ArrayList<>();
-        clientRestaurantsItemsAdapter = new ClientRestaurantsItemsAdapter(getActivity(), context, clientRestaurantItemsDataList);
-        foodOrderFragmentArticlesRecyclerView.setAdapter(clientRestaurantsItemsAdapter);
-        if (progressDialog == null) {
-            HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
-        } else {
-            if (!progressDialog.isShowing()) {
-                HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
-            }
-        }
         Call<RestaurantSubCategoriesItemsListResponce> clientRestaurantsItemsCall;
-        getApiClient().getRestaurantSubCategoriesItemsList(restaurantId, categoryId, page).enqueue(new Callback<RestaurantSubCategoriesItemsListResponce>() {
+        String restaurantId = String.valueOf(restaurantsListData.getId());
+        clientRestaurantsItemsCall = getApiClient().getRestaurantSubCategoriesItemsList(restaurantId, categoryId, page);
+        startShimmer(page);
+        viewModel.getClientRestaurantSubCategoriesItemsDataList(getActivity(), errorSubView, clientRestaurantsItemsCall, foodOrderFragmentSrRefresh, loadMore, foodOrderFragmentSFlShimmer);
+//            showToast(getActivity(), "success without fillter");
 
-            @Override
-            public void onResponse(Call<RestaurantSubCategoriesItemsListResponce> call, Response<RestaurantSubCategoriesItemsListResponce> response) {
-                try {
-                    dismissProgressDialog();
-                    loadMore.setVisibility(View.GONE);
-                    if (response.body().getStatus() == 1) {
-                        if (response.body().getData() != null && response.body().getData().getTotal() != 0) {
-
-                            clientRestaurantItemsDataList.clear();
-                        clientRestaurantItemsDataList.addAll(response.body().getData().getData());
-                        clientRestaurantsItemsAdapter.notifyDataSetChanged();
-
-                    }
-                        showToast(getActivity(), "rv num" + clientRestaurantCategoryFiltterListData.size());
-
-                    }
-                } catch (Exception e) {
-//                    Log.d(TAG, e.getMessage());
-                }
-            }
-
-            @Override
-            public void onFailure(Call<RestaurantSubCategoriesItemsListResponce> call, Throwable t) {
-                dismissProgressDialog();
-                loadMore.setVisibility(View.VISIBLE);
-
-
-            }
-        });  }
+    }
+//    public void clientGetRestaurantsItemsListByFilter(int page, String categoryIdOut, Context context, Activity activity) {
+//        Filter = true;
+////        foodOrderFragmentArticlesRecyclerView=(RecyclerView) root.findViewById(R.id.food_order_fragment_articles_recycler_view);
+////        loadMore=(RelativeLayout) root.findViewById(R.id.load_more);
+//        String restaurantId = String.valueOf(restaurantsListData.getId());
+////        categoryId = categoryIdOut;
+////        init();
+//        clientRestaurantItemsDataList = new ArrayList<>();
+//        clientRestaurantsItemsAdapter = new ClientRestaurantsItemsAdapter(getActivity(), context, clientRestaurantItemsDataList);
+//        foodOrderFragmentArticlesRecyclerView.setAdapter(clientRestaurantsItemsAdapter);
+//        if (progressDialog == null) {
+//            HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
+//        } else {
+//            if (!progressDialog.isShowing()) {
+//                HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
+//            }
+//        }
+//        Call<RestaurantSubCategoriesItemsListResponce> clientRestaurantsItemsCall;
+//        getApiClient().getRestaurantSubCategoriesItemsList(restaurantId, categoryId, page).enqueue(new Callback<RestaurantSubCategoriesItemsListResponce>() {
+//
+//            @Override
+//            public void onResponse(Call<RestaurantSubCategoriesItemsListResponce> call, Response<RestaurantSubCategoriesItemsListResponce> response) {
+//                try {
+//                    dismissProgressDialog();
+//                    loadMore.setVisibility(View.GONE);
+//                    if (response.body().getStatus() == 1) {
+//                        if (response.body().getData() != null && response.body().getData().getTotal() != 0) {
+//
+//                            clientRestaurantItemsDataList.clear();
+//                        clientRestaurantItemsDataList.addAll(response.body().getData().getData());
+//                        clientRestaurantsItemsAdapter.notifyDataSetChanged();
+//
+//                    }
+//                        showToast(getActivity(), "rv num" + clientRestaurantCategoryFiltterListData.size());
+//
+//                    }
+//                } catch (Exception e) {
+////                    Log.d(TAG, e.getMessage());
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RestaurantSubCategoriesItemsListResponce> call, Throwable t) {
+//                dismissProgressDialog();
+//                loadMore.setVisibility(View.VISIBLE);
+//
+//
+//            }
+//        });  }
 
     private void startShimmer(int page) {
         errorSubView.setVisibility(View.GONE);
@@ -371,6 +383,7 @@ public class FoodMenueFragment extends BaSeFragment {
         }
     }
 
+
     private void reInit() {
         onEndLess.previousTotal = 0;
         onEndLess.current_page = 1;
@@ -381,7 +394,7 @@ public class FoodMenueFragment extends BaSeFragment {
             foodOrderFragmentArticlesRecyclerView.setAdapter(clientRestaurantsItemsAdapter);
 
             clientRestaurantCategoryFiltterListData = new ArrayList<>();
-            clientCategoriesAndFillterFoodOrderListAdapter = new ClientCategoriesAndFillterFoodOrderListAdapter(getContext(), getActivity(), clientRestaurantCategoryFiltterListData);
+            clientCategoriesAndFillterFoodOrderListAdapter = new ClientCategoriesAndFillterFoodOrderListAdapter(getContext(), getActivity(), this,clientRestaurantCategoryFiltterListData);
             foodOrderFragmentRecyclerViewHorizental.setAdapter(clientCategoriesAndFillterFoodOrderListAdapter);
         }
 
@@ -407,5 +420,12 @@ public class FoodMenueFragment extends BaSeFragment {
     public void onBack() {
         replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, new HomeFragment());
         homeCycleActivity.navView.getMenu().getItem(0).setChecked(true);
+    }
+
+    @Override
+    public void onMethodCallback() {
+        clientGetRestaurantsFiltterList(1);
+        clientGetRestaurantsItemsListByFilter(1);
+//        showToast(getActivity(), "yes");
     }
 }
