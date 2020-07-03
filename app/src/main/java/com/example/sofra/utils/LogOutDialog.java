@@ -22,6 +22,8 @@ import com.example.sofra.view.fragment.splashCycle.SplashFragment;
 import retrofit2.Call;
 
 import static com.example.sofra.data.api.ApiClient.getApiClient;
+import static com.example.sofra.data.local.SharedPreferencesManger.CLIENT;
+import static com.example.sofra.data.local.SharedPreferencesManger.LoadData;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.sofra.data.local.SharedPreferencesManger.clean;
 import static com.example.sofra.utils.GeneralRequest.deleteAndUpdateItemCallBack;
@@ -32,6 +34,9 @@ public class LogOutDialog {
     private ClientData clientData;
 
     public void showDialog(final Activity activity) {
+        if(ISCLIENT==null){
+            ISCLIENT = LoadData(activity, CLIENT);
+        }
         final Dialog dialog = new Dialog(activity);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -49,16 +54,17 @@ public class LogOutDialog {
                 //Call
                 clientData = LoadUserData(activity);
                 clean(activity);
+                if (clientData!=null){
                 Call<RestaurantCategoryResponse> removetTokenCall = null;
                 String token=new ClientFireBaseToken().getToken();
                 String apiToken=clientData.getApiToken();
-                if (ISCLIENT.equals("true")) {
+                if (ISCLIENT.equalsIgnoreCase("true")) {
 
                     removetTokenCall = getApiClient().clientRemoveToken(token,apiToken);
                 }  if(ISCLIENT=="false") {
                     removetTokenCall = getApiClient().restaurantRemoveToken(token,apiToken);
                 }
-                deleteAndUpdateItemCallBack(activity,removetTokenCall);
+                deleteAndUpdateItemCallBack(activity,removetTokenCall);}
                 Intent i = new Intent(activity, SplashCycleActivity.class);
 
                 activity.startActivity(i);

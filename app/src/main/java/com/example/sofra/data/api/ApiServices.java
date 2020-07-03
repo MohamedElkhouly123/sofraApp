@@ -4,7 +4,6 @@ package com.example.sofra.data.api;
 import com.example.sofra.data.model.clientGetAllNotofications.ClientGetAllNotoficationsResponse;
 import com.example.sofra.data.model.clientLogin.ClientGeneralResponse;
 import com.example.sofra.data.model.clientMakeNewOrder.ClientMakeNewOrderResponse;
-import com.example.sofra.data.model.clientMyOrder.ClientMyOrderResponse;
 import com.example.sofra.data.model.clientResetPassword.ClientResetPasswordResponse;
 import com.example.sofra.data.model.clientRestaurantReview.ClientRestaurantReviewResponse;
 import com.example.sofra.data.model.contactUs.ContactUsResponce;
@@ -15,7 +14,6 @@ import com.example.sofra.data.model.orderResponse.OrderResponse;
 import com.example.sofra.data.model.paymentMethods.PaymentMethodsResponce;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoriesListResponse;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryResponse;
-import com.example.sofra.data.model.restaurantChangeState.RestaurantChangeStateResponse;
 import com.example.sofra.data.model.restaurantCommission.RestaurantCommissionResponse;
 import com.example.sofra.data.model.restaurantOffer.RestaurantOfferResponce;
 import com.example.sofra.data.model.restaurantSubCategoriesItemsListResponce.RestaurantSubCategoriesItemsListResponce;
@@ -78,11 +76,11 @@ public interface ApiServices {
             @Field("password_confirmation") String passwordConfirmation
     );
 
-    @POST("client/profile")
-    @FormUrlEncoded
-    Call<ClientGeneralResponse> getClientProfile(
-            @Field("api_token") String apiToken
-    );
+//    @POST("client/profile")
+//    @FormUrlEncoded
+//    Call<ClientGeneralResponse> getClientProfile(
+//            @Field("api_token") String apiToken
+//    );
 
     @POST("client/profile")
     @Multipart
@@ -134,14 +132,14 @@ public interface ApiServices {
 
     @POST("client/confirm-order")
     @FormUrlEncoded
-    Call<ClientResetPasswordResponse> clientConfirmOrder(
+    Call<OrderResponse> clientConfirmOrder(
             @Field("order_id") String orderId,
             @Field("api_token") String api_token
     );
 
     @POST("client/decline-order")
     @FormUrlEncoded
-    Call<ClientResetPasswordResponse> clientDeclineOrder(
+    Call<OrderResponse> clientDeclineOrder(
             @Field("order_id") String order_id,
             @Field("api_token") String api_token
     );
@@ -162,14 +160,16 @@ public interface ApiServices {
     );
 
     @GET("client/my-orders")
-    Call<ClientMyOrderResponse> getMyOrder(
+    Call<OrderResponse> clientGetMyOrder(
             @Query("api_token") String apiToken,
-            @Query("state") String state
+            @Query("state") String state,
+            @Query("page") int page
+
 
     );
 
     @GET("client/show-order")
-    Call<ClientMakeNewOrderResponse> showOrder(
+    Call<OrderResponse> showOrder(
             @Query("api_token") String apiToken,
             @Query("order_id") String orderId
 
@@ -335,7 +335,7 @@ public interface ApiServices {
     );
 
     @GET("restaurant/my-offers")
-    Call<RestaurantOfferResponce> getMyOrders(
+    Call<RestaurantOfferResponce> getMyOffers(
             @Query("api_token") String apiToken,
             @Query("page") String page
 
@@ -437,10 +437,10 @@ public interface ApiServices {
 
 
     @GET("restaurant/my-orders")
-    Call<OrderResponse> getMyFoodOrders(
+    Call<OrderResponse> restaurantGetMyOrders(
             @Query("api_token") String apiToken,
             @Query("state") String state,
-            @Query("page") String page
+            @Query("page") int page
 
 
     );

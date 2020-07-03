@@ -1,7 +1,5 @@
 package com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.notificationsMenues;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,13 +21,10 @@ import com.example.sofra.adapter.GeneralOrderAdapter;
 import com.example.sofra.data.model.clientLogin.ClientData;
 import com.example.sofra.data.model.orderResponse.OrderData;
 import com.example.sofra.data.model.orderResponse.OrderResponse;
-import com.example.sofra.data.model.restaurantsListAndDetailsResponce.RestaurantsListResponce;
 import com.example.sofra.utils.OnEndLess;
-import com.example.sofra.view.activity.UserCycleActivity;
 import com.example.sofra.view.fragment.BaSeFragment;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.HomeFragment;
 import com.example.sofra.view.fragment.splashCycle.SplashFragment;
-import com.example.sofra.view.viewModel.ViewModelClient;
 import com.example.sofra.view.viewModel.ViewModelOtherWayForOrder;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
@@ -48,7 +43,7 @@ import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.sofra.utils.HelperMethod.replaceFragment;
 import static com.example.sofra.utils.HelperMethod.showToast;
 
-public class SubMenuesFragment extends BaSeFragment {
+public class Sub3MenuesFragment extends BaSeFragment {
 
 
     @BindView(R.id.notifications_fragment_s_fl_shimmer_submenues)
@@ -75,7 +70,6 @@ public class SubMenuesFragment extends BaSeFragment {
     private OnEndLess onEndLess;
     private ClientData clientData;
     public String ISCLIENT ;
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
@@ -83,16 +77,15 @@ public class SubMenuesFragment extends BaSeFragment {
         ButterKnife.bind(this, root);
         ISCLIENT = SplashFragment.getClient();
         clientData = LoadUserData(getActivity());
-
-            if(ISCLIENT==null){
-                ISCLIENT = LoadData(getActivity(), CLIENT);
-            }
+        if(ISCLIENT==null){
+            ISCLIENT = LoadData(getActivity(), CLIENT);
+        }
 //        showToast(getActivity(), String.valueOf(tabLayout.getSelectedTabPosition()));
 
 //        showToast(getActivity(), String.valueOf(SUBMENUE));
-            setUpActivity();
-            initLisener();
-            init();
+        setUpActivity();
+        initLisener();
+        init();
 
         return root;
     }
@@ -133,6 +126,8 @@ public class SubMenuesFragment extends BaSeFragment {
         });
     }
 
+
+
     private void init() {
         linearLayout = new LinearLayoutManager(getActivity());
         submenuesRecyclerView.setLayoutManager(linearLayout);
@@ -159,7 +154,7 @@ public class SubMenuesFragment extends BaSeFragment {
         submenuesRecyclerView.addOnScrollListener(onEndLess);
 
         if (ISCLIENT == "true") {
-            generalOrderAdapter = new GeneralOrderAdapter(getActivity(), getContext(), generalOrderListData,0);
+            generalOrderAdapter = new GeneralOrderAdapter(getActivity(), getContext(), generalOrderListData,2);
             submenuesRecyclerView.setAdapter(generalOrderAdapter);
 //            showToast(getActivity(), "success adapter");
         }
@@ -183,35 +178,32 @@ public class SubMenuesFragment extends BaSeFragment {
 
 //        String restaurantId = String.valueOf(restaurantsListData.getId());
 //        String categoryId2 = null;
-        Call<OrderResponse> clientGetOrderPending = null;
-        Call<OrderResponse> restaurantGetOrderPending = getApiClient().restaurantGetMyOrders(clientData.getApiToken(), "pending", page);
-         startShimmer(page);
+        Call<OrderResponse> clientGetOrderCompleted = null;
+        Call<OrderResponse> restaurantGetOrderCompleted = getApiClient().restaurantGetMyOrders(clientData.getApiToken(), "current", page);
+
+
+
+        Sub3MenuesFragment subMenuesFragment = new Sub3MenuesFragment();
+        startShimmer(page);
 
         if (ISCLIENT.equalsIgnoreCase("true")) {
 
-                clientGetOrderPending=getApiClient().clientGetMyOrder(clientData.getApiToken(), "pending", page);
-                viewModel.returnGeneralOrder(getActivity(), errorSubView, clientGetOrderPending, submenuesListFragmentSrRefreshSubmenues, loadMore, submenuesFragmentSFlShimmerSubmenues);
-                showToast(getActivity(), "pend 1");
 
 
+                 clientGetOrderCompleted = getApiClient().clientGetMyOrder(clientData.getApiToken(), "completed", page);
+                viewModel.returnGeneralOrder(getActivity(), errorSubView, clientGetOrderCompleted, submenuesListFragmentSrRefreshSubmenues, loadMore, submenuesFragmentSFlShimmerSubmenues);
+                showToast(getActivity(), "pend 3");
 
 
+        } else if (ISCLIENT.equalsIgnoreCase("false")) {
 
 
+                viewModel.returnGeneralOrder(getActivity(), errorSubView, restaurantGetOrderCompleted, submenuesListFragmentSrRefreshSubmenues, loadMore, submenuesFragmentSFlShimmerSubmenues);
 
-            }
-         else if (ISCLIENT.equalsIgnoreCase("false")) {
-
-                viewModel.returnGeneralOrder(getActivity(), errorSubView, restaurantGetOrderPending, submenuesListFragmentSrRefreshSubmenues, loadMore, submenuesFragmentSFlShimmerSubmenues);
-
-
-
-//                if (!clientIsCompleted) {
-//                }
-            }
+//
         }
 //            showToast(getActivity(), "success without fillter");
-
+    }
 
 
     private void startShimmer(int page) {
@@ -232,13 +224,12 @@ public class SubMenuesFragment extends BaSeFragment {
 //        if ("add".equalsIgnoreCase(called_from)) {
 //        if (ISCLIENT.equalsIgnoreCase("true")) {
             generalOrderListData = new ArrayList<>();
-            generalOrderAdapter = new GeneralOrderAdapter(getActivity(), getContext(), generalOrderListData,0);
+            generalOrderAdapter = new GeneralOrderAdapter(getActivity(), getContext(), generalOrderListData,2);
             submenuesRecyclerView.setAdapter(generalOrderAdapter);
 
 //        }
 
     }
-
 
     @Override
     public void onBack() {

@@ -95,7 +95,6 @@ public class ClientCategoriesAndFillterFoodOrderListAdapter extends RecyclerView
                 FoodMenueFragment foodMenueFragment=new FoodMenueFragment();
 //                foodMenueFragment.clientGetRestaurantsItemsListByFilter(1, String.valueOf(clientCategoriesAndFillterFoodOrderDataList.get(position).getId()),context,activity);
 //                foodMenueFragment.useFilter=true;
-
 //                showToast(activity, "true");
                 foodMenueFragment.categoryId=String.valueOf(clientCategoriesAndFillterFoodOrderDataList.get(position).getId());
                 rvAdapterCallback.onMethodCallback();

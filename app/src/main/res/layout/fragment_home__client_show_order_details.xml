@@ -344,7 +344,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/item_restaurant_orders_btn_confirm"
+                android:id="@+id/item_restaurant_orders_btn_accept"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/_4sdp"

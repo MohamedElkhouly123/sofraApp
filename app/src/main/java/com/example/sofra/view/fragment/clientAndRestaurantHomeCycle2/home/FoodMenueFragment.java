@@ -388,7 +388,8 @@ public class FoodMenueFragment extends BaSeFragment implements RVAdapterCallback
         onEndLess.previousTotal = 0;
         onEndLess.current_page = 1;
         onEndLess.previous_page = 1;
-        if (ISCLIENT.equals("true")) {
+//        if ("add".equalsIgnoreCase(called_from)) {
+        if (ISCLIENT.equalsIgnoreCase("true")) {
             clientRestaurantItemsDataList = new ArrayList<>();
             clientRestaurantsItemsAdapter = new ClientRestaurantsItemsAdapter(getActivity(), getContext(), clientRestaurantItemsDataList);
             foodOrderFragmentArticlesRecyclerView.setAdapter(clientRestaurantsItemsAdapter);

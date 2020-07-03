@@ -59,7 +59,7 @@
 <!--            app:siSquare="true"/>-->
 
         <Button
-            android:id="@+id/client_and_restaurant_login_buer_next_btn"
+            android:id="@+id/dialog_restaurant_cancel_resoan_btn"
             style="@style/Button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

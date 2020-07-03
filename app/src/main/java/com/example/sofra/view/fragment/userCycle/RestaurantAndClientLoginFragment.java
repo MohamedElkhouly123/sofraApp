@@ -146,7 +146,7 @@ public class RestaurantAndClientLoginFragment extends BaSeFragment {
             return;
         }
 
-        if (!validationPassword(loginFragmentTilPassword, 6, getString(R.string.invalid_password))) {
+        if (!validationPassword(loginFragmentTilPassword, 4, getString(R.string.invalid_password))) {
             return;
         }
 

@@ -10,6 +10,7 @@ import com.example.sofra.R;
 import com.example.sofra.adapter.SpinnerAdapter;
 import com.example.sofra.data.model.clientLogin.ClientGeneralResponse;
 import com.example.sofra.data.model.generalRespose.GeneralRespose;
+import com.example.sofra.data.model.orderResponse.OrderResponse;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryResponse;
 import com.example.sofra.view.activity.HomeCycleActivity;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.HomeFragment;
@@ -63,7 +64,43 @@ public class GeneralRequest {
         });
     }
 
+    public static void genralOrderCallBack(final Activity activity,final Call<OrderResponse> method) {
+        if (progressDialog == null) {
+            HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
+        } else {
+            if (!progressDialog.isShowing()) {
+                HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
+            }
+        }
 
+        method.enqueue(new Callback<OrderResponse>() {
+            @Override
+            public void onResponse(Call<OrderResponse> call, Response<OrderResponse> response) {
+
+                if (response.body() != null) {
+                    try {
+                        dismissProgressDialog();
+
+                        if (response.body().getStatus() == 1) {
+
+                            ToastCreator.onCreateSuccessToast(activity, response.body().getMsg());
+                        } else {
+                            onCreateErrorToast(activity, response.body().getMsg());
+                        }
+                    } catch (Exception e) {
+
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<OrderResponse> call, Throwable t) {
+                dismissProgressDialog();
+                new HomeFragment().isDialogDataAddSuccess=false;
+                onCreateErrorToast(activity, activity.getString(R.string.error));
+            }
+        });
+    }
 
 
 

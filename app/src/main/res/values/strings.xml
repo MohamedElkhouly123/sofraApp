@@ -56,5 +56,10 @@
     <string name="update_dialog">تعديل</string>
     <string name="error_list">Same thing happened, Please try again later</string>
     <string name="add">أضافة</string>
+    <string name="client_submmit">تأكيد الطلب</string>
+    <string name="client_cancel">الغاء الطلب</string>
+    <string name="client_order_completed">الطلب مكتمل</string>
+    <string name="client_order_canceled">الطلب ملغى</string>
+    <string name="client_order_rejected">الطلب مرفوض</string>
 
 </resources>

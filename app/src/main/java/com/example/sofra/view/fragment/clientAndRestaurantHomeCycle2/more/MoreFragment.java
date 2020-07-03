@@ -156,12 +156,12 @@ public class MoreFragment extends BaSeFragment {
                 }
                 break;
             case R.id.more_sign_out_lay:
-                if (clientData != null) {
+//                if (clientData != null) {
                     new LogOutDialog().showDialog(getActivity());
-                } else {
-                    goToRegisterFirst(getActivity());
-                    goLogin = true;
-                }
+//                } else {
+//                    goToRegisterFirst(getActivity());
+//                    goLogin = true;
+//                }
                 break;
         }
     }

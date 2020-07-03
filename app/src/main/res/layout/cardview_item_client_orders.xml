@@ -13,8 +13,8 @@
         android:layout_height="@dimen/_155sdp"
       >
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:cardCornerRadius="30dp"
         card_view:cardUseCompatPadding="true"
         android:foreground="?selectableItemBackground"
@@ -59,6 +59,7 @@
                     >
 
                     <TextView
+                        android:id="@+id/item_restaurant_orders_tv_client_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="العميل :"
@@ -131,7 +132,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/item_user_new_order_btn_cancel_order"
+                android:id="@+id/item_user_new_order_btn_cancel_or_submit_order"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_27sdp"
                 android:layout_alignParentBottom="true"
@@ -162,12 +163,13 @@
                     android:textSize="@dimen/_13ssp" />
             </LinearLayout>
             <Button
+                android:id="@+id/item_user_new_order_btn_completed_or_canceled_order"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_27sdp"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:layout_marginEnd="@dimen/_95sdp"
-                android:layout_marginStart="@dimen/_95sdp"
+                android:layout_marginEnd="@dimen/_85sdp"
+                android:layout_marginStart="@dimen/_85sdp"
                 android:layout_marginBottom="@dimen/_15sdp"
                 android:visibility="gone"
                 android:fontFamily="@font/janna"
@@ -179,6 +181,7 @@
                 android:background="@drawable/green_button"
                 />
             <LinearLayout
+                android:id="@+id/item_restaurant_orders_bottoms_lay1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -215,7 +218,7 @@
                         android:textColor="#fff" />
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/item_restaurant_orders_btn_confirm"
+                    android:id="@+id/item_restaurant_orders_btn_accept"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="@dimen/_4sdp"
@@ -235,7 +238,7 @@
                         android:id="@+id/item_restaurant_orders_tv_confirm"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="تأكيد"
+                        android:text="قبول"
                         android:fontFamily="@font/janna"
                         android:textStyle="bold"
                         android:textColor="#fff" />
@@ -269,6 +272,7 @@
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/item_restaurant_orders_bottoms_lay2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
