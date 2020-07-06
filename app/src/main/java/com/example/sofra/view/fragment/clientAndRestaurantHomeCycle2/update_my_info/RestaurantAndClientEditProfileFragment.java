@@ -389,7 +389,7 @@ public class RestaurantAndClientEditProfileFragment extends BaSeFragment {
 
         }
         viewModel.makeGeneralRegisterationAndEditToServer(getActivity(),clientCall, passwordSave, true, false);
-        viewModel.getAndMakeResetAndNewPasswordAndTokenAndChangeStatus(getActivity(),statusCall);
+        viewModel.getAndMakeResetAndNewPasswordAndTokenAndChangeStatus(getActivity(),statusCall,true);
 
 
     }

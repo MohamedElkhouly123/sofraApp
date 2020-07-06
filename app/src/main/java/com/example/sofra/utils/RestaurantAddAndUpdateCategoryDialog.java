@@ -97,10 +97,11 @@ public class RestaurantAddAndUpdateCategoryDialog  {
                        RequestBody updatedCategoryApiToken=convertToRequestBody(clientData.getApiToken());
 //                        RequestBody updatedCategoryApiToken=convertToRequestBody("Jptu3JVmDXGpJEaQO9ZrjRg5RuAVCo45OC2AcOKqbVZPmu0ZJPN3T1sm0cWx");
                        MultipartBody.Part updatedCategoryPhoto=convertFileToMultipart(mPath,CLIENTPROFILEIMAGE);
-                        RequestBody updatedCategoryId= convertToRequestBody(String.valueOf(restaurantDataListOfPossision.getId()));
 //                        showToast(activity, String.valueOf(updatedCategoryPhoto));
                         Call<RestaurantCategoryResponse> updateAndAddItemCal=null;
                         if (addOrUpdate2.equals("update")) {
+                            RequestBody updatedCategoryId= convertToRequestBody(String.valueOf(restaurantDataListOfPossision.getId()));
+
                             updateAndAddItemCal= getApiClient().restaurantUpdateCategory( updatedCaegoryName,updatedCategoryPhoto,updatedCategoryApiToken,updatedCategoryId);
                             dialogCategoryPath =mPath;
                             dialogCategoryName =restaurantAddCategoryDialogTilCategoryName.getEditText().getText().toString();

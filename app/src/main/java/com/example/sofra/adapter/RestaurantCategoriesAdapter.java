@@ -186,12 +186,12 @@ public class RestaurantCategoriesAdapter extends RecyclerView.Adapter<Restaurant
                     RestaurantAddAndUpdateCategoryDialog restaurantAddAndUpdateCategoryDialog = new RestaurantAddAndUpdateCategoryDialog();
                     restaurantAddAndUpdateCategoryDialog.restaurantDataListOfPossision = restaurantDataList.get(position);
                     showDialog(activity, context, "update");
-                    if (dialogCategoryName != null && isDialogDataAddSuccess) {
-                        showToast(activity, dialogCategoryName + "\n" + dialogCategoryPath);
+                    showToast(activity, dialogCategoryName + "\n" + dialogCategoryPath);
+//                    if (dialogCategoryName != null && isDialogDataAddSuccess) {
                         restaurantDataList.get(position).setName(dialogCategoryName);
                         restaurantDataList.get(position).setPhotoUrl(dialogCategoryPath);
                         notifyItemChanged(position);
-                    }
+//                    }
                     break;
                 case R.id.item_restaurant_category_img_remove:
                     showDeleteDialog();

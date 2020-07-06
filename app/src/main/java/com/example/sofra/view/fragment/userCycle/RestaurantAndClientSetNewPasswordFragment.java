@@ -136,7 +136,7 @@ public class RestaurantAndClientSetNewPasswordFragment extends BaSeFragment {
 
             resetPasswordCall = getApiClient().restaurantNewPassword(pinCode,password,passwordConfirm);
         }
-        viewModel.getAndMakeResetAndNewPasswordAndTokenAndChangeStatus(getActivity(),resetPasswordCall);
+        viewModel.getAndMakeResetAndNewPasswordAndTokenAndChangeStatus(getActivity(),resetPasswordCall,true);
 
     }
 

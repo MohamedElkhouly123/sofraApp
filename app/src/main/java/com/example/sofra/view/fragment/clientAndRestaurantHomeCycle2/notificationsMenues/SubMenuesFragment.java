@@ -242,7 +242,7 @@ public class SubMenuesFragment extends BaSeFragment {
 
     @Override
     public void onBack() {
-        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, new HomeFragment());
+        super.onBack();
         homeCycleActivity.navView.getMenu().getItem(0).setChecked(true);
     }
 

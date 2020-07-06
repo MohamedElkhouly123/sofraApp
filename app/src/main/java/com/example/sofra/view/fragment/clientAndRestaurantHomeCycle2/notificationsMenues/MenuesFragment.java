@@ -110,6 +110,7 @@ public class MenuesFragment extends BaSeFragment {
         showToast(activity, "Go To Register or Login First");
         Intent intent2 = new Intent(getActivity(), UserCycleActivity.class);
         getActivity().startActivity(intent2);
+        getActivity().finish();
     }
 
 
@@ -127,7 +128,7 @@ public class MenuesFragment extends BaSeFragment {
 
     @Override
     public void onBack() {
-        replaceFragment(getActivity().getSupportFragmentManager(), R.id.home_activity_fram, new HomeFragment());
+        super.onBack();
         homeCycleActivity.navView.getMenu().getItem(0).setChecked(true);
     }
 

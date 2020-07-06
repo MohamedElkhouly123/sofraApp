@@ -118,7 +118,7 @@ public class HelperMethod {
 //            RequestBody reqFileselect = RequestBody.create(MediaType.parse("image/*"), file);
             RequestBody reqFileselect = RequestBody.create(MediaType.parse("*/*"), file);
 //            MultipartBody.Part Imagebody = MultipartBody.Part.createFormData(Key, file.getName(), reqFileselect);
-            MultipartBody.Part Imagebody = MultipartBody.Part.createFormData("photo", file.getName(), reqFileselect);
+            MultipartBody.Part Imagebody = MultipartBody.Part.createFormData(Key, file.getName(), reqFileselect);
             return Imagebody;
         } else {
             return null;

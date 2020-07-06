@@ -45,10 +45,10 @@ public class SplashFragment extends BaSeFragment {
         View root = inflater.inflate(R.layout.fragment_splash, container, false);
         ButterKnife.bind(this, root);
 //        clean(getActivity());
-        if (LoadUserData(getActivity()) != null && LoadBoolean(getActivity(), REMEMBER_ME)) {
-            startActivity(new Intent(getActivity(), HomeCycleActivity.class));
-            getActivity().finish();
-        }
+//        if (LoadUserData(getActivity()) != null && LoadBoolean(getActivity(), REMEMBER_ME)) {
+//            startActivity(new Intent(getActivity(), HomeCycleActivity.class));
+//            getActivity().finish();
+//        }
         return root;
     }
 

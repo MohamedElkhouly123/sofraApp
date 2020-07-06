@@ -74,7 +74,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/restaurant_and_client_edit_profile_fragment_til_order_phone"
                     style="@style/text_input2"
-                    android:visibility="visible"
+                    android:visibility="gone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:errorTextAppearance="@style/error_appearance"
@@ -198,7 +198,7 @@
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:orientation="vertical"
-                   android:visibility="visible"
+                   android:visibility="gone"
                    >
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/restaurant_and_client_edit_profile_fragment_til_least_range_of_order"

@@ -9,6 +9,7 @@ import android.widget.Spinner;
 import com.example.sofra.R;
 import com.example.sofra.adapter.SpinnerAdapter;
 import com.example.sofra.data.model.clientLogin.ClientGeneralResponse;
+import com.example.sofra.data.model.clientResetPassword.ClientResetPasswordResponse;
 import com.example.sofra.data.model.generalRespose.GeneralRespose;
 import com.example.sofra.data.model.orderResponse.OrderResponse;
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryResponse;
@@ -23,6 +24,7 @@ import retrofit2.Response;
 import static com.example.sofra.utils.HelperMethod.dismissProgressDialog;
 import static com.example.sofra.utils.HelperMethod.progressDialog;
 import static com.example.sofra.utils.ToastCreator.onCreateErrorToast;
+import static com.example.sofra.utils.network.InternetState.isConnected;
 
 public class GeneralRequest {
 
@@ -102,6 +104,42 @@ public class GeneralRequest {
         });
     }
 
+    public static void getAndMakeRegisterToken(final Activity activity, final Call<ClientResetPasswordResponse> method) {
 
+            if (progressDialog == null) {
+                HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
+            } else {
+                if (!progressDialog.isShowing()) {
+                    HelperMethod.showProgressDialog(activity, activity.getString(R.string.wait));
+                }
+            }
+
+            method.enqueue(new Callback<ClientResetPasswordResponse>() {
+                @Override
+                public void onResponse(Call<ClientResetPasswordResponse> call, Response<ClientResetPasswordResponse> response) {
+
+                    if (response.body() != null) {
+                        try {
+
+                            if (response.body().getStatus() == 1) {
+                                    dismissProgressDialog();
+                                ToastCreator.onCreateSuccessToast(activity, response.body().getMsg());
+                            } else {
+                                onCreateErrorToast(activity, response.body().getMsg());
+
+                            }
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ClientResetPasswordResponse> call, Throwable t) {
+                    dismissProgressDialog();
+                    onCreateErrorToast(activity, activity.getString(R.string.error));
+                }
+            });
+        }
 
 }

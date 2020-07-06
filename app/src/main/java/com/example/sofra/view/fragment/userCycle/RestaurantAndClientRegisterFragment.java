@@ -1,6 +1,5 @@
 package com.example.sofra.view.fragment.userCycle;
 
-import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
@@ -20,10 +19,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.sofra.R;
 import com.example.sofra.adapter.SpinnerAdapter;
-import com.example.sofra.data.model.clientGetAllNotofications.ClientFireBaseToken;
-import com.example.sofra.data.model.clientLogin.ClientData;
 import com.example.sofra.data.model.clientLogin.ClientGeneralResponse;
-import com.example.sofra.data.model.clientResetPassword.ClientResetPasswordResponse;
 import com.example.sofra.data.model.generalRespose.GeneralRespose;
 import com.example.sofra.utils.ToastCreator;
 import com.example.sofra.view.fragment.BaSeFragment;
@@ -31,8 +27,8 @@ import com.example.sofra.view.fragment.splashCycle.SplashFragment;
 import com.example.sofra.view.viewModel.ViewModelClient;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-
-import net.alhazmy13.mediapicker.Image.ImagePicker;
+import com.yanzhenjie.album.Action;
+import com.yanzhenjie.album.AlbumFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,15 +40,12 @@ import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 
-import static android.app.Activity.RESULT_OK;
 import static com.example.sofra.data.api.ApiClient.getApiClient;
-import static com.example.sofra.data.local.SharedPreferencesManger.CLIENT;
-import static com.example.sofra.data.local.SharedPreferencesManger.LoadData;
-import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.sofra.utils.HelperMethod.convertFileToMultipart;
 import static com.example.sofra.utils.HelperMethod.convertToRequestBody;
 import static com.example.sofra.utils.HelperMethod.disappearKeypad;
-import static com.example.sofra.utils.HelperMethod.openGallery;
+import static com.example.sofra.utils.HelperMethod.onLoadImageFromUrl;
+import static com.example.sofra.utils.HelperMethod.openGalleryِAlpom;
 import static com.example.sofra.utils.HelperMethod.replaceFragment;
 import static com.example.sofra.utils.HelperMethod.showToast;
 import static com.example.sofra.utils.validation.Validation.cleanError;
@@ -75,7 +68,7 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
     TextInputLayout clientRegistersBuyerFragmentTilOrderTime;
     @BindView(R.id.restaurant_registers_buyer_fragment_sp_city)
     Spinner clientRegistersBuyerFragmentSpCity;
-//    @BindView(R.id.restaurant_registers_buyer_fragment_til_city)
+    //    @BindView(R.id.restaurant_registers_buyer_fragment_til_city)
 //    TextInputLayout clientRegistersBuyerFragmentTilCity;
     @BindView(R.id.restaurant_registers_buyer_fragment_sp_neighborhood)
     Spinner clientRegistersBuyerFragmentSpNeighborhood;
@@ -98,16 +91,18 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
     @BindView(R.id.restaurant_registers_buyer_restrant_name_etxt)
     TextInputEditText restaurantRegistersBuyerRestrantNameEtxt;
     public String ISCLIENT = SplashFragment.getClient();
-//    public  boolean EDITPROFILE=false;
-    private SpinnerAdapter neighborhoodsAdapter, citiesAdapter;
-    private int  neighborhoodSelectedId = 0, citiesSelectedId = 0;
-    private AdapterView.OnItemSelectedListener listener;
-    private ContactDataFragment contactData= new ContactDataFragment();
-    private ViewModelClient viewModel;
-    private String mPath;
-    private static final String CLIENTPROFILEIMAGE ="CLIENTPROFILEIMAGE" ;
 
-//    private String client= SplashFragment.getClient();
+    //    public  boolean EDITPROFILE=false;
+    private SpinnerAdapter neighborhoodsAdapter, citiesAdapter;
+    private int neighborhoodSelectedId = 0, citiesSelectedId = 0;
+    private AdapterView.OnItemSelectedListener listener;
+    private ContactDataFragment contactData = new ContactDataFragment();
+    private ViewModelClient viewModel;
+    private static ArrayList<AlbumFile> alpom = new ArrayList<>();
+    private static String mPath;
+    private static final String CLIENTPROFILEIMAGE = "photo2";
+
+    //    private String client= SplashFragment.getClient();
     public RestaurantAndClientRegisterFragment() {
         // Required empty public constructor
     }
@@ -133,26 +128,28 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
         viewModel.makeGeneralRegisterationAndEdit().observe(this, new Observer<ClientGeneralResponse>() {
             @Override
             public void onChanged(@Nullable ClientGeneralResponse response) {
-                if(response!=null){
+                if (response != null) {
                     if (response.getStatus() == 1) {
-                        showToast(getActivity(),"success");
+                        showToast(getActivity(), "success");
 
-                    }  }
+                    }
+                }
             }
         });
 
         viewModel.makegetSpinnerData().observe(this, new Observer<GeneralRespose>() {
             @Override
             public void onChanged(@Nullable GeneralRespose response) {
-                if(response!=null){
+                if (response != null) {
                     if (response.getStatus() == 1) {
-                    showToast(getActivity(),"success");
+                        showToast(getActivity(), "success");
 
-                } else {
-                    showToast(getActivity(),"error");
+                    } else {
+                        showToast(getActivity(), "error");
 
+                    }
                 }
-            }}
+            }
         });
     }
 
@@ -163,7 +160,8 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
             clientRegistersBuyerFragmentTilRestrantName.setHint("الاسم");
             restaurantRegisterBuerNextBtn.setText(R.string.contact_data_register);
 
-        }  if(ISCLIENT=="false"){
+        }
+        if (ISCLIENT == "false") {
             clientRegistersBuyerFragmentTilOrderTime.setVisibility(View.VISIBLE);
             registersBuyerFragmentTilLeastRangeOfOrder.setVisibility(View.VISIBLE);
             registersBuyerFragmentTilDeleveryPrice.setVisibility(View.VISIBLE);
@@ -172,6 +170,7 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
 
         }
     }
+
     private void setSpinner() {
 
 
@@ -203,16 +202,16 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
     }
 
 
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == ImagePicker.IMAGE_PICKER_REQUEST_CODE && resultCode == RESULT_OK) {
-             mPath = data.getStringExtra(ImagePicker.EXTRA_IMAGE_PATH);
-            //Your Code
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == ImagePicker.IMAGE_PICKER_REQUEST_CODE && resultCode == RESULT_OK) {
+//             mPath = data.getStringExtra(ImagePicker.EXTRA_IMAGE_PATH);
+//            showToast(getActivity(),mPath);
+//            //Your Code
+//        }
+//    }
 
     @Override
     public void onBack() {
@@ -226,7 +225,14 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
         disappearKeypad(getActivity(), getView());
         switch (view.getId()) {
             case R.id.client_conect_data_img_restraunt_image_botton:
-                openGallery(getActivity());
+//                openGallery(getActivity());
+                openGalleryِAlpom(getActivity(), alpom, new Action<ArrayList<AlbumFile>>() {
+                    @Override
+                    public void onAction(@NonNull ArrayList<AlbumFile> result) {
+                        mPath = result.get(0).getPath();
+                        onLoadImageFromUrl(clientConectDataImgRestrauntImageBotton, mPath, getContext());
+                    }
+                }, 1);
                 break;
             case R.id.restaurant_register_buer_next_btn:
                 onValidation();
@@ -248,17 +254,16 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
         spinners.add(clientRegistersBuyerFragmentSpCity);
         spinners.add(clientRegistersBuyerFragmentSpNeighborhood);
 
-        if (ISCLIENT=="true") {
+        if (ISCLIENT == "true") {
             // photo
             textInputLayouts.add(clientRegistersBuyerFragmentTilOrderPhone);
-        }  if(ISCLIENT=="false"){
+        }
+        if (ISCLIENT == "false") {
 
             textInputLayouts.add(clientRegistersBuyerFragmentTilOrderTime);
             textInputLayouts.add(registersBuyerFragmentTilLeastRangeOfOrder);
             textInputLayouts.add(registersBuyerFragmentTilDeleveryPrice);
         }
-
-
 
 
         cleanError(textInputLayouts);
@@ -289,7 +294,6 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
         }
 
 
-
         if (!validationPassword(clientRegistersBuyerFragmentTilPassword, 6, getString(R.string.invalid_password))) {
             return;
         }
@@ -298,29 +302,30 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
             return;
         }
 
-        if (ISCLIENT=="true") {
+        if (ISCLIENT == "true") {
 
-            if(mPath.equals("")){
+            if (mPath == "") {
                 ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.select_image));
-//                showToast(getActivity(),"Please Select Image First");
+                showToast(getActivity(), "Please Select Image First");
                 return;
             }
 
             if (!validationPhone(getActivity(), clientRegistersBuyerFragmentTilOrderPhone)) {
-
+                ToastCreator.onCreateErrorToast(getActivity(), "Enter Phone");
                 return;
             }
 
-        }  if(ISCLIENT=="false"){
-            if (!validationLength(clientRegistersBuyerFragmentTilOrderTime, getString(R.string.invalid_order_time), 3)) {
+        }
+        if (ISCLIENT == "false") {
+            if (!validationLength(clientRegistersBuyerFragmentTilOrderTime, getString(R.string.invalid_order_time), 2)) {
                 return;
             }
 
-            if (!validationLength(registersBuyerFragmentTilLeastRangeOfOrder, getString(R.string.invalid_least_range_of_order), 3)) {
+            if (!validationLength(registersBuyerFragmentTilLeastRangeOfOrder, getString(R.string.invalid_least_range_of_order), 1)) {
                 return;
             }
 
-            if (!validationLength(registersBuyerFragmentTilDeleveryPrice, getString(R.string.invalid_delevery_price), 3)) {
+            if (!validationLength(registersBuyerFragmentTilDeleveryPrice, getString(R.string.invalid_delevery_price), 1)) {
                 return;
             }
 
@@ -333,31 +338,33 @@ public class RestaurantAndClientRegisterFragment extends BaSeFragment {
     private void onCall() {
         RequestBody name = convertToRequestBody(clientRegistersBuyerFragmentTilRestrantName.getEditText().getText().toString());
         RequestBody email = convertToRequestBody(clientRegistersBuyerFragmentTilEmail.getEditText().getText().toString());
-        RequestBody phone =convertToRequestBody(clientRegistersBuyerFragmentTilOrderTime.getEditText().getText().toString());
+        RequestBody phone = convertToRequestBody(clientRegistersBuyerFragmentTilOrderPhone.getEditText().getText().toString());
         RequestBody orderTime = convertToRequestBody(clientRegistersBuyerFragmentTilOrderTime.getEditText().getText().toString());
         RequestBody password = convertToRequestBody(clientRegistersBuyerFragmentTilPassword.getEditText().getText().toString());
         RequestBody passwordConfirmation = convertToRequestBody(clientRigisterFragmentTilConfirmPassword.getEditText().getText().toString());
-        RequestBody leastRangeOfOrder =convertToRequestBody(registersBuyerFragmentTilLeastRangeOfOrder.getEditText().getText().toString());
+        RequestBody leastRangeOfOrder = convertToRequestBody(registersBuyerFragmentTilLeastRangeOfOrder.getEditText().getText().toString());
         RequestBody deleveryPrice = convertToRequestBody(registersBuyerFragmentTilDeleveryPrice.getEditText().getText().toString());
-        MultipartBody.Part clientProfilePhoto= convertFileToMultipart(mPath,CLIENTPROFILEIMAGE);
+        MultipartBody.Part clientProfilePhoto = convertFileToMultipart(mPath, CLIENTPROFILEIMAGE);
         RequestBody regionId = convertToRequestBody(String.valueOf(neighborhoodsAdapter.selectedId));
         String passwordSave = clientRegistersBuyerFragmentTilPassword.getEditText().getText().toString();
         Call<ClientGeneralResponse> clientCall;
 
-        if (ISCLIENT=="true") {
+        if (ISCLIENT == "true") {
 
-            clientCall = getApiClient().clientRegistration(name, email,  password, passwordConfirmation,phone, regionId, clientProfilePhoto);
-            viewModel.makeGeneralRegisterationAndEditToServer(getActivity(),clientCall, passwordSave, true, true);
+            clientCall = getApiClient().clientRegistration(name, email, password, passwordConfirmation, phone, regionId, clientProfilePhoto);
+            viewModel.makeGeneralRegisterationAndEditToServer(getActivity(), clientCall, passwordSave, true, true);
 
-        }  if(ISCLIENT=="false"){
-            contactData.name=name;
-            contactData.email=email;
-            contactData.orderTime=orderTime;
-            contactData.password=password;
-            contactData.passwordSave=passwordSave;
-            contactData.passwordConfirmation=passwordConfirmation;
-            contactData.leastRangeOfOrder=leastRangeOfOrder;
-            contactData.deleveryPrice=deleveryPrice;
+        }
+        if (ISCLIENT == "false") {
+            contactData.name = name;
+            contactData.email = email;
+            contactData.orderTime = orderTime;
+            contactData.password = password;
+            contactData.passwordSave = passwordSave;
+            contactData.regionId = regionId;
+            contactData.passwordConfirmation = passwordConfirmation;
+            contactData.leastRangeOfOrder = leastRangeOfOrder;
+            contactData.deleveryPrice = deleveryPrice;
 
             replaceFragment(getActivity().getSupportFragmentManager(), R.id.user_activity_fram, contactData);
 

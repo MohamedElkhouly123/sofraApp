@@ -92,7 +92,7 @@
                         android:layout_height="match_parent"
                         android:drawableStart="@drawable/ic_access_time_black_24dp"
                         android:hint="@string/order_time"
-                        android:inputType="textAutoComplete" />
+                        android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/client_registers_buyer_fragment_til_order_phone"
@@ -268,7 +268,7 @@
                         android:layout_height="match_parent"
                         android:drawableStart="@drawable/ic_note_black_24dp"
                         android:hint="@string/least_range_of_order"
-                        android:inputType="textAutoComplete" />
+                        android:inputType="number" />
                 </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/restaurant_registers_buyer_fragment_til_delevery_price"
@@ -287,7 +287,7 @@
                     android:layout_height="match_parent"
                     android:drawableStart="@drawable/ic_monetization_on_black_24dp"
                     android:hint="@string/delevery_price"
-                    android:inputType="textAutoComplete" />
+                    android:inputType="number" />
             </com.google.android.material.textfield.TextInputLayout>
                 <Button
                     android:id="@+id/restaurant_register_buer_next_btn"

@@ -41,8 +41,10 @@ import static com.example.sofra.data.local.SharedPreferencesManger.REMEMBER_ME;
 import static com.example.sofra.data.local.SharedPreferencesManger.SaveData;
 import static com.example.sofra.data.local.SharedPreferencesManger.USER_DATA;
 import static com.example.sofra.data.local.SharedPreferencesManger.USER_PASSWORD;
+import static com.example.sofra.utils.GeneralRequest.getAndMakeRegisterToken;
 import static com.example.sofra.utils.HelperMethod.dismissProgressDialog;
 import static com.example.sofra.utils.HelperMethod.progressDialog;
+import static com.example.sofra.utils.HelperMethod.showToast;
 import static com.example.sofra.utils.ToastCreator.onCreateErrorToast;
 import static com.example.sofra.utils.network.InternetState.isConnected;
 
@@ -87,7 +89,6 @@ public class ViewModelClient extends ViewModel {
 
                     if (response.body() != null) {
                         try {
-                            dismissProgressDialog();
 
                             if (response.body().getStatus() == 1) {
                                 SaveData(activity, USER_PASSWORD, password);
@@ -96,23 +97,31 @@ public class ViewModelClient extends ViewModel {
                                     SaveData(activity, REMEMBER_ME, remember);
                                     Call<ClientResetPasswordResponse> tokenCall = null;
                                     token=new ClientFireBaseToken().getToken();
+                                    dismissProgressDialog();
                                     apiToken=response.body().getData().getApiToken();
+                                    showToast(activity, "token"+apiToken);
                                     if (ISCLIENT.equals("true")) {
 
                                         tokenCall = getApiClient().clientSignUpToken(token, "android",apiToken);
-                                    }  if(ISCLIENT=="false") {
+                                    } else if(ISCLIENT=="false") {
                                         tokenCall = getApiClient().restaurantSignUpToken(token, "android",apiToken);
                                     }
-                                        getAndMakeResetAndNewPasswordAndTokenAndChangeStatus(activity,tokenCall);
+//
+//
+                                    getAndMakeRegisterToken(activity,tokenCall);
                                     Intent intent = new Intent(activity, HomeCycleActivity.class);
                                     activity.startActivity(intent);
+                                    showToast(activity, "her2");
                                     activity.finish();
                                 }
+
+
                                 generalRegisterationAndEditResponse.postValue(response.body());
 
                                 ToastCreator.onCreateSuccessToast(activity, response.body().getMsg());
                             } else {
-//                                onCreateErrorToast(activity, response.body().getMsg());
+                                showToast(activity, "sorry this problem in back end");
+                                onCreateErrorToast(activity, response.body().getMsg());
                             }
                         } catch (Exception e) {
 
@@ -142,7 +151,7 @@ public class ViewModelClient extends ViewModel {
         return newResetAndPasswordAndTokenResponse;
     }
 
-    public void getAndMakeResetAndNewPasswordAndTokenAndChangeStatus(final Activity activity, final Call<ClientResetPasswordResponse> method) {
+    public void getAndMakeResetAndNewPasswordAndTokenAndChangeStatus(final Activity activity, final Call<ClientResetPasswordResponse> method,boolean dimiss) {
         if (isConnected(activity)) {
 
             if (progressDialog == null) {
@@ -159,10 +168,10 @@ public class ViewModelClient extends ViewModel {
 
                     if (response.body() != null) {
                         try {
-                            dismissProgressDialog();
 
                             if (response.body().getStatus() == 1) {
-
+                                if(dimiss){
+                                dismissProgressDialog();}
                                 newResetAndPasswordAndTokenResponse.postValue(response.body());
                                 ToastCreator.onCreateSuccessToast(activity, response.body().getMsg());
                         } else {
@@ -234,6 +243,7 @@ public class ViewModelClient extends ViewModel {
                             ToastCreator.onCreateSuccessToast(activity, response.body().getMsg());
                         } else {
                             onCreateErrorToast(activity, response.body().getMsg());
+
                         }
 
                     } catch(Exception e){

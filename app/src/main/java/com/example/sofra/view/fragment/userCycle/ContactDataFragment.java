@@ -22,6 +22,8 @@ import com.example.sofra.utils.ToastCreator;
 import com.example.sofra.view.fragment.BaSeFragment;
 import com.example.sofra.view.viewModel.ViewModelClient;
 import com.google.android.material.textfield.TextInputLayout;
+import com.yanzhenjie.album.Action;
+import com.yanzhenjie.album.AlbumFile;
 
 import net.alhazmy13.mediapicker.Image.ImagePicker;
 
@@ -40,7 +42,9 @@ import static com.example.sofra.data.api.ApiClient.getApiClient;
 import static com.example.sofra.data.local.SharedPreferencesManger.LoadUserData;
 import static com.example.sofra.utils.HelperMethod.convertFileToMultipart;
 import static com.example.sofra.utils.HelperMethod.convertToRequestBody;
+import static com.example.sofra.utils.HelperMethod.onLoadImageFromUrl;
 import static com.example.sofra.utils.HelperMethod.openGallery;
+import static com.example.sofra.utils.HelperMethod.openGalleryِAlpom;
 import static com.example.sofra.utils.HelperMethod.replaceFragment;
 import static com.example.sofra.utils.HelperMethod.showToast;
 import static com.example.sofra.utils.validation.Validation.cleanError;
@@ -72,8 +76,9 @@ public class ContactDataFragment extends BaSeFragment {
     @BindView(R.id.conect_data_fragment_til_whats_app)
     TextInputLayout conectDataFragmentTilWhatsApp;
     private ViewModelClient viewModel;
-    private String mPath;
-//    private String apiToken;
+    private static ArrayList<AlbumFile> alpom = new ArrayList<>();
+    private static String mPath;
+    private static final String CLIENTPROFILEIMAGE = "photo3";//    private String apiToken;
 //    private String token;
 //    private ClientData clientData;
 
@@ -111,21 +116,30 @@ public class ContactDataFragment extends BaSeFragment {
 
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == ImagePicker.IMAGE_PICKER_REQUEST_CODE && resultCode == RESULT_OK) {
-            mPath = data.getStringExtra(ImagePicker.EXTRA_IMAGE_PATH);
-            //Your Code
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == ImagePicker.IMAGE_PICKER_REQUEST_CODE && resultCode == RESULT_OK) {
+//            mPath = data.getStringExtra(ImagePicker.EXTRA_IMAGE_PATH);
+//            onLoadImageFromUrl(clientConectDataImgRestrauntImageBotton, mPath, getContext());
+//
+//            //Your Code
+//        }
+//    }
 
     @OnClick({R.id.client_conect_data_img_restraunt_image_botton, R.id.conect_data_buer_register_btn})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.client_conect_data_img_restraunt_image_botton:
-                openGallery(getActivity());
+//                openGallery(getActivity());
+                openGalleryِAlpom(getActivity(), alpom, new Action<ArrayList<AlbumFile>>() {
+                    @Override
+                    public void onAction(@NonNull ArrayList<AlbumFile> result) {
+                        mPath = result.get(0).getPath();
+                        onLoadImageFromUrl(clientConectDataImgRestrauntImageBotton, mPath, getContext());
+                    }
+                }, 1);
                 break;
             case R.id.conect_data_buer_register_btn:
                 onValidation();
@@ -149,11 +163,11 @@ public class ContactDataFragment extends BaSeFragment {
             return;
         }
 
-        if (mPath.equals("")) {
-            ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.select_image));
-//                showToast(getActivity(),"Please Select Image First");
-            return;
-        }
+//        if (mPath.equalsIgnoreCase("")) {
+//            ToastCreator.onCreateErrorToast(getActivity(), getString(R.string.select_image));
+////                showToast(getActivity(),"Please Select Image First");
+//            return;
+//        }
 
         if (!validationPhone(getActivity(), conectDataFragmentTilPhone)) {
 
@@ -175,7 +189,7 @@ public class ContactDataFragment extends BaSeFragment {
 
 
         phone =convertToRequestBody(conectDataFragmentTilPhone.getEditText().getText().toString());
-        orderTime = convertToRequestBody(conectDataFragmentTilWhatsApp.getEditText().getText().toString());
+        whatsApp = convertToRequestBody(conectDataFragmentTilWhatsApp.getEditText().getText().toString());
         MultipartBody.Part restaurantProfilePhoto = convertFileToMultipart(mPath,RESTAURANTPROFILEIMAGE);
 //        apiToken=clientData.getApiToken();
 //        token=new ClientFireBaseToken().getToken();

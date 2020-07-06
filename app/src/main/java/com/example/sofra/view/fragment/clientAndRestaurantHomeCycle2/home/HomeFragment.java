@@ -124,6 +124,7 @@ public class HomeFragment extends BaSeFragment {
 
         setUpActivity();
         initListener();
+        clientData = LoadUserData(getActivity());
         init();
         if (ISCLIENT == "false") {
         floatHidden();}
@@ -306,7 +307,6 @@ public class HomeFragment extends BaSeFragment {
 
         }
         if (ISCLIENT == "false") {
-
             restaurantCategoriesAdapter = new RestaurantCategoriesAdapter(getActivity(), restaurantCategoriesListData);
             clientAndRestaurantHomeRecyclerView.setAdapter(restaurantCategoriesAdapter);
         }
@@ -348,22 +348,24 @@ public class HomeFragment extends BaSeFragment {
         Call<RestaurantsListResponce> clientRestaurantsCall;
 
         Call<RestaurantCategoryResponse> restaurantCategoriesCall;
+        startShimmer(page);
 
         if (ISCLIENT.equals("true")) {
             reInit();
             clientRestaurantsCall = getApiClient().getRestaurantsWithFiltter(keyword, cityFilterAdapter.selectedId, page);
 
 //            clientRestaurantsCall = getApiClient().getRestaurantsWithoutFiltter(page);
-            startShimmer(page);
             viewModel.getClientHomeRestaurantsDataList(getActivity(), errorSubView, clientRestaurantsCall, clientAndRestaurantHomeFragmentSrRefreshRv, loadMore, clientAndRestaurantHomeFragmentSFlShimmer);
 //            showToast(getActivity(), "success without fillter");
 
         }
         if (ISCLIENT == "false") {
-            clientData = LoadUserData(getActivity());
-            restaurantCategoriesCall = getApiClient().getRestaurantCategories(clientData.getApiToken());
+          if(clientData.getApiToken()==null) {
+              clientData = LoadUserData(getActivity());
+              showToast(getActivity(),clientData.getApiToken() );
 
-            startShimmer(page);
+          }
+            restaurantCategoriesCall = getApiClient().getRestaurantCategories(clientData.getApiToken());
             viewModel.getRestaurantHomeCategoriesDataList(getActivity(), errorSubView, restaurantCategoriesCall, clientAndRestaurantHomeFragmentSrRefreshRv, loadMore, clientAndRestaurantHomeFragmentSFlShimmer);
 
         }
@@ -440,6 +442,8 @@ public class HomeFragment extends BaSeFragment {
                 if (restaurantDataListOfPossision.getName() != null && isDialogDataAddSuccess) {
                     restaurantCategoriesListData.add(restaurantDataListOfPossision);
                     restaurantCategoriesAdapter.notifyItemInserted(restaurantCategoriesListData.size());
+                    restaurantCategoriesAdapter.notifyDataSetChanged();
+
                 }
 //                }
                 break;
