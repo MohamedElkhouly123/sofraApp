@@ -30,6 +30,7 @@ import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategor
 import com.example.sofra.data.model.restaurantCategoryResponse.RestaurantCategoryResponse;
 import com.example.sofra.data.model.restaurantsListAndDetailsResponce.RestaurantsListData;
 import com.example.sofra.data.model.restaurantsListAndDetailsResponce.RestaurantsListResponce;
+import com.example.sofra.utils.MyApplication;
 import com.example.sofra.utils.OnEndLess;
 import com.example.sofra.view.activity.HomeCycleActivity;
 import com.example.sofra.view.fragment.BaSeFragment;
@@ -115,6 +116,7 @@ public class HomeFragment extends BaSeFragment {
 
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, root);
+        child2 = this;
         homeCycleActivity = (HomeCycleActivity) getActivity();
         homeCycleActivity.setNavigation("v");
         if(ISCLIENT==null){
@@ -450,6 +452,27 @@ public class HomeFragment extends BaSeFragment {
         }
     }
 
+    @Override
+    public void onPause() {
+        MyApplication.registerMemoryListener(this);
+        super.onPause();
+    }
+
+    @Override
+    public void goodTimeToReleaseMemory() {
+        super.goodTimeToReleaseMemory();
+//remove your Cache etc here
+    }
+    //--NO Need because parent implementation will be called first, just for the sake of clarity
+    @Override
+    public void onStop() {
+        super.onStop();
+        try {
+            if (null != child2)
+                MyApplication.unregisterMemoryListener(child2);
+        } catch (Exception e) {
+
+        }}
     public void onBack() {
         getActivity().finish();
     }

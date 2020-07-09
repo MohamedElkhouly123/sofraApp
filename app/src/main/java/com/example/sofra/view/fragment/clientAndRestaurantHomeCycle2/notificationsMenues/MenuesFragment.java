@@ -76,9 +76,9 @@ public class MenuesFragment extends BaSeFragment {
                     tabLayout.getTabCount());
 //        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
 //        showToast(getActivity(), String.valueOf(tabLayout.getSelectedTabPosition()));
-
             viewPager.setAdapter(adapter);
             viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+//            tabLayout.setupWithViewPager(viewPager);
             tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override
                 public void onTabSelected(TabLayout.Tab tab) {

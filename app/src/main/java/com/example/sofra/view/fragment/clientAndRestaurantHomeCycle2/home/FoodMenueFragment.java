@@ -32,6 +32,7 @@ import com.example.sofra.data.model.restaurantSubCategoriesItemsListResponce.Res
 import com.example.sofra.data.model.restaurantSubCategoriesItemsListResponce.RestaurantSubCategoriesItemsListResponce;
 import com.example.sofra.data.model.restaurantsListAndDetailsResponce.RestaurantsListData;
 import com.example.sofra.utils.HelperMethod;
+import com.example.sofra.utils.MyApplication;
 import com.example.sofra.utils.OnEndLess;
 import com.example.sofra.utils.RVAdapterCallback;
 import com.example.sofra.view.fragment.BaSeFragment;
@@ -100,6 +101,7 @@ public class FoodMenueFragment extends BaSeFragment implements RVAdapterCallback
 
          root = inflater.inflate(R.layout.fragment_home_food_menu, container, false);
         ButterKnife.bind(this, root);
+        child2 = this;
         Filter=false;
         ISCLIENT = SplashFragment.getClient();
 //        homeCycleActivity= (HomeCycleActivity) getActivity();
@@ -416,6 +418,28 @@ public class FoodMenueFragment extends BaSeFragment implements RVAdapterCallback
 //        }
 //
 //    }
+
+    @Override
+    public void onPause() {
+        MyApplication.registerMemoryListener(this);
+        super.onPause();
+    }
+
+    @Override
+    public void goodTimeToReleaseMemory() {
+        super.goodTimeToReleaseMemory();
+//remove your Cache etc here
+    }
+    //--NO Need because parent implementation will be called first, just for the sake of clarity
+    @Override
+    public void onStop() {
+        super.onStop();
+        try {
+            if (null != child2)
+                MyApplication.unregisterMemoryListener(child2);
+        } catch (Exception e) {
+
+        }}
 
     @Override
     public void onBack() {

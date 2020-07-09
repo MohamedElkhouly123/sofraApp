@@ -9,14 +9,16 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.sofra.utils.MyApplication;
 import com.example.sofra.view.activity.BaseActivity;
 import com.example.sofra.view.activity.HomeCycleActivity;
 
-public class BaSeFragment extends Fragment {
+public class BaSeFragment extends Fragment implements MyApplication.IMemoryInfo{
 
 
     public BaseActivity baseActivity;
     public HomeCycleActivity homeCycleActivity;
+    protected BaSeFragment child2;
 
 
     public void setUpActivity() {
@@ -46,4 +48,19 @@ public class BaSeFragment extends Fragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        try {
+            if (child2 != null)
+                MyApplication.unregisterMemoryListener(child2);
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Override
+    public void goodTimeToReleaseMemory() {
+
+    }
 }

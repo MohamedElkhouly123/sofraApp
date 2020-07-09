@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment;
 
 import com.example.sofra.R;
 import com.example.sofra.data.model.clientLogin.ClientData;
+import com.example.sofra.utils.MyApplication;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.FoodMenueFragment;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.HomeFragment;
 import com.example.sofra.view.fragment.clientAndRestaurantHomeCycle2.home.RestaurantCommissionFragment;
@@ -59,6 +60,7 @@ public class HomeCycleActivity extends BaseActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_cycle);
         ButterKnife.bind(this);
+        child = this;
         homeFragment=new HomeFragment();
         clientData = LoadUserData(this);
         replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram,new HomeFragment());
@@ -123,6 +125,7 @@ public class HomeCycleActivity extends BaseActivity implements BottomNavigationV
     @Override
     public void onResume() {
         super.onResume();
+        MyApplication.registerMemoryListener(this);
         if (goLogin && LoadUserData(this) != null) {
               goLogin = false;
             replaceFragment(getSupportFragmentManager(), R.id.home_activity_fram, new RestaurantAndClientEditProfileFragment());
@@ -134,6 +137,22 @@ public class HomeCycleActivity extends BaseActivity implements BottomNavigationV
 
         }
     }
+
+    @Override
+    public void goodTimeToReleaseMemory() {
+        super.goodTimeToReleaseMemory();
+//remove your Cache etc here
+    }
+    //--NO Need because parent implementation will be called first, just for the sake of clarity
+    @Override
+    protected void onStop() {
+        super.onStop();
+        try {
+            if (null != child)
+                MyApplication.unregisterMemoryListener(child);
+        } catch (Exception e) {
+
+        }}
 
     public void goToRegisterFirst(Activity activity){
         showToast(activity, "Go To Register or Login First");
